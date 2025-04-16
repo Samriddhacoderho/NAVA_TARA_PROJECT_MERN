@@ -1,6 +1,26 @@
 import React from "react";
+import {useForm} from "react-hook-form"
+import axios from "axios"
 
 const LoginForm = () => {
+  const {register,handleSubmit,watch,formState:{errors,isSubmitting}}=useForm()
+  const formBackendFunc=async(data)=>
+  {
+    console.log(data)
+    try {
+      const response=await axios.post("http://localhost:8000/teachers/login",data,{withCredentials:true});
+      alert(response.data)
+    } catch (error) {
+      if(error.response)
+      {
+        alert(error.response.data)
+      }
+      else
+      {
+        alert(error.message)
+      }
+    }
+  }
   return (
     <div>
     <div className="flex flex-col md:flex-row border border-gray-200 rounded-lg shadow-lg w-full">
@@ -12,7 +32,7 @@ const LoginForm = () => {
       <div className="p-6 md:w-1/2 flex flex-col justify-center">
         <div className="min-h-screen flex items-start justify-center pt-32">
       <div className="bg-gray-200 shadow-lg rounded-xl p-8 w-full max-w-md border border-gray-200">
-        <form>
+        <form onSubmit={handleSubmit(formBackendFunc)}>
           <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Navatara English School</h2>
 
           <div className="mb-5">
@@ -27,10 +47,12 @@ const LoginForm = () => {
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Enter your valid email here:"
-              required
+              {...register("email",{
+                required:"This cannot be left empty"
+              })}
             />
+            {errors.email && <p className="text-red-500">{errors.email.message}</p> }
           </div>
-
           <div className="mb-5">
             <label
               htmlFor="password"
@@ -43,8 +65,13 @@ const LoginForm = () => {
               id="password"
               placeholder="Enter your valid password here:"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              required
+              {...register("password",{
+                required:"This cannot be left empty",
+                minLength:{value:8,message:"Password must be atleast 8 characters"},
+                maxLength:{value:30,message:"Password is too long, max 30 characters accepted"}
+              })}
             />
+            {errors.password && <p className="text-red-500">{errors.password.message}</p> }
           </div>
           <button
             type="submit"
