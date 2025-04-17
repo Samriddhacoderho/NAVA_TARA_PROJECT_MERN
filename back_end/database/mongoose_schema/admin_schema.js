@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator"
 import bcrypt from "bcryptjs"
 
-const teachersSchema=new mongoose.Schema({
+const adminSchema=new mongoose.Schema({
     email:{
         type:"String",
         required:"true",
@@ -15,7 +15,7 @@ const teachersSchema=new mongoose.Schema({
     }
 })
 
-teachersSchema.pre("save",async function(next){
+adminSchema.pre("save",async function(next){
     if(!this.isModified("password"))
     {
         next()
@@ -28,7 +28,7 @@ teachersSchema.pre("save",async function(next){
     }
 })
 
-const teachersSchema_model=mongoose.model("teachers",teachersSchema)
+const adminSchema_model=mongoose.model("admins",adminSchema)
 
 
-export default teachersSchema_model
+export default adminSchema_model

@@ -1,8 +1,9 @@
 import express from "express";
 import connectTo from "./database/mongo_conn.js";
-import router_teachersLogin from "./routes/teachers_routes/loginTeacher_route.js";
 import { configDotenv } from "dotenv";
 import cors from "cors"
+import cookieParser from "cookie-parser";
+import loginRoute from "./routes/LoginRoute.js";
 configDotenv()
 
 const app=express()
@@ -16,9 +17,10 @@ app.use(cors(
         credentials:true
     }
 ))
+app.use(cookieParser())
 
-//routes for teacher's login:
-app.use("/teachers",router_teachersLogin);
+//routes for login before role distribution:
+app.use("/",loginRoute);
 
 connectTo()
 
