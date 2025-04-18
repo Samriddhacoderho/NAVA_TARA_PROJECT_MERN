@@ -7,10 +7,12 @@ import Footer from "./components/Footer";
 
 import {Button} from "@material-tailwind/react"
 import LoginForm from "./components/LoginForm";
+import Context from "./Context";
 
 const App = () => {
   return (
     <div>
+      <Context>
       <BrowserRouter>
         <Navbar />
         <main className="z-10 mt-17 bg-[url('https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3JtNjIxLWJhY2tncm91bmQtMDMwYi5qcGc.jpg')] min-h-screen">
@@ -23,6 +25,7 @@ const App = () => {
         </main>
         <Footer/>
       </BrowserRouter>
+      </Context>
     </div>
   );
 };

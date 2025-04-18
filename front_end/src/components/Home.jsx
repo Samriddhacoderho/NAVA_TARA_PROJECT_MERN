@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { contextCreate } from "../Context";
 
 const Home = () => {
+  const teacherLoggedIn=document.cookie.includes("teacherToken")
+  const adminLoggedIn=document.cookie.includes("adminToken")
+  const studentLoggedIn=document.cookie.includes("studentToken")
+  const contextUse=useContext(contextCreate)
   return (
     <div className="h-screen flex flex-col justify-center items-center">
       <h1 className="text-black text-3xl mb-6 text-center">
@@ -14,6 +19,7 @@ const Home = () => {
         </span>
       </button>
       </Link>
+      {(teacherLoggedIn || adminLoggedIn || studentLoggedIn)?`Hi ${contextUse.name}`:""}
     </div>
   );
 };

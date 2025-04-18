@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import {useForm} from "react-hook-form"
 import axios from "axios"
 import NoAccess from "./NoAccess";
 import { useNavigate } from "react-router-dom";
+import { contextCreate } from "../Context";
 
 const LoginForm = () => {
   const {register,handleSubmit,watch,formState:{errors,isSubmitting}}=useForm()
   const teacherLoggedIn=document.cookie.includes("teacherToken")
   const adminLoggedIn=document.cookie.includes("adminToken")
   const studentLoggedIn=document.cookie.includes("studentToken")
-
+  const contextUse=useContext(contextCreate)
   const navigate=useNavigate();
   const formBackendFunc=async(data)=>
   {
-    console.log(data)
     try {
       const response=await axios.post("http://localhost:8000/login",data,{withCredentials:true});
-      alert(response.data)
+      alert(response.data.alertMsg)
+      contextUse.setName(response.data.name)
       navigate("/")
     } catch (error) {
       if(error.response)

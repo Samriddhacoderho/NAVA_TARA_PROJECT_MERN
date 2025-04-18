@@ -27,7 +27,7 @@ const token_login = async (req, res) => {
         sameSite: "strict",
       });
     }
-    res.send("Login Successful")
+    res.json({alertMsg:"Logged In Successfully",name:req.data.name})
   } catch (error) {
     return res.status(404).send(error.message);
   }

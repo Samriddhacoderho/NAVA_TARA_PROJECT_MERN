@@ -4,6 +4,7 @@ import { configDotenv } from "dotenv";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import loginRoute from "./routes/LoginRoute.js";
+import logoutRoute from "./routes/LogoutRoute.js";
 configDotenv()
 
 const app=express()
@@ -21,6 +22,9 @@ app.use(cookieParser())
 
 //routes for login before role distribution:
 app.use("/",loginRoute);
+
+//routes for logout
+app.use("/",logoutRoute)
 
 connectTo()
 

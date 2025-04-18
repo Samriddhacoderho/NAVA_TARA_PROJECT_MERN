@@ -1,8 +1,9 @@
+import bcrypt from "bcryptjs"
 import token_login from "../../tokens/token_roleslogin/loginToken.js"
 
 const admin_controller=async(req,res)=>{
     try {
-        if(req.body.password!==req.data.password)  //hashing ko kaam huncha yeta TODO
+        if(!await bcrypt.compare(req.body.password,req.data.password))  
         {
             return res.status(404).send("Invalid Email ID or Password")
         }
