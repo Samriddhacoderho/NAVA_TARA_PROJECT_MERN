@@ -113,8 +113,20 @@ const Navbar = () => {
                   }`}
                 >
                   CONTACT US
-                </Link>
+                </Link>  
               </li>
+              {adminLoggedIn && <li>
+                <Link
+                  to="/create-notice"
+                  className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                    location.pathname === "/create-notice"
+                      ? "md:dark:text-red-500"
+                      : "md:dark:text-white"
+                  }`}
+                >
+                  NOTICE BOARD
+                </Link>
+              </li>}
             </ul>
           </div>
         </div>
