@@ -5,16 +5,16 @@ import bcrypt from "bcryptjs"
 const adminSchema=new mongoose.Schema({
     name:{
         type:"String",
-        required:"true",
+        required:true,
     },
     email:{
         type:"String",
-        required:"true",
-        unique:"true"
+        required:true,
+        unique:true
     },
     password:{
         type:"String",
-        required:"true",
+        required:true,
         validate:[validator.isStrongPassword,"Please provide a stronger password that has atleast one uppercase, one lowercase, one symbol, and one number"]
     }
 })

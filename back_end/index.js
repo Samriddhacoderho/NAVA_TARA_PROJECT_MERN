@@ -5,6 +5,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 import loginRoute from "./routes/LoginRoute.js";
 import logoutRoute from "./routes/LogoutRoute.js";
+import admin_notice_route from "./routes/AdminNoticeRoute.js";
 configDotenv()
 
 const app=express()
@@ -25,6 +26,9 @@ app.use("/",loginRoute);
 
 //routes for logout
 app.use("/",logoutRoute)
+
+//routes for admin
+app.use("/admin",admin_notice_route)  //route for admin ko notice creation
 
 connectTo()
 
