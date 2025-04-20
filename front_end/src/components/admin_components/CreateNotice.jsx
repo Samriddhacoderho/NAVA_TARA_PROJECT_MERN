@@ -29,8 +29,8 @@ const CreateNotice = () => {
         withCredentials:true
       })
       alert(response.data.alertMsg)
-      const date=response.data.dateOF.slice(0,(response.data.dateOF.indexOf("T")))
-      console.log(date)
+      // const date=response.data.dateOF.slice(0,(response.data.dateOF.indexOf("T")))
+      // console.log(date)
     } catch (error) {
       if(error.response)
       {

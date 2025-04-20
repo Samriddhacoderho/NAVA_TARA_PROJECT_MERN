@@ -2,7 +2,7 @@ import notice_model from "../../database/mongoose_schema/notice_schema.js";
 
 const noticeFetchController = async (req, res) => {
   try {
-    if (!req.cookies) {
+    if (!Object.keys(req.cookies).length) {
       const result = await notice_model.find({ targetaudience: "All" });
       return res.json(result);
     }

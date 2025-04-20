@@ -10,6 +10,7 @@ import LoginForm from "./components/LoginForm";
 import Context from "./Context";
 import CreateNotice from "./components/admin_components/CreateNotice";
 import Notice from "./components/Notice";
+import NoticeMap from "./components/NoticeMap";
 
 const App = () => {
   return (
