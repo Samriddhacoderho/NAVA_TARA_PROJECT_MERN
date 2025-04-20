@@ -9,6 +9,7 @@ import {Button} from "@material-tailwind/react"
 import LoginForm from "./components/LoginForm";
 import Context from "./Context";
 import CreateNotice from "./components/admin_components/CreateNotice";
+import Notice from "./components/Notice";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route exact path="/about-us" element={<About/>} />
             <Route exact path="/login-form" element={<LoginForm/>}/>
             <Route exact path="/create-notice" element={<CreateNotice/>}/>
+            <Route exact path="/notice" element={<Notice/>}/>
           </Routes>
         </main>
         <Footer/>

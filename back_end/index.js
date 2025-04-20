@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import loginRoute from "./routes/LoginRoute.js";
 import logoutRoute from "./routes/LogoutRoute.js";
 import admin_notice_route from "./routes/AdminNoticeRoute.js";
+import getNotice from "./routes/GetNotice.js";
 configDotenv()
 
 const app=express()
@@ -29,6 +30,9 @@ app.use("/",logoutRoute)
 
 //routes for admin
 app.use("/admin",admin_notice_route)  //route for admin ko notice creation
+
+
+app.use("/get",getNotice)  //route for notice fetching
 
 connectTo()
 

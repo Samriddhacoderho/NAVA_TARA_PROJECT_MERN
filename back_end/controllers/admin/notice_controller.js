@@ -21,7 +21,7 @@ const noticeController = async (req, res) => {
         noticedes: req.body.noticedes,
       });
     }
-    res.json({alertMsg:"Posted Notice Successfully",dateOF:result.date});
+    res.json({ alertMsg: "Posted Notice Successfully", dateOF: result.date });
   } catch (error) {
     res.status(404).send(error.message);
   }
