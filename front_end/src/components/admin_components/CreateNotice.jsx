@@ -158,6 +158,7 @@ const CreateNotice = () => {
                       placeholder="Enter your notice description here:"
                       className="border border-gray-400 bg-white text-black p-2 rounded w-full"
                     ></textarea>
+                    {errors.noticedes && <p className="text-red-500">{errors.noticedes.message}</p> }
                   </div>
                 </div>
               )}

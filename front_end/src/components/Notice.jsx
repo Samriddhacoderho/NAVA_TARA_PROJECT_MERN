@@ -30,9 +30,6 @@ const Notice = () => {
           );
         }
         setNotices(response.data);
-        response.data
-          ? console.log(response.data)
-          : console.log("No notices until now");
       } catch (error) {
         if (error.response) {
           alert(error.repsonse.data);
@@ -46,11 +43,22 @@ const Notice = () => {
   }, []);
   return notices ? (
     <div>
-            <h1 className="text-black text-3xl mb-6 text-center">Notices</h1>
+      <h1 className="text-black text-3xl mb-6 text-center">Notices</h1>
       <div className="grid grid-cols-3 gap-3">
         {notices &&
           notices.map((notice) => {
-            return <NoticeMap key={notice.date} noticetitle={notice.noticetitle} noticedes={notice.noticedes}/>;
+            return (
+              <div key={notice.date}>
+                {console.log(notice)}
+                <NoticeMap
+                adminName={notice.adminName}
+                  noticetitle={notice.noticetitle}
+                  noticedes={notice.noticedes}
+                  attachments={notice.attachments}
+                  date={notice.date}
+                />
+              </div>
+            );
           })}
       </div>
     </div>
