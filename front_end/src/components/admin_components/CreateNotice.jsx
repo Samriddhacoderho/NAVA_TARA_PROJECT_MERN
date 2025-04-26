@@ -3,6 +3,7 @@ import NoAccess from "../NoAccess";
 import { useForm } from "react-hook-form";
 import StepperInNoticeForm from "./StepperInNoticeForm";
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 
 const CreateNotice = () => {
@@ -14,6 +15,7 @@ const CreateNotice = () => {
     trigger,
     formState: { errors, isSubmitting },
   } = useForm();
+  const navigate=useNavigate();
   const noticeHandle = async (data) => {
     try {
       const filedata=new FormData();
@@ -29,8 +31,7 @@ const CreateNotice = () => {
         withCredentials:true
       })
       alert(response.data.alertMsg)
-      // const date=response.data.dateOF.slice(0,(response.data.dateOF.indexOf("T")))
-      // console.log(date)
+      navigate("/notice")
     } catch (error) {
       if(error.response)
       {

@@ -23,6 +23,8 @@ app.use(cors(
 ))
 app.use(cookieParser())
 
+app.use(express.static("public/notice_files"))
+
 //routes for login before role distribution:
 app.use("/",loginRoute);
 

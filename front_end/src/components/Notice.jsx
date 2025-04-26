@@ -49,14 +49,15 @@ const Notice = () => {
           notices.map((notice) => {
             return (
               <div key={notice.date}>
-                {console.log(notice)}
                 <NoticeMap
                 adminName={notice.adminName}
                   noticetitle={notice.noticetitle}
+                  noticecategory={notice.noticecategory}
                   noticedes={notice.noticedes}
                   attachments={notice.attachments}
                   date={notice.date}
                 />
+                {console.log(notice.noticedes)}
               </div>
             );
           })}
