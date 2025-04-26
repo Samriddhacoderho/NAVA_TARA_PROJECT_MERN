@@ -33,7 +33,6 @@ const noticeFetchController = async (req, res) => {
         };
       })
     );
-    console.log(finalResult)
     res.json(finalResult)
   } catch (error) {
     res.status(404).send(error.message);

@@ -7,6 +7,7 @@ import loginRoute from "./routes/LoginRoute.js";
 import logoutRoute from "./routes/LogoutRoute.js";
 import admin_notice_route from "./routes/AdminNoticeRoute.js";
 import getNotice from "./routes/GetNotice.js";
+import fetch_routine from "./routes/FetchRoutine.js";
 configDotenv()
 
 const app=express()
@@ -33,6 +34,8 @@ app.use("/admin",admin_notice_route)  //route for admin ko notice creation
 
 
 app.use("/get",getNotice)  //route for notice fetching
+
+app.use("/fetch",fetch_routine)  //route for routines
 
 connectTo()
 
