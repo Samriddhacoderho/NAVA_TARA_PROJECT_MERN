@@ -7,7 +7,7 @@ const NoticeMap = (props) => {
     <div>
       <div
         id="toast-message-cta"
-        className="w-full max-w-xs p-4 bg-white text-gray-700 rounded-lg shadow-sm dark:bg-gray-800 dark:text-gray-300"
+        className="w-100 max-w-xs p-4 bg-white text-gray-700 rounded-lg shadow-sm dark:bg-gray-800 dark:text-gray-300"
         role="alert"
       >
         <div className="flex flex-col gap-3">

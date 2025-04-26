@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Navbar = () => {
@@ -7,6 +7,7 @@ const Navbar = () => {
   const teacherLoggedIn = document.cookie.includes("teacherToken");
   const adminLoggedIn = document.cookie.includes("adminToken");
   const studentLoggedIn = document.cookie.includes("studentToken");
+  const navigate=useNavigate();
   const handleLogout = async () => {
     try {
       if (window.confirm("Are you sure you want to log out?")) {
@@ -17,6 +18,7 @@ const Navbar = () => {
         );
         alert(response.data);
         localStorage.clear();
+        navigate("/")
         window.location.reload();
       }
     } catch (error) {
@@ -103,6 +105,30 @@ const Navbar = () => {
                   NOTICE
                 </Link>
               </li>
+              {(teacherLoggedIn) && <li>
+                <Link
+                  to="/routine"
+                  className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                    location.pathname === "/routine"
+                      ? "md:dark:text-red-500"
+                      : "md:dark:text-white"
+                  }`}
+                >
+                  ROUTINE
+                </Link>
+              </li>}
+              {(adminLoggedIn) && <li>
+                <Link
+                  to="/routines"
+                  className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                    location.pathname === "/routines"
+                      ? "md:dark:text-red-500"
+                      : "md:dark:text-white"
+                  }`}
+                >
+                  ROUTINES
+                </Link>
+              </li>}
               <li>
                 <Link
                   to="#"

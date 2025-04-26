@@ -7,7 +7,6 @@ const Context = (props) => {
     const [name,setName]=useState(()=>{
         return localStorage.getItem("name") || "User"
       });
-
       useEffect(()=>{
         localStorage.setItem("name",name)
       },[name])

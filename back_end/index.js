@@ -8,6 +8,10 @@ import logoutRoute from "./routes/LogoutRoute.js";
 import admin_notice_route from "./routes/AdminNoticeRoute.js";
 import getNotice from "./routes/GetNotice.js";
 import fetch_routine from "./routes/FetchRoutine.js";
+import get_id from "./routes/GetID.js";
+import fetch_teachers from "./routes/FetchTeachers.js";
+import teachersSchema_model from "./database/mongoose_schema/teachers_schema.js";
+import jwt from "jsonwebtoken";
 configDotenv()
 
 const app=express()
@@ -30,6 +34,30 @@ app.use("/",loginRoute);
 
 //routes for logout
 app.use("/",logoutRoute)
+
+//route for getting id from token
+app.use("/getid",get_id)
+
+//route for getting all teachers ko data
+app.use("/getTeachers",fetch_teachers)
+
+//test route for creating teachers
+app.post("/teachers",async(req,res)=>{
+    try {
+        const result=await teachersSchema_model.create(req.body)
+        const user={
+            id:result._id
+        }
+        const token=jwt.sign(user,process.env.SECRET_KEY);
+        res.cookie("teacherToken",token,{
+            secure:true,
+            sameSite:"strict"
+        })
+        res.send("Done");
+    } catch (error) {
+        console.log(error.message);
+    }
+})
 
 //routes for admin
 app.use("/admin",admin_notice_route)  //route for admin ko notice creation

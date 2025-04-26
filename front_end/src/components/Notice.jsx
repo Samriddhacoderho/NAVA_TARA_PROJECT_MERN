@@ -50,18 +50,18 @@ const Notice = () => {
             return (
               <div key={notice.date}>
                 <NoticeMap
-                adminName={notice.adminName}
+                  adminName={notice.adminName}
                   noticetitle={notice.noticetitle}
                   noticecategory={notice.noticecategory}
                   noticedes={notice.noticedes}
                   attachments={notice.attachments}
                   date={notice.date}
                 />
-                {console.log(notice.noticedes)}
               </div>
             );
           })}
       </div>
+      {console.log(notices)}
     </div>
   ) : (
     <div className="h-screen flex flex-col justify-center items-center">

@@ -10,6 +10,8 @@ import LoginForm from "./components/LoginForm";
 import Context from "./Context";
 import CreateNotice from "./components/admin_components/CreateNotice";
 import Notice from "./components/Notice";
+import RoutineSee from "./components/teachers_components/RoutineSee";
+import RoutineEdit from "./components/admin_components/RoutineEdit";
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
             <Route exact path="/login-form" element={<LoginForm/>}/>
             <Route exact path="/create-notice" element={<CreateNotice/>}/>
             <Route exact path="/notice" element={<Notice/>}/>
+            <Route exact path="/routine" element={<RoutineSee/>}/>
+            <Route exact path="/routines" element={<RoutineEdit/>}/>
           </Routes>
         </main>
         <Footer/>
