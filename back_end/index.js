@@ -12,6 +12,8 @@ import get_id from "./routes/GetID.js";
 import fetch_teachers from "./routes/FetchTeachers.js";
 import teachersSchema_model from "./database/mongoose_schema/teachers_schema.js";
 import jwt from "jsonwebtoken";
+import routine_schema from "./database/mongoose_schema/routine_schema.js";
+import updateRoutine from "./routes/UpdateRoutine.js";
 configDotenv()
 
 const app=express()
@@ -53,6 +55,7 @@ app.post("/teachers",async(req,res)=>{
             secure:true,
             sameSite:"strict"
         })
+        const result_create=await routine_schema.create({teacherID:result._id})
         res.send("Done");
     } catch (error) {
         console.log(error.message);
@@ -65,7 +68,11 @@ app.use("/admin",admin_notice_route)  //route for admin ko notice creation
 
 app.use("/get",getNotice)  //route for notice fetching
 
-app.use("/fetch",fetch_routine)  //route for routines
+
+app.use("/fetch",fetch_routine)  //route for routines fetch
+
+app.use("/updateRoutine",updateRoutine)  //route for updating routine
+
 
 connectTo()
 
