@@ -97,6 +97,7 @@ const RoutineEdit = () => {
       })
       const response=await axios.patch(`http://localhost:8000/updateRoutine/${id}`,{data},{withCredentials:true});
       alert(response.data)
+      window.location.reload();
     } catch (error) {
       if(error.response)
       {
