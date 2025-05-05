@@ -162,7 +162,7 @@ const Navbar = () => {
                       : "md:dark:text-white"
                   }`}
                 >
-                  CREATE ACCOUNT
+                  CREATE TEACHER
                 </Link>
               </li>}
             </ul>

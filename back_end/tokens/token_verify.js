@@ -9,18 +9,21 @@ const tokenVerify=async(req,res,next)=>{
         {
             const data=jwt.verify(req.cookies.teacherToken,process.env.SECRET_KEY);
             req.user=data.user
+            req.teacher="teacher";
             next()
         }
         else if(req.cookies.adminToken)
         {
             const data=jwt.verify(req.cookies.adminToken,process.env.SECRET_KEY)
             req.user=data.user
+            req.admin="admin";
             next()
         }
         else if(req.cookies.studentToken)
         {
             const data=jwt.verify(req.cookies.studentToken,process.env.SECRET_KEY);
             req.user=data.user
+            req.student="student";
             next()
         }
         else

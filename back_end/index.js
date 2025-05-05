@@ -14,6 +14,7 @@ import teachersSchema_model from "./database/mongoose_schema/teachers_schema.js"
 import jwt from "jsonwebtoken";
 import routine_schema from "./database/mongoose_schema/routine_schema.js";
 import updateRoutine from "./routes/UpdateRoutine.js";
+import create_teacher from "./routes/CreateTeacher.js";
 configDotenv()
 
 const app=express()
@@ -62,7 +63,7 @@ app.post("/teachers",async(req,res)=>{
     }
 })
 
-//routes for admin
+
 app.use("/admin",admin_notice_route)  //route for admin ko notice creation
 
 
@@ -72,6 +73,8 @@ app.use("/get",getNotice)  //route for notice fetching
 app.use("/fetch",fetch_routine)  //route for routines fetch
 
 app.use("/updateRoutine",updateRoutine)  //route for updating routine
+
+app.use("/create",create_teacher)
 
 
 connectTo()
