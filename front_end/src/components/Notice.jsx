@@ -41,7 +41,7 @@ const Notice = () => {
 
     renderNotices();
   }, []);
-  return notices ? (
+  return notices.length ? (
     <div>
       <h1 className="text-black text-3xl mb-6 text-center">Notices</h1>
       <div className="grid grid-cols-3 gap-3">

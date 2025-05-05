@@ -12,6 +12,7 @@ import CreateNotice from "./components/admin_components/CreateNotice";
 import Notice from "./components/Notice";
 import RoutineSee from "./components/teachers_components/RoutineSee";
 import RoutineEdit from "./components/admin_components/RoutineEdit";
+import CreateAccount from "./components/admin_components/CreateAccount";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route exact path="/notice" element={<Notice/>}/>
             <Route exact path="/routine" element={<RoutineSee/>}/>
             <Route exact path="/routines" element={<RoutineEdit/>}/>
+            <Route exact path="/create-account" element={<CreateAccount/>}/>
           </Routes>
         </main>
         <Footer/>
