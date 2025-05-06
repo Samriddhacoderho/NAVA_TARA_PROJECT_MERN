@@ -9,21 +9,21 @@ const tokenVerify=async(req,res,next)=>{
         {
             const data=jwt.verify(req.cookies.teacherToken,process.env.SECRET_KEY);
             req.user=data.user
-            req.teacher="teacher";
+            req.teacher=req.cookies.teacherToken;
             next()
         }
         else if(req.cookies.adminToken)
         {
             const data=jwt.verify(req.cookies.adminToken,process.env.SECRET_KEY)
             req.user=data.user
-            req.admin="admin";
+            req.admin=req.cookies.adminToken;
             next()
         }
         else if(req.cookies.studentToken)
         {
             const data=jwt.verify(req.cookies.studentToken,process.env.SECRET_KEY);
             req.user=data.user
-            req.student="student";
+            req.student=req.cookies.studentToken;
             next()
         }
         else

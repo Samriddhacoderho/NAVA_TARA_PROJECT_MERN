@@ -15,6 +15,7 @@ import jwt from "jsonwebtoken";
 import routine_schema from "./database/mongoose_schema/routine_schema.js";
 import updateRoutine from "./routes/UpdateRoutine.js";
 import create_teacher from "./routes/CreateTeacher.js";
+import create_student from "./routes/CreateStudent.js";
 configDotenv()
 
 const app=express()
@@ -74,7 +75,9 @@ app.use("/fetch",fetch_routine)  //route for routines fetch
 
 app.use("/updateRoutine",updateRoutine)  //route for updating routine
 
-app.use("/create",create_teacher)
+app.use("/create",create_teacher)  //route for creating teacher
+
+app.use('/create',create_student)  //route for creating student
 
 
 connectTo()

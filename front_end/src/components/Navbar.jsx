@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,7 +7,8 @@ const Navbar = () => {
   const teacherLoggedIn = document.cookie.includes("teacherToken");
   const adminLoggedIn = document.cookie.includes("adminToken");
   const studentLoggedIn = document.cookie.includes("studentToken");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [showDropDown, setshowDropDown] = useState(false);
   const handleLogout = async () => {
     try {
       if (window.confirm("Are you sure you want to log out?")) {
@@ -18,7 +19,7 @@ const Navbar = () => {
         );
         alert(response.data);
         localStorage.clear();
-        navigate("/")
+        navigate("/");
         window.location.reload();
       }
     } catch (error) {
@@ -105,30 +106,34 @@ const Navbar = () => {
                   NOTICE
                 </Link>
               </li>
-              {(teacherLoggedIn) && <li>
-                <Link
-                  to="/routine"
-                  className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/routine"
-                      ? "md:dark:text-red-500"
-                      : "md:dark:text-white"
-                  }`}
-                >
-                  ROUTINE
-                </Link>
-              </li>}
-              {(adminLoggedIn) && <li>
-                <Link
-                  to="/routines"
-                  className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/routines"
-                      ? "md:dark:text-red-500"
-                      : "md:dark:text-white"
-                  }`}
-                >
-                  ROUTINES
-                </Link>
-              </li>}
+              {teacherLoggedIn && (
+                <li>
+                  <Link
+                    to="/routine"
+                    className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                      location.pathname === "/routine"
+                        ? "md:dark:text-red-500"
+                        : "md:dark:text-white"
+                    }`}
+                  >
+                    ROUTINE
+                  </Link>
+                </li>
+              )}
+              {adminLoggedIn && (
+                <li>
+                  <Link
+                    to="/routines"
+                    className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                      location.pathname === "/routines"
+                        ? "md:dark:text-red-500"
+                        : "md:dark:text-white"
+                    }`}
+                  >
+                    ROUTINES
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   to="#"
@@ -139,32 +144,71 @@ const Navbar = () => {
                   }`}
                 >
                   CONTACT US
-                </Link>  
+                </Link>
               </li>
-              {adminLoggedIn && <li>
-                <Link
-                  to="/create-notice"
-                  className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/create-notice"
+              {adminLoggedIn && (
+                <li>
+                  <Link
+                    to="/create-notice"
+                    className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                      location.pathname === "/create-notice"
+                        ? "md:dark:text-red-500"
+                        : "md:dark:text-white"
+                    }`}
+                  >
+                    NOTICE BOARD
+                  </Link>
+                </li>
+              )}
+              {adminLoggedIn && (
+                <li
+                  onMouseEnter={() => setshowDropDown(true)}
+                  onMouseLeave={() => setshowDropDown(false)}
+                  className={`cursor-pointer block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
+                    location.pathname === "/create-account-teacher" || location.pathname==="/create-account-student"
                       ? "md:dark:text-red-500"
                       : "md:dark:text-white"
                   }`}
                 >
-                  NOTICE BOARD
-                </Link>
-              </li>}
-              {adminLoggedIn && <li>
-                <Link
-                  to="/create-account"
-                  className={`block py-2 px-3 rounded-sm hover:bg-gray-100 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/create-account"
-                      ? "md:dark:text-red-500"
-                      : "md:dark:text-white"
-                  }`}
-                >
-                  CREATE TEACHER
-                </Link>
-              </li>}
+                  CREATE ACCOUNT
+                  {showDropDown && (
+                    <div
+                      id="dropdownDelay"
+                      class="absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
+                    >
+                      <ul
+                        class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownDelayButton"
+                      >
+                        <li>
+                          <Link
+                            to="/create-account-teacher"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Create Teacher
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/create-account-student"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Create Student
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="#"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Create Admin
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              )}
             </ul>
           </div>
         </div>
