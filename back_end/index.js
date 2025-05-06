@@ -16,6 +16,7 @@ import routine_schema from "./database/mongoose_schema/routine_schema.js";
 import updateRoutine from "./routes/UpdateRoutine.js";
 import create_teacher from "./routes/CreateTeacher.js";
 import create_student from "./routes/CreateStudent.js";
+import get_student from "./routes/GetStudents.js";
 configDotenv()
 
 const app=express()
@@ -78,6 +79,8 @@ app.use("/updateRoutine",updateRoutine)  //route for updating routine
 app.use("/create",create_teacher)  //route for creating teacher
 
 app.use('/create',create_student)  //route for creating student
+
+app.use("/getStudents",get_student)  //route for getting all students
 
 
 connectTo()
