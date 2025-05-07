@@ -46,26 +46,6 @@ app.use("/getid",get_id)
 //route for getting all teachers ko data
 app.use("/getTeachers",fetch_teachers)
 
-//test route for creating teachers
-app.post("/teachers",async(req,res)=>{
-    try {
-        const result=await teachersSchema_model.create(req.body)
-        const user={
-            id:result._id
-        }
-        const token=jwt.sign(user,process.env.SECRET_KEY);
-        res.cookie("teacherToken",token,{
-            secure:true,
-            sameSite:"strict"
-        })
-        const result_create=await routine_schema.create({teacherID:result._id})
-        res.send("Done");
-    } catch (error) {
-        console.log(error.message);
-    }
-})
-
-
 app.use("/admin",admin_notice_route)  //route for admin ko notice creation
 
 

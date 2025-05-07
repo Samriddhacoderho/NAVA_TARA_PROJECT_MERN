@@ -14,6 +14,7 @@ import RoutineSee from "./components/teachers_components/RoutineSee";
 import RoutineEdit from "./components/admin_components/RoutineEdit";
 import CreateAccountTeacher from "./components/admin_components/CreateAccountTeacher";
 import CreateAccountStudent from "./components/admin_components/CreateAccountStudent";
+import FetchStudents from "./components/FetchStudents";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
             <Route exact path="/routines" element={<RoutineEdit/>}/>
             <Route exact path="/create-account-teacher" element={<CreateAccountTeacher/>}/>
             <Route exact path="/create-account-student" element={<CreateAccountStudent/>}/>
+            <Route exact path="/fetch-students" element={<FetchStudents/>}/>
 
           </Routes>
         </main>
