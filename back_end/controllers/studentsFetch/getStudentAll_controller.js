@@ -4,7 +4,7 @@ const getStudentAll=async(req,res)=>{
     try {
         if(req.admin || req.teacher)
         {
-            const result=await studentSchema_model.find({class_name:req.params.class_name}).sort({name:1});
+            const result=await studentSchema_model.find({class_name:req.params.class_name},{password:0}).sort({name:1});
             res.json(result);
         }
     } catch (error) {

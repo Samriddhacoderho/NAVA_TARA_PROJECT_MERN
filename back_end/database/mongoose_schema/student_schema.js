@@ -11,6 +11,27 @@ const studentSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    address:{
+        type:String,
+        required:true
+    },
+    father_name:{
+        type:String,
+        required:true
+    },
+    father_phone:{
+        type:Number,
+        required:true
+    },
+    mother_name:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    mother_phone:{
+        type:Number,
+        required:true,
+    },
     email:{
         type:"String",
         required:true,
