@@ -17,6 +17,7 @@ import updateRoutine from "./routes/UpdateRoutine.js";
 import create_teacher from "./routes/CreateTeacher.js";
 import create_student from "./routes/CreateStudent.js";
 import get_student from "./routes/GetStudents.js";
+import edit_student from "./routes/EditStudent.js";
 configDotenv()
 
 const app=express()
@@ -61,6 +62,8 @@ app.use("/create",create_teacher)  //route for creating teacher
 app.use('/create',create_student)  //route for creating student
 
 app.use("/getStudents",get_student)  //route for getting all students
+
+app.use("/editStudent",edit_student);
 
 
 connectTo()
