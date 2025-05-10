@@ -7,13 +7,11 @@ const Footer = () => {
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <a href="https://flowbite.com/" className="flex items-center">
                 <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 me-3"
+                  src="./public/school_logo.png"
+                  className="h-20 me-3"
                   alt="FlowBite Logo"
                 />
-              </a>
               <p className="text-red-500">Navatara English School</p>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

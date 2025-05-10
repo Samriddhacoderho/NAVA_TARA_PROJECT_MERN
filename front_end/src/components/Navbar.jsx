@@ -39,8 +39,8 @@ const Navbar = () => {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
+              src="./public/school_logo.png"
+              className="h-16 scale-125 -mt-3 transform"
               alt="Flowbite Logo"
             />
           </Link>
