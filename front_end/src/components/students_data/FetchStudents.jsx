@@ -95,7 +95,7 @@ const FetchStudents = () => {
                       <div className="">
                         <img
                           className="w-8 h-8 rounded-full"
-                          src={"./public/379383_student_icon.png"}
+                          src={"/379383_student_icon.png"}
                         />
                       </div>
                       <div className="flex-1 min-w-0 ml-3">

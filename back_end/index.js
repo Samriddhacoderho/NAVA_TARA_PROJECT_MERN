@@ -10,14 +10,14 @@ import getNotice from "./routes/GetNotice.js";
 import fetch_routine from "./routes/FetchRoutine.js";
 import get_id from "./routes/GetID.js";
 import fetch_teachers from "./routes/FetchTeachers.js";
-import teachersSchema_model from "./database/mongoose_schema/teachers_schema.js";
-import jwt from "jsonwebtoken";
-import routine_schema from "./database/mongoose_schema/routine_schema.js";
 import updateRoutine from "./routes/UpdateRoutine.js";
 import create_teacher from "./routes/CreateTeacher.js";
 import create_student from "./routes/CreateStudent.js";
 import get_student from "./routes/GetStudents.js";
 import edit_student from "./routes/EditStudent.js";
+import get_fee from "./routes/GetFeeRecord.js";
+import classFee_model from "./database/mongoose_schema/class_fee_schema.js";
+
 configDotenv()
 
 const app=express()
@@ -63,7 +63,19 @@ app.use('/create',create_student)  //route for creating student
 
 app.use("/getStudents",get_student)  //route for getting all students
 
-app.use("/editStudent",edit_student);
+app.use("/editStudent",edit_student);  //route for editing particular student
+
+app.use("/getFee",get_fee)  //route for getting student fee records
+
+// app.post("/test",async(req,res)=>{
+//     try {
+//         const result=await classFee_model.create({studentID:"681cbc4283e719d9d2ad0207",records:{Baishakh:{adm_fee:2500,month_fee:2000,comp_fee:400}}})
+//         res.send("Nice")
+//     } catch (error) {
+//         res.status(504).send(error.message);
+//     }
+// })
+
 
 
 connectTo()

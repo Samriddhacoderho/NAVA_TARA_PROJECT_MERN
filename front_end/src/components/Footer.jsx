@@ -8,7 +8,7 @@ const Footer = () => {
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
                 <img
-                  src="./public/school_logo.png"
+                  src="/school_logo.png"
                   className="h-20 me-3"
                   alt="FlowBite Logo"
                 />

@@ -37,6 +37,10 @@ const studentSchema=new mongoose.Schema({
         required:true,
         unique:true
     },
+    totalFee:{
+        type:Number,
+        required:true
+    },
     password:{
         type:"String",
         required:true,
