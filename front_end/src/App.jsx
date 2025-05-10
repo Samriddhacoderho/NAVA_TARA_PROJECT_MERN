@@ -16,6 +16,7 @@ import CreateAccountStudent from "./components/admin_components/CreateAccountStu
 import FetchStudents from "./components/students_data/FetchStudents";
 import EditStudentData from "./components/students_data/EditStudentData";
 import ViewFee from "./components/students_data/ViewFee";
+import Change_Class_Fee_Structure from "./components/admin_components/Change_Class_Fee_Structure";
 
 const App = () => {
   return (
@@ -23,7 +24,7 @@ const App = () => {
       <Context>
         <BrowserRouter>
           <Navbar />
-          <main className="z-10 mt-20 bg-[url('https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3JtNjIxLWJhY2tncm91bmQtMDMwYi5qcGc.jpg')] min-h-screen">
+          <main className="z-10 bg-[url('https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3JtNjIxLWJhY2tncm91bmQtMDMwYi5qcGc.jpg')] min-h-screen">
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/about-us" element={<About />} />
@@ -44,7 +45,8 @@ const App = () => {
               />
               <Route exact path="/fetch-students" element={<FetchStudents />} />
               <Route exact path="/edit-details" element={<EditStudentData />} />
-              <Route exact path="/view-fee" element={<ViewFee/>} />
+              <Route exact path="/view-fee" element={<ViewFee />} />
+              <Route exact path="/update-class-structure" element={<Change_Class_Fee_Structure/>} />
             </Routes>
           </main>
           <Footer />

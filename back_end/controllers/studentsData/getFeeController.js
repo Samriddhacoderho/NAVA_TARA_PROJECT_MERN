@@ -1,9 +1,9 @@
-import classFee_model from "../../database/mongoose_schema/class_fee_schema.js";
+import studentFee_model from "../../database/mongoose_schema/studentFeeRecord_schema.js";
 
 const getFeeController = async (req, res) => {
   try {
     if (req.admin) {
-      const result = await classFee_model.find({ studentID: req.params.id });
+      const result = await studentFee_model.find({ studentID: req.params.id });
       res.json(result);
     }
   } catch (error) {

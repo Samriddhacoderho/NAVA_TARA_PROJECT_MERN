@@ -12,7 +12,7 @@ months.forEach((month)=>{
     }
 })
 
-const classFeeSchema=new mongoose.Schema({
+const studentFeeSchema=new mongoose.Schema({
     studentID:{
         type:Schema.Types.ObjectId,
         ref:"students",
@@ -22,6 +22,6 @@ const classFeeSchema=new mongoose.Schema({
     records:recordFetch
 })
 
-const classFee_model=mongoose.model("classfees",classFeeSchema);
+const studentFee_model=mongoose.model("studentfees",studentFeeSchema);
 
-export default classFee_model;
+export default studentFee_model;
