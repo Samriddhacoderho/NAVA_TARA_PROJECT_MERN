@@ -6,7 +6,7 @@ const classFeeSchema=new mongoose.Schema({
         required:true,
         unique:true,
     },
-    admisssion_fee:{
+    admission_fee:{
         type:Number,
         required:true,
         default:0,
@@ -19,11 +19,15 @@ const classFeeSchema=new mongoose.Schema({
     comp_fee:{
         type:Number,
         default:0
+    },
+    total:{
+        type:Number
     }
 })
 
-classFeeSchema.pre("save",async function(next){
-    this.total=this.admisssion_fee+this.monthly_fee*12+this.comp_fee
+classFeeSchema.pre("save",function(next){
+    this.total=this.admission_fee+this.monthly_fee*12+this.comp_fee;
+    next()
 })
 
 

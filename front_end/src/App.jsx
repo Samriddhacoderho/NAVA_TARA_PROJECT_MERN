@@ -16,7 +16,9 @@ import CreateAccountStudent from "./components/admin_components/CreateAccountStu
 import FetchStudents from "./components/students_data/FetchStudents";
 import EditStudentData from "./components/students_data/EditStudentData";
 import ViewFee from "./components/students_data/ViewFee";
-import Change_Class_Fee_Structure from "./components/admin_components/Change_Class_Fee_Structure";
+import View_Class_Fee_Structure from "./components/admin_components/View_Class_Fee_Structure";
+import Edit_Fee_Struct from "./components/admin_components/Edit_Fee_Struct";
+import EditFeeRecord from "./components/students_data/EditFeeRecord";
 
 const App = () => {
   return (
@@ -31,7 +33,7 @@ const App = () => {
               <Route exact path="/login-form" element={<LoginForm />} />
               <Route exact path="/create-notice" element={<CreateNotice />} />
               <Route exact path="/notice" element={<Notice />} />
-              <Route exact path="/routine" element={<RoutineSee />} />
+              <Route exact path="/routine" element={<RoutineSee/>} />
               <Route exact path="/routines" element={<RoutineEdit />} />
               <Route
                 exact
@@ -46,7 +48,21 @@ const App = () => {
               <Route exact path="/fetch-students" element={<FetchStudents />} />
               <Route exact path="/edit-details" element={<EditStudentData />} />
               <Route exact path="/view-fee" element={<ViewFee />} />
-              <Route exact path="/update-class-structure" element={<Change_Class_Fee_Structure/>} />
+              <Route
+                exact
+                path="/update-class-structure"
+                element={<View_Class_Fee_Structure />}
+              />
+              <Route
+                exact
+                path="/edit-fee-struct"
+                element={<Edit_Fee_Struct/>}
+              />
+              <Route
+                exact
+                path="/edit-student-fee-record"
+                element={<EditFeeRecord/>}
+              />
             </Routes>
           </main>
           <Footer />

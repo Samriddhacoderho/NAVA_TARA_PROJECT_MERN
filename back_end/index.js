@@ -17,6 +17,7 @@ import get_student from "./routes/GetStudents.js";
 import edit_student from "./routes/EditStudent.js";
 import get_fee from "./routes/GetFeeRecord.js";
 import class_fee_struct from "./routes/ClassFeeStructure.js";
+import edit_record_fee from "./routes/EditRecordFee.js";
 
 configDotenv()
 
@@ -66,6 +67,8 @@ app.use("/getStudents",get_student)  //route for getting all students
 app.use("/editStudent",edit_student);  //route for editing particular student
 
 app.use("/getFee",get_fee)  //route for getting student fee records
+
+app.use("/editFee",edit_record_fee)  //route for editing student fee record
 
 
 app.use("/fetch/class",class_fee_struct)  //route for getting class fee ko structure

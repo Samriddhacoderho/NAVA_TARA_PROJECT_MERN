@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NoAccess from "../NoAccess";
 import axios from "axios";
 
 const ViewFee = () => {
+  const navigate=useNavigate();
   const location = useLocation();
   const [record, setRecord] = useState([]);
   const months = [
@@ -30,6 +31,7 @@ const ViewFee = () => {
           `http://localhost:8000/getFee/${location.state?.student._id}`,
           { withCredentials: true }
         );
+        const amountResponse=await axios.get(`http://localhost:8000/fetch/class/structure/fees/${location.state?.student.class_name}`,{withCredentials:true})
         setRecord(response.data);
         let total = 0;
         months.map((month) => {
@@ -40,7 +42,7 @@ const ViewFee = () => {
             response.data[0].records[month].comp_fee;
         });
         setPayed(total);
-        //todo
+        setDue(amountResponse.data.total-total);
       } catch (error) {
         if (error.response) {
           alert(error.response.data);
@@ -52,6 +54,21 @@ const ViewFee = () => {
 
     fetchRecord();
   }, []);
+
+  const handleAmountFunc=async(month)=>{
+    try {
+      navigate("/edit-student-fee-record",{state:{month:month,id:location.state?.student._id}});
+    } catch (error) {
+      if(error.response)
+      {
+        alert(error.response.data)
+      }
+      else
+      {
+        alert(error.message);
+      }
+    }
+  }
   return location.state ? (
     <div className="bg-gradient-to-r from-blue-100 to-purple-200 py-10 px-4">
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -112,7 +129,7 @@ const ViewFee = () => {
                         </strong>
                       </span>
                       <div className="flex gap-2">
-                        <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-1 px-4 rounded shadow">
+                        <button onClick={()=>handleAmountFunc(month)} className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-1 px-4 rounded shadow">
                           {totalMonth>0?"Edit":"Add"}
                         </button>
                         {totalMonth > 0 && (
@@ -129,7 +146,7 @@ const ViewFee = () => {
 
             <div className="mt-6 space-y-2">
               <div className="p-3 bg-red-100 text-red-800 font-semibold rounded-lg shadow-sm">
-                💸 Amount Left: RS XXXX (NEED TO BE PAID)
+                💸 Amount Left: RS {due} (NEED TO BE PAID)
               </div>
               <div className="p-3 bg-green-100 text-green-800 font-semibold rounded-lg shadow-sm">
                 ✅ Amount Paid: RS {payed} (PAID SO FAR)
