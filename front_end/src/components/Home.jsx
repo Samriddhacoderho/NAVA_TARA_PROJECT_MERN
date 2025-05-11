@@ -8,18 +8,22 @@ const Home = () => {
   const studentLoggedIn=document.cookie.includes("studentToken")
   const contextUse=useContext(contextCreate)
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <h1 className="text-black text-3xl mb-6 text-center">
+    <div className="h-screen flex flex-col justify-center items-center from-blue-50 to-purple-50 px-4">
+      <h1 className="text-indigo-900 text-4xl md:text-5xl font-bold mb-8 text-center leading-tight">
         Welcome to Navatara English School
       </h1>
-      <Link to={"/login-form"}>
-      <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-        <span className="cursor-pointer relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-          Get Started
-        </span>
-      </button>
+      <Link to={"/login-form"} className="mt-4">
+        <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-lg font-semibold text-gray-900 rounded-full group bg-gradient-to-br from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+          <span className="relative px-8 py-3 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+            Get Started
+          </span>
+        </button>
       </Link>
-      {(teacherLoggedIn || adminLoggedIn || studentLoggedIn)?`Hi ${contextUse.name}`:""}
+      {(teacherLoggedIn || adminLoggedIn || studentLoggedIn) && (
+        <div className="mt-8 px-6 py-3 bg-white rounded-full shadow-md text-purple-800 font-medium">
+          Hi {contextUse.name}
+        </div>
+      )}
     </div>
   );
 };

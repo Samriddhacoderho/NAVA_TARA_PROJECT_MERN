@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import NoAccess from "../NoAccess";
 import axios from "axios";
+import { PDFViewer } from "@react-pdf/renderer";
+import MyDocument from "../MyDocument";
 
 const ViewFee = () => {
   const navigate=useNavigate();
@@ -23,6 +25,8 @@ const ViewFee = () => {
   ];
   const [payed, setPayed] = useState(0);
   const [due,setDue]=useState(0);
+  const [PDF,setPDF]=useState(false);
+  const [pdfdata,setpdfdata]=useState({})
 
   useEffect(() => {
     const fetchRecord = async () => {
@@ -71,6 +75,7 @@ const ViewFee = () => {
   }
   return location.state ? (
     <div className="bg-gradient-to-r from-blue-100 to-purple-200 py-10 px-4">
+      {!PDF && <div>
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-2xl shadow-xl p-6 border border-blue-300">
           <h2 className="text-2xl font-semibold text-blue-800 mb-6">
@@ -133,7 +138,7 @@ const ViewFee = () => {
                           {totalMonth>0?"Edit":"Add"}
                         </button>
                         {totalMonth > 0 && (
-                          <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-4 rounded shadow">
+                          <button onClick={()=>{setPDF(true),setpdfdata({month:month,adm_fee:rec.records[month].adm_fee,month_fee:rec.records[month].month_fee,comp_fee:rec.records[month].comp_fee,total:totalMonth})}}className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-4 rounded shadow">
                             Download Receipt
                           </button>
                         )}
@@ -164,6 +169,8 @@ const ViewFee = () => {
           </button>
         </Link>
       </div>
+      </div>}
+      {PDF && <div><PDFViewer style={{width:"100%",height:"100vh"}}><MyDocument studentData={location.state.student} pdfdata={pdfdata} /></PDFViewer> <button onClick={()=>{setPDF(false),setpdfdata({})}}>Go Back</button></div>}
     </div>
   ) : (
     <NoAccess />

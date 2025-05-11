@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
+    <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(#3b82f620_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_40%,transparent_100%)] opacity-40"></div>
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-50 rounded-full opacity-40 blur-3xl"></div>
