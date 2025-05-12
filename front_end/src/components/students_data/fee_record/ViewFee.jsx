@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import NoAccess from "../NoAccess";
+import NoAccess from "../../NoAccess";
 import axios from "axios";
 import { PDFViewer } from "@react-pdf/renderer";
-import MyDocument from "../MyDocument";
+import ReceiptPDF from "./ReceiptPDF";
 
 const ViewFee = () => {
   const navigate=useNavigate();
@@ -170,7 +170,7 @@ const ViewFee = () => {
         </Link>
       </div>
       </div>}
-      {PDF && <div><PDFViewer style={{width:"100%",height:"100vh"}}><MyDocument studentData={location.state.student} pdfdata={pdfdata} /></PDFViewer> <button onClick={()=>{setPDF(false),setpdfdata({})}}>Go Back</button></div>}
+      {PDF && <div><PDFViewer style={{width:"100%",height:"100vh"}}><ReceiptPDF studentData={location.state.student} pdfdata={pdfdata} /></PDFViewer> <button onClick={()=>{setPDF(false),setpdfdata({})}}>Go Back</button></div>}
     </div>
   ) : (
     <NoAccess />

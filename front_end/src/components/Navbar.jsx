@@ -174,7 +174,7 @@ const Navbar = () => {
                   {showDropDown && (
                     <div
                       id="dropdownDelay"
-                      className="absolute top-full right-0 mt-1 bg-gray-800 divide-y divide-gray-700 rounded-md shadow-xl w-52 z-50 border border-gray-700 overflow-hidden transform transition-all duration-300 origin-top-right"
+                      className="absolute top-full right-0 mt-0 bg-gray-800 divide-y divide-gray-700 rounded-md shadow-xl w-60 z-50 border border-gray-700 overflow-hidden transform transition-all duration-300 origin-top-right"
                     >
                       <ul className="py-1">
                         <li>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import NoAccess from "../NoAccess";
+import NoAccess from "../../NoAccess";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 

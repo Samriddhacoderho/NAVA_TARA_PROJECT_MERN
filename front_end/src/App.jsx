@@ -7,18 +7,18 @@ import Footer from "./components/Footer";
 
 import LoginForm from "./components/LoginForm";
 import Context from "./Context";
-import CreateNotice from "./components/admin_components/CreateNotice";
-import Notice from "./components/Notice";
-import RoutineSee from "./components/teachers_components/RoutineSee";
-import RoutineEdit from "./components/admin_components/RoutineEdit";
-import CreateAccountTeacher from "./components/admin_components/CreateAccountTeacher";
-import CreateAccountStudent from "./components/admin_components/CreateAccountStudent";
-import FetchStudents from "./components/students_data/FetchStudents";
-import EditStudentData from "./components/students_data/EditStudentData";
-import ViewFee from "./components/students_data/ViewFee";
-import View_Class_Fee_Structure from "./components/admin_components/View_Class_Fee_Structure";
-import Edit_Fee_Struct from "./components/admin_components/Edit_Fee_Struct";
-import EditFeeRecord from "./components/students_data/EditFeeRecord";
+import CreateNotice from "./components/admin_components/notice_creation/CreateNotice";
+import Notice from "./components/notices/Notice";
+import RoutineSee from "./components/teachers_components/routine_view/RoutineSee";
+import RoutineEdit from "./components/admin_components/routine_edit/RoutineEdit";
+import CreateAccountTeacher from "./components/admin_components/accounts_creation/CreateAccountTeacher";
+import CreateAccountStudent from "./components/admin_components/accounts_creation/CreateAccountStudent";
+import FetchStudents from "./components/students_data/students_profile_view/FetchStudents";
+import EditStudentData from "./components/students_data/edit_profile/EditStudentData";
+import ViewFee from "./components/students_data/fee_record/ViewFee";
+import View_Class_Fee_Structure from "./components/admin_components/class_fee_structure/View_Class_Fee_Structure";
+import Edit_Fee_Struct from "./components/admin_components/class_fee_structure/Edit_Fee_Struct";
+import EditFeeRecord from "./components/students_data/fee_record/EditFeeRecord";
 
 const App = () => {
   return (

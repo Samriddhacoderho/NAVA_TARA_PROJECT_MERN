@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
-import NoAccess from "../NoAccess";
+import { Link, useLocation } from "react-router-dom";
+import NoAccess from "../../NoAccess";
 import axios from "axios";
 
 const Edit_Fee_Struct = () => {
@@ -92,13 +92,21 @@ const Edit_Fee_Struct = () => {
           />
         </div>
 
-        <div class="pt-4">
+        <div class="flex flex-row">
           <button
             type="submit"
             class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
           >
             Update Fees
           </button>
+          <Link to={"/update-class-structure"}>
+             <button
+            type="button"
+            class="w-full bg-red-600 hover:bg-red-500 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+          >
+            Back
+          </button>
+          </Link>
         </div>
       </form>
     </div>

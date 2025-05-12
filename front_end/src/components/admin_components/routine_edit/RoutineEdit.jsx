@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import NoAccess from "../NoAccess";
+import NoAccess from "../../NoAccess";
 import { useForm } from "react-hook-form";
 
 const RoutineEdit = () => {
@@ -233,7 +233,7 @@ const RoutineEdit = () => {
       )}
     </div>
   ) : (
-    <NoAccess />
+    <NoAccess/>
   );
 };
 

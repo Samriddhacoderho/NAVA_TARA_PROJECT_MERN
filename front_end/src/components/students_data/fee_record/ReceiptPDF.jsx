@@ -248,7 +248,7 @@ const MyDocument = ({ studentData, pdfdata }) => (
         
         <View style={styles.totalRow}>
           <Text style={styles.totalLabel}>Total Fees Paid:</Text>
-          <Text style={styles.totalValue}>₹{pdfdata.total}</Text>
+          <Text style={styles.totalValue}>{pdfdata.total}</Text>
         </View>
       </View>
 

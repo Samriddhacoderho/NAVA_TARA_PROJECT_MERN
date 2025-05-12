@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import NoAccess from "../NoAccess";
+import NoAccess from "../../NoAccess";
 import axios from "axios";
 
 const RoutineSee = () => {

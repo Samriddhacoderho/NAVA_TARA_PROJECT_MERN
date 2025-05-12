@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import NoAccess from "../NoAccess";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye ,faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import NoAccess from "../../NoAccess";
 
 const CreateAccountTeacher = () => {
   const adminLoggedIn = document.cookie.includes("adminToken");
@@ -145,7 +145,7 @@ const CreateAccountTeacher = () => {
       </div>
     </div>
   ) : (
-    <NoAccess />
+    <NoAccess/>
   );
 };
 

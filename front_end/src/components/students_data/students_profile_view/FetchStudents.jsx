@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import FetchStudentData from "./FetchStudentData";
+import NoAccess from "../../NoAccess";
 
 const FetchStudents = () => {
   const adminLoggedIn = document.cookie.includes("adminToken");
@@ -48,7 +49,7 @@ const FetchStudents = () => {
   };
 
   return (
-    (adminLoggedIn || teacherLoggedIn) && (
+    (adminLoggedIn || teacherLoggedIn)?(
       !showModal?<div className="min-h-screen flex flex-col items-center p-6">
         <div className="w-full max-w-md p-8 rounded-2xl shadow-lg">
           <form onSubmit={handleSubmit(fetchStudents_Class)}>
@@ -144,7 +145,7 @@ const FetchStudents = () => {
           ""
         )}
       </div>:<FetchStudentData setsingleData={setsingleData} setshowModal={setshowModal} student={singleData}/>
-    )
+    ):<NoAccess/>
   );
 };
 
