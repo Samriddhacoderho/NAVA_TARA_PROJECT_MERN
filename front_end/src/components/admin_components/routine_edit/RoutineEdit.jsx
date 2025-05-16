@@ -29,7 +29,7 @@ const RoutineEdit = () => {
   ];
   const [teachers, setTeachers] = useState([]);
   const [routines, setRoutine] = useState([]);
-  const [id,setID]=useState();
+  const [id, setID] = useState();
   useEffect(() => {
     const fetchTeacherName = async () => {
       try {
@@ -61,7 +61,7 @@ const RoutineEdit = () => {
         { withCredentials: true }
       );
       setRoutine(result.data);
-      setID(data.teachers)
+      setID(data.teachers);
     } catch (error) {
       if (error.response) {
         alert(error.response.data);
@@ -89,26 +89,29 @@ const RoutineEdit = () => {
     );
   };
 
-  const handleUpdateChange=async()=>{
+  const handleUpdateChange = async () => {
     try {
-      let data={};
-      routines.map((routine)=>{
-        data=routine.schedule
-      })
-      const response=await axios.patch(`http://localhost:8000/updateRoutine/${id}`,{data},{withCredentials:true});
-      alert(response.data)
-      window.location.reload();
-    } catch (error) {
-      if(error.response)
-      {
-        alert(error.response.data)
+      if (window.confirm("Are you sure you want to update this routine?")) {
+        let data = {};
+        routines.map((routine) => {
+          data = routine.schedule;
+        });
+        const response = await axios.patch(
+          `http://localhost:8000/updateRoutine/${id}`,
+          { data },
+          { withCredentials: true }
+        );
+        alert(response.data);
+        window.location.reload();
       }
-      else
-      {
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data);
+      } else {
         alert(error.message);
       }
     }
-  }
+  };
 
   return teachers && adminLoggedIn ? (
     <div className="min-h-screen flex flex-col items-center p-6">
@@ -221,19 +224,20 @@ const RoutineEdit = () => {
             </tbody>
           </table>
           <div className="flex justify-end">
-              <button
-                className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            <button
+              className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
               onClick={handleUpdateChange}
-              >
-                Update Routine
-              </button>
-            </div>        </div>
+            >
+              Update Routine
+            </button>
+          </div>{" "}
+        </div>
       ) : (
         ""
       )}
     </div>
   ) : (
-    <NoAccess/>
+    <NoAccess />
   );
 };
 

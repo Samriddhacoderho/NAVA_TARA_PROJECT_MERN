@@ -1,10 +1,10 @@
-import express from "express";
-import teachersSchema_model from "../database/mongoose_schema/teachers_schema.js";
-import adminSchema_model from "../database/mongoose_schema/admin_schema.js";
-import studentSchema_model from "../database/mongoose_schema/student_schema.js";
-import teacher_controller from "../controllers/login_roles/teacher_controller.js";
-import admin_controller from "../controllers/login_roles/admin_controller.js";
-import student_controller from "../controllers/login_roles/student_controller.js";
+import teachersSchema_model from "../../database/mongoose_schema/teachers_schema.js";
+import adminSchema_model from "../../database/mongoose_schema/admin_schema.js";
+import studentSchema_model from "../../database/mongoose_schema/student_schema.js";
+import student_controller from "./student_login_controller.js";
+import teacher_controller from "./teacher_login_controller.js";
+import admin_controller from "./admin_login_controller.js";
+
 
 const loginMiddleware=async(req,res)=>{
     try {

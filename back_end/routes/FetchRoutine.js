@@ -5,7 +5,8 @@ import tokenVerify from "../tokens/token_verify.js";
 const fetch_routine=express.Router();
 
 
-fetch_routine.get("/routines/:teacherID",tokenVerify,routine_fetch_controller)
+fetch_routine.get("/routines",tokenVerify,routine_fetch_controller)  //works for teacher
+fetch_routine.get("/routines/:id",tokenVerify,routine_fetch_controller)  //works for admin
 
 
 export default fetch_routine;

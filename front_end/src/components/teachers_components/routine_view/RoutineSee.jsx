@@ -27,12 +27,8 @@ const RoutineSee = () => {
     const fetchRoutines = async () => {
       try {
         if (teacherLoggedIn) {
-          const teacherIDGet = await axios.get(
-            "http://localhost:8000/getid/fromtoken",
-            { withCredentials: true }
-          );
           const response = await axios.get(
-            `http://localhost:8000/fetch/routines/${teacherIDGet.data}`,
+            `http://localhost:8000/fetch/routines`,
             { withCredentials: true }
           );
           setRoutines(response.data);

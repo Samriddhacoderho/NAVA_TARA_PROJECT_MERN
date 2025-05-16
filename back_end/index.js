@@ -8,7 +8,6 @@ import logoutRoute from "./routes/LogoutRoute.js";
 import admin_notice_route from "./routes/AdminNoticeRoute.js";
 import getNotice from "./routes/GetNotice.js";
 import fetch_routine from "./routes/FetchRoutine.js";
-import get_id from "./routes/GetID.js";
 import fetch_teachers from "./routes/FetchTeachers.js";
 import updateRoutine from "./routes/UpdateRoutine.js";
 import create_teacher from "./routes/CreateTeacher.js";
@@ -36,53 +35,40 @@ app.use(cookieParser())
 
 app.use(express.static("public/notice_files"))
 
-//routes for login before role distribution:
-app.use("/",loginRoute);
 
-//routes for logout
-app.use("/",logoutRoute)
+//routes
 
-//route for getting id from token
-app.use("/getid",get_id)
+app.use("/",loginRoute);  //route for login before role distribution:
 
-//route for getting all teachers ko data
-app.use("/getTeachers",fetch_teachers)
+app.use("/",logoutRoute)  //routes for logout
 
-app.use("/admin",admin_notice_route)  //route for admin ko notice creation
+app.use("/getTeachers",fetch_teachers)  //route for getting all teacher's data from admin's account while viewing routines.
 
 
-app.use("/get",getNotice)  //route for notice fetching
+app.use("/admin",admin_notice_route)  //route for notice creation from admin's account
 
 
-app.use("/fetch",fetch_routine)  //route for routines fetch
-
-app.use("/updateRoutine",updateRoutine)  //route for updating routine
-
-app.use("/create",create_teacher)  //route for creating teacher
-
-app.use('/create',create_student)  //route for creating student
-
-app.use("/getStudents",get_student)  //route for getting all students
-
-app.use("/editStudent",edit_student);  //route for editing particular student
-
-app.use("/getFee",get_fee)  //route for getting student fee records
-
-app.use("/editFee",edit_record_fee)  //route for editing student fee record
+app.use("/get",getNotice)  //route for notices fetching.
 
 
-app.use("/fetch/class",class_fee_struct)  //route for getting class fee ko structure
+app.use("/fetch",fetch_routine)  //route for routines fetch by either teacher or admin
 
-// app.post("/test",async(req,res)=>{
-//     try {
-//         const result=await studentFee_model.create({studentID:"681cbc4283e719d9d2ad0207",records:{Baishakh:{adm_fee:2500,month_fee:2000,comp_fee:400}}})
-//         res.send("Nice")
-//     } catch (error) {
-//         res.status(504).send(error.message);
-//     }
-// })
+app.use("/updateRoutine",updateRoutine)  //route for updating routine from admin's account
+
+app.use("/create",create_teacher)  //route for creating teacher from admin's account
+
+app.use('/create',create_student)  //route for creating student from admin's account
+
+app.use("/getStudents",get_student)  //route for getting all students from admin's or teacher's account
+
+app.use("/editStudent",edit_student);  //route for editing particular student from admin's account
+
+app.use("/getFee",get_fee)  //route for getting student fee records from admin's account
+
+app.use("/editFee",edit_record_fee)  //route for editing student fee record from admin's account
 
 
+app.use("/fetch/class",class_fee_struct)  //route for getting class fee ko structure from admin's account
 
 connectTo()
 

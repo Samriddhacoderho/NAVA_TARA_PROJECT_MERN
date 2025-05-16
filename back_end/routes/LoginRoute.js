@@ -1,5 +1,5 @@
 import express from "express";
-import loginMiddleware from "../controller_middleware/login_middleware.js";
+import loginMiddleware from "../controllers/login/login_before_roll_assign_controller.js";
 
 const loginRoute=express.Router();
 
