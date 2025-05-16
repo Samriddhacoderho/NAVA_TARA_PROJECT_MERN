@@ -1,8 +1,8 @@
 import express from "express"
-import noticeController from "../controllers/admin/notice_controller.js"
 import multer from "multer"
 import path from "path"
-import tokenVerify from "../tokens/token_verify.js"
+import noticeController from "../../../controllers/admin/notice_controller.js"
+import tokenVerify from "../../../tokens/token_verify.js"
 
 const admin_notice_route=express.Router()
 

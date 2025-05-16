@@ -1,6 +1,6 @@
 import express from "express";
-import edit_record_fee_controller from "../controllers/admin/edit_record_fee_controller.js";
-import tokenVerify from "../tokens/token_verify.js";
+import edit_record_fee_controller from "../../../controllers/admin/edit_record_fee_controller.js";
+import tokenVerify from "../../../tokens/token_verify.js";
 
 const edit_record_fee=express.Router();
 

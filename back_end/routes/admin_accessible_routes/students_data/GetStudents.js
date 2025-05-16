@@ -1,6 +1,6 @@
 import express from "express";
-import tokenVerify from "../tokens/token_verify.js";
-import getStudentAll from "../controllers/studentsData/getStudentAll_controller.js";
+import tokenVerify from "../../../tokens/token_verify.js";
+import getStudentAll from "../../../controllers/studentsData/getStudentAll_controller.js";
 
 const get_student=express.Router();
 

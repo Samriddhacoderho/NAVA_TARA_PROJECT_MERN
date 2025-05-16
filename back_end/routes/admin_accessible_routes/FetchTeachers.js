@@ -1,6 +1,6 @@
 import express from "express"
-import tokenVerify from "../tokens/token_verify.js";
-import teachersSchema_model from "../database/mongoose_schema/teachers_schema.js";
+import tokenVerify from "../../tokens/token_verify.js";
+import teachersSchema_model from "../../database/mongoose_schema/teachers_schema.js";
 
 const fetch_teachers=express.Router()
 

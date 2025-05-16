@@ -1,5 +1,5 @@
 import express from "express"
-import noticeFetchController from "../controllers/noticeFetch/notice_fetch_controller.js"
+import noticeFetchController from "../../controllers/noticeFetch/notice_fetch_controller.js"
 
 const getNotice=express.Router()
 

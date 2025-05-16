@@ -3,20 +3,20 @@ import connectTo from "./database/mongo_conn.js";
 import { configDotenv } from "dotenv";
 import cors from "cors"
 import cookieParser from "cookie-parser";
-import loginRoute from "./routes/LoginRoute.js";
-import logoutRoute from "./routes/LogoutRoute.js";
-import admin_notice_route from "./routes/AdminNoticeRoute.js";
-import getNotice from "./routes/GetNotice.js";
-import fetch_routine from "./routes/FetchRoutine.js";
-import fetch_teachers from "./routes/FetchTeachers.js";
-import updateRoutine from "./routes/UpdateRoutine.js";
-import create_teacher from "./routes/CreateTeacher.js";
-import create_student from "./routes/CreateStudent.js";
-import get_student from "./routes/GetStudents.js";
-import edit_student from "./routes/EditStudent.js";
-import get_fee from "./routes/GetFeeRecord.js";
-import class_fee_struct from "./routes/ClassFeeStructure.js";
-import edit_record_fee from "./routes/EditRecordFee.js";
+import fetch_teachers from "./routes/admin_accessible_routes/FetchTeachers.js";
+import updateRoutine from "./routes/admin_accessible_routes/UpdateRoutine.js";
+import get_student from "./routes/admin_accessible_routes/students_data/GetStudents.js";
+import get_fee from "./routes/admin_accessible_routes/fees/GetFeeRecord.js";
+import class_fee_struct from "./routes/admin_accessible_routes/fees/ClassFeeStructure.js";
+import edit_record_fee from "./routes/admin_accessible_routes/fees/EditRecordFee.js";
+import create_teacher from "./routes/admin_accessible_routes/accounts_creation_route/CreateTeacher.js";
+import create_student from "./routes/admin_accessible_routes/accounts_creation_route/CreateStudent.js";
+import admin_notice_route from "./routes/admin_accessible_routes/notice/AdminNoticeRoute.js";
+import edit_student from "./routes/admin_accessible_routes/students_data/EditStudent.js";
+import fetch_routine from "./routes/routines/FetchRoutine.js";
+import getNotice from "./routes/notice/GetNotice.js";
+import loginRoute from "./routes/login_logout/LoginRoute.js";
+import logoutRoute from "./routes/login_logout/LogoutRoute.js";
 
 configDotenv()
 
