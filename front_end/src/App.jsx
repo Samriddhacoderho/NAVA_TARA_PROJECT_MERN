@@ -19,8 +19,8 @@ import ViewFee from "./components/students_data/fee_record/ViewFee";
 import View_Class_Fee_Structure from "./components/admin_components/class_fee_structure/View_Class_Fee_Structure";
 import Edit_Fee_Struct from "./components/admin_components/class_fee_structure/Edit_Fee_Struct";
 import EditFeeRecord from "./components/students_data/fee_record/EditFeeRecord";
-import TeacherPayroll from "./components/teachers_payroll/TeachersPayroll";
 import CreateAccountAdmin from "./components/admin_components/accounts_creation/CreateAccountAdmin";
+import TeacherPayrollView from "./components/teachers_payroll/TeachersPayrollView";
 
 const App = () => {
   return (
@@ -69,7 +69,7 @@ const App = () => {
                <Route
                 exact
                 path="/view-teachers-payroll"
-                element={<TeacherPayroll/>}
+                element={<TeacherPayrollView/>}
               />
             </Routes>
           </main>
