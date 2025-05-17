@@ -18,6 +18,7 @@ import getNotice from "./routes/notice/GetNotice.js";
 import loginRoute from "./routes/login_logout/LoginRoute.js";
 import logoutRoute from "./routes/login_logout/LogoutRoute.js";
 import get_salary from "./routes/admin_accessible_routes/salary_payroll/SalaryView.js";
+import create_admin from "./routes/admin_accessible_routes/accounts_creation_route/CreateAdmin.js";
 
 configDotenv()
 
@@ -57,6 +58,8 @@ app.use("/fetch",fetch_routine)  //route for routines fetch by either teacher or
 app.use("/updateRoutine",updateRoutine)  //route for updating routine from admin's account
 
 app.use("/create",create_teacher)  //route for creating teacher from admin's account
+
+app.use("/create",create_admin)  //route for creating admin from admin's account
 
 app.use('/create',create_student)  //route for creating student from admin's account
 

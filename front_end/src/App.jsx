@@ -20,6 +20,7 @@ import View_Class_Fee_Structure from "./components/admin_components/class_fee_st
 import Edit_Fee_Struct from "./components/admin_components/class_fee_structure/Edit_Fee_Struct";
 import EditFeeRecord from "./components/students_data/fee_record/EditFeeRecord";
 import TeacherPayroll from "./components/teachers_payroll/TeachersPayroll";
+import CreateAccountAdmin from "./components/admin_components/accounts_creation/CreateAccountAdmin";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const App = () => {
                 path="/create-account-student"
                 element={<CreateAccountStudent />}
               />
+              <Route exact path="/create-account-admin" element={<CreateAccountAdmin/>}/>
               <Route exact path="/fetch-students" element={<FetchStudents />} />
               <Route exact path="/edit-details" element={<EditStudentData />} />
               <Route exact path="/view-fee" element={<ViewFee />} />
