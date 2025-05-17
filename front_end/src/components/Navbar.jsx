@@ -239,6 +239,18 @@ const Navbar = () => {
                   FEE STRUCTURE
                 </Link>
               </li>}
+               {(adminLoggedIn) && <li>
+                <Link
+                  to="/view-teachers-payroll"
+                   className={`inline-block px-4 py-2 rounded-md ${
+                    location.pathname === "/view-teachers-payroll"
+                      ? "text-white font-medium border-b-2 border-emerald-500"
+                      : "text-gray-300 hover:text-white border-b-2 border-transparent hover:border-emerald-300"
+                  } transition-all duration-300`}
+                >
+                  TEACHERS PAYROLL
+                </Link>
+              </li>}
               
               <li className="ml-4">
                 {!teacherLoggedIn && !studentLoggedIn && !adminLoggedIn ? (
@@ -276,7 +288,6 @@ const Navbar = () => {
             </ul>
           </div>
           
-          {/* Mobile menu and button - will stay hidden on desktop */}
           <div className="md:hidden flex items-center">
             {!teacherLoggedIn && !studentLoggedIn && !adminLoggedIn ? (
               <Link to={"/login-form"}>
@@ -310,7 +321,6 @@ const Navbar = () => {
               </button>
             )}
             
-            {/* Mobile menu toggle button would go here */}
           </div>
         </div>
       </nav>
