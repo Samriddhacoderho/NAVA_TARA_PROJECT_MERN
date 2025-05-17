@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const CreateAccountAdmin = () => {
+  const navigate=useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,6 +31,7 @@ const CreateAccountAdmin = () => {
           { withCredentials: true }
         );
         alert(response.data);
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {
