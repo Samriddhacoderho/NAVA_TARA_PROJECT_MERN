@@ -21,6 +21,7 @@ import Edit_Fee_Struct from "./components/admin_components/class_fee_structure/E
 import EditFeeRecord from "./components/students_data/fee_record/EditFeeRecord";
 import CreateAccountAdmin from "./components/admin_components/accounts_creation/CreateAccountAdmin";
 import TeacherPayrollView from "./components/teachers_payroll/TeachersPayrollView";
+import EmailAsk from "./components/reset_password/EmailAsk";
 
 const App = () => {
   return (
@@ -71,6 +72,7 @@ const App = () => {
                 path="/view-teachers-payroll"
                 element={<TeacherPayrollView/>}
               />
+              <Route exact path="/reset-password" element={<EmailAsk/>}/>
             </Routes>
           </main>
           <Footer />

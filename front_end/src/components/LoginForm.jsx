@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import NoAccess from "./NoAccess";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { contextCreate } from "../Context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -123,6 +123,9 @@ const LoginForm = () => {
                   {errors.password && (
                     <p className="text-red-500">{errors.password.message}</p>
                   )}
+                  <Link to={"/reset-password"}>
+                  <button>Forgot Password?</button>
+                  </Link>
                 </div>
                 <button
                   type="submit"

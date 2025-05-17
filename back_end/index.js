@@ -19,6 +19,7 @@ import loginRoute from "./routes/login_logout/LoginRoute.js";
 import logoutRoute from "./routes/login_logout/LogoutRoute.js";
 import get_salary from "./routes/admin_accessible_routes/salary_payroll/SalaryView.js";
 import create_admin from "./routes/admin_accessible_routes/accounts_creation_route/CreateAdmin.js";
+import email_ask_Route from "./routes/reset_password/email_ask.js";
 
 configDotenv()
 
@@ -75,6 +76,8 @@ app.use("/editFee",edit_record_fee)  //route for editing student fee record from
 app.use("/fetch/class",class_fee_struct)  //route for getting class fee ko structure from admin's account
 
 app.use("/getSalary",get_salary)  //route for getting teacher salary record from admin's account
+
+app.use("/reset/password",email_ask_Route)  //route for resetting password whilst from the login form
 
 
 connectTo()
