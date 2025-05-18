@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 const CodeCheck = (props) => {
+  useEffect(()=>{
+    setTimeout(() => {
+      props.setCode(Math.floor(100000 + Math.random() * 900000));
+    }, 30000);
+  },[]);
+  
     const checkCode_func=async(data)=>{
         try {
             if(Number(data.code)===props.resetCode)
             {
-                alert("Your OTP Code is correct");
+              alert("Your OTP Code is correct!")
+              props.setshowResetForm(true);
             }
             else
             {
-                alert("Your OTP Code is incorrect")
+                alert("Your OTP Code is incorrect or otp validity expired")
             }
         } catch (error) {
             if(error.response)
@@ -36,7 +43,7 @@ const CodeCheck = (props) => {
               className="block text-gray-700 font-medium mb-1"
               htmlFor="code"
             >
-              Verification Code
+              Verification Code (Enter within 30 seconds of receiving code)
             </label>
             <input
               id="code"
@@ -45,7 +52,7 @@ const CodeCheck = (props) => {
               placeholder="Enter your 6-digit OTP here:"
               {...register("code",{required:"This is required"})}
             />
-            {errors.email && <p className="text-red-500">{errors.email.message}</p> }
+            {errors.code && <p className="text-red-500">{errors.code.message}</p> }
           </div>
 
           <button

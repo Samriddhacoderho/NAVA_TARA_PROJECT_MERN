@@ -24,24 +24,24 @@ const emailCheckContr = async (req, res) => {
   };
   try {
     let result = null;
-    let found = false;
+    let found = "";
     result = await adminSchema_model.findOne({ email: req.params.email });
     if (result) {
-      found = true;
+      found = "admin";
     } else {
       result = await teachersSchema_model.findOne({ email: req.params.email });
       if (result) {
-        found = true;
+        found = "teacher";
       } else {
         result = await studentSchema_model.findOne({ email: req.params.email });
         if (result) {
-          found = true;
+          found = "student";
         }
       }
     }
-    if (found) {
+    if (found.length>0) {
       await transporter.sendMail(mailOptions);
-      res.json({ resetCode: resetCode });
+      res.json({ resetCode: resetCode,role:found });
     } else {
       return res
         .status(504)

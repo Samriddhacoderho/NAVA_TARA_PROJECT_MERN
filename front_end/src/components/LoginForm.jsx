@@ -123,10 +123,10 @@ const LoginForm = () => {
                   {errors.password && (
                     <p className="text-red-500">{errors.password.message}</p>
                   )}
-                  <Link to={"/reset-password"}>
+                </div>
+                <Link to={"/reset-password"}>
                   <button>Forgot Password?</button>
                   </Link>
-                </div>
                 <button
                   type="submit"
                   className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
