@@ -6,7 +6,7 @@ const Home = () => {
   const teacherLoggedIn=document.cookie.includes("teacherToken")
   const adminLoggedIn=document.cookie.includes("adminToken")
   const studentLoggedIn=document.cookie.includes("studentToken")
-  const contextUse=useContext(contextCreate)
+  const contextUse=useContext(contextCreate);
   return (
     <div className="h-screen flex flex-col justify-center items-center from-blue-50 to-purple-50 px-4">
       <h1 className="text-indigo-900 text-4xl md:text-5xl font-bold mb-8 text-center leading-tight">
