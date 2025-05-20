@@ -74,7 +74,6 @@ const App = () => {
                 element={<TeacherPayrollView/>}
               />
               <Route exact path="/reset-password" element={<EmailAsk/>}/>
-              <Route exact path="/test" element={<NewPassForm/>}/>
             </Routes>
           </main>
           <Footer />

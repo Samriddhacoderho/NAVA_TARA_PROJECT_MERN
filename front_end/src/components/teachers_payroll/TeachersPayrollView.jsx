@@ -10,6 +10,7 @@ const TeacherPayrollView = () => {
   const [record, setRecord] = useState([]);
   const [teacherName, setTeacherName] = useState(null);
   const [showEdit, setshowEdit] = useState(false);
+  const [monthRecord,setMonth]=useState(null);
   const months = [
     "Baishakh",
     "Jestha",
@@ -124,7 +125,7 @@ const TeacherPayrollView = () => {
                             </span>
                             {totalSalary_month > 0 && (
                               <button
-                                onClick={()=>setshowEdit(true)}
+                                onClick={()=>{setshowEdit(true);setMonth(month)}}
                                 className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-1 px-4 rounded shadow"
                               >
                                 Edit
@@ -132,7 +133,7 @@ const TeacherPayrollView = () => {
                             )}
                             {totalSalary_month <= 0 && (
                               <button
-                                onClick={()=>setshowEdit(true)}
+                                onClick={()=>{setshowEdit(true);setMonth(month)}}
                                 className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-1 px-4 rounded shadow"
                               >
                                 Add
@@ -149,7 +150,7 @@ const TeacherPayrollView = () => {
         </div>
       </div>
     ) : (
-      <TeacherPayrollEdit setshowEdit={setshowEdit}/>
+      <TeacherPayrollEdit setshowEdit={setshowEdit} teacherRecord={record} month={monthRecord}/>
     )
   ) : (
     <NoAccess />

@@ -12,13 +12,13 @@ const Home = () => {
       <h1 className="text-indigo-900 text-4xl md:text-5xl font-bold mb-8 text-center leading-tight">
         Welcome to Navatara English School
       </h1>
-      <Link to={"/login-form"} className="mt-4">
+      {(!adminLoggedIn && !teacherLoggedIn && !studentLoggedIn) && <Link to={"/login-form"} className="mt-4">
         <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-lg font-semibold text-gray-900 rounded-full group bg-gradient-to-br from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
           <span className="relative px-8 py-3 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
             Get Started
           </span>
         </button>
-      </Link>
+      </Link>}
       {(teacherLoggedIn || adminLoggedIn || studentLoggedIn) && (
         <div className="mt-8 px-6 py-3 bg-white rounded-full shadow-md text-purple-800 font-medium">
           Hi {contextUse.name}
