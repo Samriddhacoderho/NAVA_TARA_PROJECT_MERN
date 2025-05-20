@@ -12,7 +12,7 @@ const TeacherPayrollEdit = (props) => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const [record, setRecord] = useState([]);
+  const [record, setRecord] = useState([])
 
   useEffect(() => {
     const fetchOldRecord = async () => {
