@@ -31,7 +31,7 @@ const About = () => {
           <div className="w-full md:w-1/2 relative overflow-hidden group">
             <img
               className="w-full h-80 md:h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              src="https://www.faulkner.edu/wp-content/uploads/Male-teacher-sitting-with-elementary-students-and-drawing.jpg"
+              src="/AboutUs_FRONTEND.png"
               alt="Students learning with teacher"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-blue-900/20 to-transparent opacity-80"></div>

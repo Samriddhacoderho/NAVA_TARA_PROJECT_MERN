@@ -47,20 +47,20 @@ const LoginForm = () => {
   };
 
   return !teacherLoggedIn && !adminLoggedIn && !studentLoggedIn ? (
-    <div className="min-h-screen flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col md:flex-row border border-gray-200 rounded-3xl shadow-2xl w-full max-w-7xl min-h-[80vh] bg-gradient-to-br from-indigo-50 via-white to-blue-100 overflow-hidden">
         <img
-          className="w-full md:w-1/2 h-220 object-cover transition-transform duration-500 hover:scale-105"
+          className="w-full md:w-1/2 h-48 md:h-auto object-cover transition-transform duration-500 hover:scale-105"
           src="/loginPage_FRONTEND_PHOTO.jpg"
           alt="Login Page"
         />
-        <div className="w-full md:w-1/2 p-10 bg-white flex items-center justify-center">
+        <div className="w-full md:w-1/2 p-6 md:p-10 bg-white flex items-center justify-center">
           <div className="w-full max-w-md mx-auto">
-            <div className="mb-10 text-center">
-              <h2 className="text-3xl font-extrabold text-indigo-800 mb-2 tracking-tight drop-shadow">
+            <div className="mb-6 md:mb-10 text-center">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-indigo-800 mb-2 tracking-tight drop-shadow">
                 Welcome back
               </h2>
-              <p className="text-gray-500 text-base font-medium">
+              <p className="text-gray-500 text-sm md:text-base font-medium">
                 Please sign in to your account
               </p>
             </div>
@@ -151,12 +151,6 @@ const LoginForm = () => {
                   </svg>
                   {isSubmitting ? "Signing in..." : "Sign in"}
                 </button>
-              </div>
-              <div className="text-center pt-4">
-                <span className="text-sm text-gray-500">Don't have an account? </span>
-                <Link to="/register" className="text-indigo-600 font-semibold hover:underline">
-                  Register
-                </Link>
               </div>
             </form>
           </div>

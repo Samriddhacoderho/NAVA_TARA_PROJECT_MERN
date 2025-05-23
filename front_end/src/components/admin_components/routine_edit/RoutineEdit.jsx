@@ -114,17 +114,40 @@ const RoutineEdit = () => {
   };
 
   return teachers && adminLoggedIn ? (
-    <div className="min-h-screen flex flex-col items-center p-6">
-      {
-        <div className="w-full max-w-md p-8 rounded-2xl shadow-lg">
-          <form onSubmit={handleSubmit(fetchRoutine_Teacher)}>
+    <div className="min-h-screen  p-4 sm:p-6 lg:p-8">
+      {/* Teacher Selection Card */}
+      <div className="max-w-md mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 sm:p-8 mb-8 border border-white/50">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="p-3 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl">
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
+            Edit Teacher's Routine
+          </h2>
+        </div>
+
+        <form
+          onSubmit={handleSubmit(fetchRoutine_Teacher)}
+          className="space-y-4"
+        >
+          <div className="relative">
             <select
               name="teachers"
               id="teachers"
-              className="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 mb-4"
-              {...register("teachers", {
-                required: "This is required!",
-              })}
+              className="w-full p-3 pl-4 pr-10 border border-teal-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 text-gray-700 bg-white/50 backdrop-blur-sm appearance-none hover:border-teal-300"
+              {...register("teachers", { required: "This is required!" })}
             >
               <option value="">Select a teacher</option>
               {teachers.map((teacher) => (
@@ -133,34 +156,83 @@ const RoutineEdit = () => {
                 </option>
               ))}
             </select>
-
-            {errors.teachers && (
-              <p className="text-red-500 mb-2">{errors.teachers.message}</p>
-            )}
-
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                disabled={isSubmitting}
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg
+                className="w-5 h-5 text-teal-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                {isSubmitting ? "Viewing Routine" : "View Routine"}
-              </button>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
             </div>
-          </form>
-        </div>
-      }
+          </div>
 
+          {errors.teachers && (
+            <p className="text-red-500 text-sm ml-1">
+              {errors.teachers.message}
+            </p>
+          )}
+
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="relative inline-flex items-center px-6 py-3 rounded-xl text-white bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 focus:ring-4 focus:ring-teal-300/50 transition-all duration-300 font-medium text-sm shadow-lg hover:shadow-teal-500/25 group"
+            >
+              {isSubmitting ? (
+                <>
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Viewing Routine
+                </>
+              ) : (
+                <>
+                  View Routine
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200">
+                    →
+                  </span>
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* Routine Table */}
       {routines.length ? (
-        <div className="overflow-x-auto p-4">
-          <table className="w-full table-fixed border-collapse">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 overflow-x-auto border border-white/50">
+          <table className="w-full border-collapse min-w-[800px]">
             <thead>
               <tr>
-                <th className="w-1/6"></th>
+                <th className="w-1/6 p-4 bg-transparent"></th>
                 {periods.map((period) => (
                   <th
                     key={period}
-                    className="bg-blue-100 text-blue-900 font-bold py-2 px-4 text-center"
+                    className="bg-teal-50/50 text-teal-900 font-bold p-4 border-b-2 border-teal-100 text-center first-letter:text-lg"
                   >
                     {period.charAt(0).toUpperCase() +
                       period.slice(1, 6) +
@@ -173,18 +245,16 @@ const RoutineEdit = () => {
             <tbody>
               {routines.map((routine) =>
                 days.map(({ name, color }) => (
-                  <tr key={name}>
-                    <td
-                      className={`${color} text-white font-bold py-6 text-center`}
-                    >
+                  <tr key={name} className="group hover:bg-teal-50/30 transition-colors duration-200">
+                    <td className={`${color} text-white font-bold p-4 text-center rounded-xl m-1 shadow-lg transition-transform duration-200 group-hover:scale-[1.02]`}>
                       {name}
                     </td>
                     {periods.map((period) => (
-                      <td key={period} className="border p-4 text-center">
-                        <form>
+                      <td key={period} className="border border-teal-100/30 p-4">
+                        <form className="space-y-2">
                           <input
                             type="text"
-                            className="text-purple-700 font-bold"
+                            className="w-full px-3 py-2 rounded-lg border border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 text-gray-700 font-medium text-center bg-white/50 placeholder-teal-300"
                             placeholder="Subject Name"
                             defaultValue={
                               routine.schedule[name][period].subject
@@ -198,11 +268,10 @@ const RoutineEdit = () => {
                               )
                             }
                           />
-                          <br />
                           <input
                             type="text"
+                            className="w-full px-3 py-2 rounded-lg border border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 text-gray-700 font-medium text-center bg-white/50 placeholder-teal-300"
                             placeholder="Class Name"
-                            className="text-purple-700 font-bold"
                             defaultValue={
                               routine.schedule[name][period].class_ko_name
                             }
@@ -223,18 +292,17 @@ const RoutineEdit = () => {
               )}
             </tbody>
           </table>
-          <div className="flex justify-end">
+
+          <div className="flex justify-end mt-6">
             <button
-              className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
               onClick={handleUpdateChange}
+              className="relative inline-flex items-center px-6 py-3 rounded-xl text-white bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 focus:ring-4 focus:ring-teal-300/50 transition-all duration-300 font-medium text-sm shadow-lg hover:shadow-teal-500/25"
             >
               Update Routine
             </button>
-          </div>{" "}
+          </div>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
     </div>
   ) : (
     <NoAccess />
