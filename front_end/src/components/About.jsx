@@ -17,7 +17,7 @@ const About = () => {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5 animate-fade-in delay-100">
-            About Navatara English School
+            About Nawatara English School
           </h1>
           
           <div className="h-1 w-24 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded mb-6 animate-expand-width"></div>
@@ -65,7 +65,7 @@ const About = () => {
               
               <div className="space-y-6 text-gray-600 animate-fade-in delay-200">
                 <p>
-                  Founded in 2070 BS (2013 AD), Navatara English School has established itself as a premier educational institution in Biratnagar, Nepal. We have grown into a thriving community of over 500 learners and 50 dedicated educators.
+                  Founded in 2070 BS (2013 AD), Nawatara English School has established itself as a premier educational institution in Biratnagar, Nepal. We have grown into a thriving community of over 500 learners and 50 dedicated educators.
                 </p>
                 
                 <p>
@@ -73,7 +73,7 @@ const About = () => {
                 </p>
                 
                 <p>
-                  At Navatara, we take pride in our modern facilities, innovative teaching methodologies, and commitment to creating a supportive environment where every student can thrive. Our graduates consistently achieve outstanding results and go on to excel in higher education institutions across Nepal and abroad.
+                  At Nawatara, we take pride in our modern facilities, innovative teaching methodologies, and commitment to creating a supportive environment where every student can thrive. Our graduates consistently achieve outstanding results and go on to excel in higher education institutions across Nepal and abroad.
                 </p>
               </div>
               

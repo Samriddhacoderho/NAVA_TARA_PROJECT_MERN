@@ -20,13 +20,15 @@ const LoginForm = () => {
   const studentLoggedIn = document.cookie.includes("studentToken");
   const contextUse = useContext(contextCreate);
   const navigate = useNavigate();
+
   const passHandleFunc = () => {
     if (showPass) {
       setshowPass(false);
     } else {
-        setshowPass(true);
+      setshowPass(true);
     }
   };
+
   const formBackendFunc = async (data) => {
     try {
       const response = await axios.post("http://localhost:8000/login", data, {
@@ -43,99 +45,120 @@ const LoginForm = () => {
       }
     }
   };
+
   return !teacherLoggedIn && !adminLoggedIn && !studentLoggedIn ? (
-    <div>
-      <div className="flex flex-col md:flex-row border border-gray-200 rounded-lg shadow-lg w-full">
+    <div className="min-h-screen flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row border border-gray-200 rounded-3xl shadow-2xl w-full max-w-7xl min-h-[80vh] bg-gradient-to-br from-indigo-50 via-white to-blue-100 overflow-hidden">
         <img
-          className="w-full md:w-1/2 h-64 md:h-auto object-cover"
+          className="w-full md:w-1/2 h-220 object-cover transition-transform duration-500 hover:scale-105"
           src="https://ei.study/wp-content/uploads/elementor/thumbs/4-1-qdcrno8zblz2tck9z8mvv0xz6in0c23ze9u49ht9gw.jpg"
           alt="Login Page"
         />
-        <div className="p-6 md:w-1/2 flex flex-col justify-center">
-          <div className="min-h-screen flex items-start justify-center pt-32">
-            <div className="bg-gray-200 shadow-lg rounded-xl p-8 w-full max-w-md border border-gray-200">
-              <form onSubmit={handleSubmit(formBackendFunc)}>
-                <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-                  Navatara English School
-                </h2>
-
-                <div className="mb-5">
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Your email
-                  </label>
+        <div className="w-full md:w-1/2 p-10 bg-white flex items-center justify-center">
+          <div className="w-full max-w-md mx-auto">
+            <div className="mb-10 text-center">
+              <h2 className="text-3xl font-extrabold text-indigo-800 mb-2 tracking-tight drop-shadow">
+                Welcome back
+              </h2>
+              <p className="text-gray-500 text-base font-medium">
+                Please sign in to your account
+              </p>
+            </div>
+            <form onSubmit={handleSubmit(formBackendFunc)} className="space-y-7">
+              <div>
+                <label htmlFor="email" className="block text-sm font-semibold text-indigo-700 mb-1">
+                  Email address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                  </div>
                   <input
                     type="email"
                     id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Enter your valid email here:"
+                    placeholder="Enter your email"
+                    className={`appearance-none block w-full pl-10 pr-4 py-3 border ${
+                      errors.email ? 'border-red-400' : 'border-indigo-200'
+                    } rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 bg-indigo-50 placeholder-indigo-300 text-indigo-900 transition`}
                     {...register("email", {
                       required: "This cannot be left empty",
                     })}
                   />
-                  {errors.email && (
-                    <p className="text-red-500">{errors.email.message}</p>
-                  )}
                 </div>
-                <div className="mb-5">
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Your password
+                {errors.email && (
+                  <p className="mt-1 text-xs text-red-500 font-medium">{errors.email.message}</p>
+                )}
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label htmlFor="password" className="block text-sm font-semibold text-indigo-700">
+                    Password
                   </label>
-                  <div className="flex flex-row">
-                    <input
-                      type={showPass ? "text" : "password"}
-                      id="password"
-                      placeholder="Enter your valid password here:"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      {...register("password", {
-                        required: "This cannot be left empty",
-                        minLength: {
-                          value: 8,
-                          message: "Password must be atleast 8 characters",
-                        },
-                        maxLength: {
-                          value: 30,
-                          message:
-                            "Password is too long, max 30 characters accepted",
-                        },
-                      })}
-                    />
-                    {!showPass && (
-                      <FontAwesomeIcon
-                        onClick={passHandleFunc}
-                        className="mt-3 ml-3 cursor-pointer"
-                        icon={faEye}
-                      />
-                    )}
-                    {showPass && (
-                      <FontAwesomeIcon
-                        onClick={passHandleFunc}
-                        className="mt-3 ml-3 cursor-pointer"
-                        icon={faEyeSlash}
-                      />
-                    )}
-                  </div>
-                  {errors.password && (
-                    <p className="text-red-500">{errors.password.message}</p>
-                  )}
-                </div>
-                <Link to={"/reset-password"}>
-                  <button>Forgot Password?</button>
+                  <Link to="/reset-password" className="text-xs text-indigo-500 hover:text-indigo-700 font-semibold transition">
+                    Forgot password?
                   </Link>
+                </div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <input
+                    type={showPass ? "text" : "password"}
+                    id="password"
+                    placeholder="Enter your password"
+                    className={`appearance-none block w-full pl-10 pr-12 py-3 border ${
+                      errors.password ? 'border-red-400' : 'border-indigo-200'
+                    } rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 bg-indigo-50 placeholder-indigo-300 text-indigo-900 transition`}
+                    {...register("password", {
+                      required: "This cannot be left empty",
+                      minLength: {
+                        value: 8,
+                        message: "Password must be at least 8 characters",
+                      },
+                      maxLength: {
+                        value: 30,
+                        message: "Password is too long, max 30 characters accepted",
+                      },
+                    })}
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
+                    <FontAwesomeIcon
+                      onClick={passHandleFunc}
+                      className="h-5 w-5 text-indigo-400 hover:text-indigo-600 transition"
+                      icon={showPass ? faEyeSlash : faEye}
+                    />
+                  </div>
+                </div>
+                {errors.password && (
+                  <p className="mt-1 text-xs text-red-500 font-medium">{errors.password.message}</p>
+                )}
+              </div>
+
+              <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   disabled={isSubmitting}
+                  className="w-full flex justify-center items-center py-3 px-4 rounded-xl text-white bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 shadow-lg font-semibold text-lg transition-all duration-200"
                 >
-                  {isSubmitting ? "Logging In" : "Log In"}
+                  <svg className="h-5 w-5 mr-2 text-indigo-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
+                  {isSubmitting ? "Signing in..." : "Sign in"}
                 </button>
-              </form>
-            </div>
+              </div>
+              <div className="text-center pt-4">
+                <span className="text-sm text-gray-500">Don't have an account? </span>
+                <Link to="/register" className="text-indigo-600 font-semibold hover:underline">
+                  Register
+                </Link>
+              </div>
+            </form>
           </div>
         </div>
       </div>

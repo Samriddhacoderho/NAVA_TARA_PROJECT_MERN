@@ -48,7 +48,7 @@ const CreateAccountTeacher = () => {
           <div className="bg-gray-200 shadow-lg rounded-xl p-8 w-full max-w-md border border-gray-200">
             <form onSubmit={handleSubmit(createTeacher)}>
               <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-                Navatara English School:Teacher Account Creation Form
+                Nawatara English School:Teacher Account Creation Form
               </h2>
 
               <div className="mb-5">

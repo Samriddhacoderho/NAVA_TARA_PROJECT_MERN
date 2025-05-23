@@ -38,7 +38,7 @@ const EditStudentData = () => {
           <div className="bg-gray-200 shadow-lg rounded-xl p-8 max-w-lg border border-gray-200 mb-5">
             <form onSubmit={handleSubmit(editStudent)}>
               <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-                Navatara English School:Student Account Updation Form
+                Nawatara English School:Student Account Updation Form
               </h2>
               <div className="flex flex-row">
                 <div className="mb-5">

@@ -143,7 +143,7 @@ const Footer = () => {
               <span className="font-semibold relative">
                 <span className="absolute -inset-1 bg-gradient-to-r from-red-500/20 via-purple-500/20 to-indigo-500/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <span className="relative bg-gradient-to-r from-red-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-bold">
-                  Navatara English School
+                  Nawatara English School
                 </span>
               </span>
               <span className="mx-1">•</span>
