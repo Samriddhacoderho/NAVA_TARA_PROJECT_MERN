@@ -51,7 +51,7 @@ const LoginForm = () => {
       <div className="flex flex-col md:flex-row border border-gray-200 rounded-3xl shadow-2xl w-full max-w-7xl min-h-[80vh] bg-gradient-to-br from-indigo-50 via-white to-blue-100 overflow-hidden">
         <img
           className="w-full md:w-1/2 h-220 object-cover transition-transform duration-500 hover:scale-105"
-          src="https://ei.study/wp-content/uploads/elementor/thumbs/4-1-qdcrno8zblz2tck9z8mvv0xz6in0c23ze9u49ht9gw.jpg"
+          src="/loginPage_FRONTEND_PHOTO.jpg"
           alt="Login Page"
         />
         <div className="w-full md:w-1/2 p-10 bg-white flex items-center justify-center">
