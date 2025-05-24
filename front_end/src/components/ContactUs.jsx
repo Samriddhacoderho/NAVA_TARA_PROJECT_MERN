@@ -1,9 +1,30 @@
 import React, { useContext } from 'react'
 import { contextCreate } from '../Context';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 const ContactUs = () => {
     const contextUse = useContext(contextCreate);
     const {mode, setMode} = contextUse;
+    const {register,handleSubmit,formState:{errors,isSubmitting}}=useForm();
+
+    const onContactSubmit = async(data) => {
+      try {
+        const response=await axios.post("http://localhost:8000/contact/message",data);
+        alert(response.data);
+        console.log(data)
+        document.querySelector('form').reset();  //esle form ko fields reset garcha
+      } catch (error) {
+        if(error.response)
+        {
+          alert(error.response.data);
+        }
+        else
+        {
+          alert(error.messaege);
+        }
+      }
+    }
     
     return (
       <div className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${
@@ -82,7 +103,7 @@ const ContactUs = () => {
                 ? 'bg-white border-gray-200' 
                 : 'bg-white/80 backdrop-blur-sm border-white/50'
             }`}>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit(onContactSubmit)}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${
@@ -97,8 +118,14 @@ const ContactUs = () => {
                           ? 'bg-gray-50 border-gray-200' 
                           : 'bg-white/50 border-gray-200'
                       }`}
-                      placeholder="John"
+                      placeholder="Enter your first name"
+                      {...register('firstName', { required: 'First name is required' })}
                     />
+                    {errors.firstName && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.firstName.message}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${
@@ -113,8 +140,14 @@ const ContactUs = () => {
                           ? 'bg-gray-50 border-gray-200' 
                           : 'bg-white/50 border-gray-200'
                       }`}
-                      placeholder="Doe"
+                      placeholder="Enter your last name"
+                    {...register('lastName', { required: 'Last name is required' })}
                     />
+                    {errors.lastName && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.lastName.message}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -131,8 +164,16 @@ const ContactUs = () => {
                         ? 'bg-gray-50 border-gray-200' 
                         : 'bg-white/50 border-gray-200'
                     }`}
-                    placeholder="john@example.com"
+                    placeholder="Enter your email address"
+                    {...register('email', { 
+                      required: 'Email is required', 
+                    })}
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -149,7 +190,19 @@ const ContactUs = () => {
                         : 'bg-white/50 border-gray-200'
                     }`}
                     placeholder="Your message here..."
+                    {...register('message', { 
+                      required: 'Message is required', 
+                      minLength: {
+                        value: 10,
+                        message: 'Message must be at least 10 characters long'
+                      }
+                    })}
                   ></textarea>
+                  {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.message.message}
+                    </p>
+                  )}
                 </div>
 
                 <div>

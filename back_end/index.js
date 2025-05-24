@@ -22,6 +22,7 @@ import create_admin from "./routes/admin_accessible_routes/accounts_creation_rou
 import email_ask_Route from "./routes/reset_password/email_ask.js";
 import mongoose from "mongoose";
 import salary_edit from "./routes/admin_accessible_routes/salary_payroll/SalaryEdit.js";
+import contactRoute from "./routes/contact/ContactRoute.js";
 
 configDotenv()
 
@@ -42,6 +43,8 @@ app.use(express.static("public/notice_files"))
 
 
 //routes
+
+app.use("/contact",contactRoute);  //route for contact form submission
 
 app.use("/",loginRoute);  //route for login before role distribution:
 
