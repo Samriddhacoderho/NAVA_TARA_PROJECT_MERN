@@ -129,7 +129,7 @@ const Navbar = () => {
               )}
               <li>
                 <Link
-                  to="#"
+                  to="/contact-us"
                   className={`inline-block px-4 py-2 rounded-md ${
                     location.pathname === "/contact-us"
                       ? "text-white font-medium border-b-2 border-teal-500"

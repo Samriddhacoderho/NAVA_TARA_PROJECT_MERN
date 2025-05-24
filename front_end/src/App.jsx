@@ -22,7 +22,7 @@ import EditFeeRecord from "./components/students_data/fee_record/EditFeeRecord";
 import CreateAccountAdmin from "./components/admin_components/accounts_creation/CreateAccountAdmin";
 import TeacherPayrollView from "./components/teachers_payroll/TeachersPayrollView";
 import EmailAsk from "./components/reset_password/EmailAsk";
-import NewPassForm from "./components/reset_password/NewPassForm";
+import ContactUs from "./components/ContactUs";
 
 const App = () => {
   return (
@@ -74,6 +74,11 @@ const App = () => {
                 element={<TeacherPayrollView/>}
               />
               <Route exact path="/reset-password" element={<EmailAsk/>}/>
+              <Route
+                exact
+                path="/contact-us"
+                element={<ContactUs/>}
+              />
             </Routes>
           </main>
           <Footer />
