@@ -49,10 +49,10 @@ const CreateAccountAdmin = () => {
   return adminLoggedIn ? (
     <div className={`min-h-screen flex items-center justify-center ${
       mode === "light" ? "bg-[#f5f5f5]" : "bg-[#0f172a]"
-    } py-12`}>
+    } py-6 sm:py-12 px-4 sm:px-6 lg:px-8`}>
       <div className="flex w-full max-w-[90rem] min-h-[80vh] overflow-hidden rounded-2xl shadow-2xl">
-        {/* Left Image Section */}
-        <div className="relative hidden w-[45%] lg:block">
+        {/* Left Image Section - Added responsive hidden */}
+        <div className="relative hidden lg:block w-[45%]">
           <img
             src="/CreateAccountAdmin.png"
             alt="Admin dashboard"
@@ -67,118 +67,121 @@ const CreateAccountAdmin = () => {
           </div>
         </div>
 
-        {/* Right Form Section */}
+        {/* Right Form Section - Added responsive padding and width */}
         <div className={`w-full lg:w-[55%] ${
           mode === "light" ? "bg-white" : "bg-[#1e293b]"
-        } p-8 lg:p-20 flex items-center justify-center`}>
-          <div className="w-full max-w-md">
-            <div className="text-center mb-8">
-              <h2 className={`text-3xl font-bold ${
+        } p-4 sm:p-8 lg:p-20 flex items-center justify-center`}>
+          <div className="w-full max-w-md space-y-4 sm:space-y-6">
+            <div className="text-center mb-4 sm:mb-8">
+              <h2 className={`text-2xl sm:text-3xl font-bold ${
                 mode === "light" ? "text-gray-900" : "text-white"
               }`}>Welcome</h2>
-              <p className={`mt-3 ${
+              <p className={`mt-2 sm:mt-3 text-sm sm:text-base ${
                 mode === "light" ? "text-gray-600" : "text-gray-300"
               }`}>
                 Please fill in the administrator's details below
               </p>
             </div>
 
-            <form onSubmit={handleSubmit(createAdmin)} className="space-y-6">
-              {/* Admin's Name */}
-              <div className="space-y-2">
-                <label className={`text-sm font-medium ${
-                  mode === "light" ? "text-gray-700" : "text-gray-200"
-                }`}>
-                  Admin's Name
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    {...register("name", { required: "This cannot be left empty" })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
-                      mode === "light"
-                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-                    }`}
-                    placeholder="Enter admin's full name"
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Admin's Email */}
-              <div className="space-y-2">
-                <label className={`text-sm font-medium ${
-                  mode === "light" ? "text-gray-700" : "text-gray-200"
-                }`}>
-                  Admin's Email
-                </label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    {...register("email", { required: "This cannot be left empty" })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
-                      mode === "light"
-                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-                    }`}
-                    placeholder="Enter admin's email address"
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Admin's Password */}
-              <div className="space-y-2">
-                <label className={`text-sm font-medium ${
-                  mode === "light" ? "text-gray-700" : "text-gray-200"
-                }`}>
-                  Admin's Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPass ? "text" : "password"}
-                    {...register("password", {
-                      required: "This cannot be left empty",
-                      minLength: {
-                        value: 8,
-                        message: "Password must be at least 8 characters",
-                      },
-                      maxLength: {
-                        value: 30,
-                        message: "Password is too long, max 30 characters accepted",
-                      },
-                    })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
-                      mode === "light"
-                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-                    }`}
-                    placeholder="Create a secure password"
-                  />
-                  <button
-                    type="button"
-                    onClick={passHandleFunc}
-                    className={`absolute right-3 top-1/2 -translate-y-1/2 ${
-                      mode === "light" ? "text-gray-400 hover:text-gray-600" : "text-gray-400 hover:text-gray-200"
-                    }`}
-                  >
-                    <FontAwesomeIcon
-                      icon={showPass ? faEyeSlash : faEye}
-                      className="h-5 w-5"
+            <form onSubmit={handleSubmit(createAdmin)} className="space-y-4 sm:space-y-6">
+              {/* Grid for form fields - Added responsive grid */}
+              <div className="space-y-4 sm:space-y-6">
+                {/* Admin's Name - Added responsive text and padding */}
+                <div className="space-y-1 sm:space-y-2">
+                  <label className={`text-xs sm:text-sm font-medium ${
+                    mode === "light" ? "text-gray-700" : "text-gray-200"
+                  }`}>
+                    Admin's Name
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      {...register("name", { required: "This cannot be left empty" })}
+                      className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
+                        mode === "light"
+                          ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                      }`}
+                      placeholder="Enter admin's full name"
                     />
-                  </button>
-                  {errors.password && (
-                    <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
-                  )}
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Admin's Email - Responsive classes applied */}
+                <div className="space-y-1 sm:space-y-2">
+                  <label className={`text-xs sm:text-sm font-medium ${
+                    mode === "light" ? "text-gray-700" : "text-gray-200"
+                  }`}>
+                    Admin's Email
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      {...register("email", { required: "This cannot be left empty" })}
+                      className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
+                        mode === "light"
+                          ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                      }`}
+                      placeholder="Enter admin's email address"
+                    />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Admin's Password - Responsive classes applied */}
+                <div className="space-y-1 sm:space-y-2">
+                  <label className={`text-xs sm:text-sm font-medium ${
+                    mode === "light" ? "text-gray-700" : "text-gray-200"
+                  }`}>
+                    Admin's Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPass ? "text" : "password"}
+                      {...register("password", {
+                        required: "This cannot be left empty",
+                        minLength: {
+                          value: 8,
+                          message: "Password must be at least 8 characters",
+                        },
+                        maxLength: {
+                          value: 30,
+                          message: "Password is too long, max 30 characters accepted",
+                        },
+                      })}
+                      className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
+                        mode === "light"
+                          ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                      }`}
+                      placeholder="Create a secure password"
+                    />
+                    <button
+                      type="button"
+                      onClick={passHandleFunc}
+                      className={`absolute right-3 top-1/2 -translate-y-1/2 ${
+                        mode === "light" ? "text-gray-400 hover:text-gray-600" : "text-gray-400 hover:text-gray-200"
+                      }`}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPass ? faEyeSlash : faEye}
+                        className="h-5 w-5"
+                      />
+                    </button>
+                    {errors.password && (
+                      <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Submit Button */}
+              {/* Submit Button - Added responsive padding and text */}
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -186,7 +189,7 @@ const CreateAccountAdmin = () => {
                   mode === "light"
                     ? "bg-blue-600 hover:bg-blue-700"
                     : "bg-blue-500 hover:bg-blue-600"
-                } text-white py-3 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center`}
+                } text-white py-2 sm:py-3 text-sm sm:text-base rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center`}
               >
                 {isSubmitting ? (
                   <>

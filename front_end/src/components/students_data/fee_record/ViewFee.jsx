@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import NoAccess from "../../NoAccess";
 import axios from "axios";
 import { PDFViewer } from "@react-pdf/renderer";
 import ReceiptPDF from "./ReceiptPDF";
+import { contextCreate } from "../../../Context";
 
 const ViewFee = () => {
   const navigate=useNavigate();
+  const {mode,setMode}=useContext(contextCreate)
   const location = useLocation();
   const [record, setRecord] = useState([]);
   const months = [
@@ -74,103 +76,206 @@ const ViewFee = () => {
     }
   }
   return location.state ? (
-    <div className="bg-gradient-to-r from-blue-100 to-purple-200 py-10 px-4">
-      {!PDF && <div>
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white rounded-2xl shadow-xl p-6 border border-blue-300">
-          <h2 className="text-2xl font-semibold text-blue-800 mb-6">
-            🎓 Student Information
-          </h2>
-          <div className="space-y-4 text-gray-700">
-            <div className="p-4 bg-blue-50 rounded-lg shadow-sm">
-              Full Name: <strong>{location.state.student.name}</strong>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg shadow-sm">
-              Class: <strong>{location.state.student.class_name}</strong>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg shadow-sm">
-              Address: <strong>{location.state.student.address}</strong>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg shadow-sm">
-              Father's Name:{" "}
-              <strong>{location.state.student.father_name}</strong>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg shadow-sm">
-              Father's Phone:{" "}
-              <strong>{location.state.student.father_phone}</strong>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg shadow-sm">
-              Mother's Name:{" "}
-              <strong>{location.state.student.mother_name}</strong>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg shadow-sm">
-              Mother's Phone:{" "}
-              <strong>{location.state.student.mother_phone}</strong>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-xl p-6 border border-red-300 w-140">
-          <h2 className="text-2xl font-semibold text-red-800 mb-6">
-            📋 Payment Records
-          </h2>
-          <div className="space-y-3">
-            <div className="grid grid-cols-1 gap-3">
-              {months.map((month) =>
-                record.map((rec) => {
-                  const totalMonth =
-                    rec.records[month].adm_fee +
-                    rec.records[month].month_fee +
-                    rec.records[month].comp_fee;
-                  return (
-                    <div
-                      key={month}
-                      className="w-full flex justify-between items-center p-3 bg-red-50 rounded-lg shadow-sm"
-                    >
-                      <span>
-                        📅 {month}:{" "}
-                        <strong>
-                          {totalMonth > 0 ? "Rs." + totalMonth : "XXX"}
-                        </strong>
-                      </span>
-                      <div className="flex gap-2">
-                        <button onClick={()=>handleAmountFunc(month)} className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-1 px-4 rounded shadow">
-                          {totalMonth>0?"Edit":"Add"}
-                        </button>
-                        {totalMonth > 0 && (
-                          <button onClick={()=>{setPDF(true),setpdfdata({month:month,adm_fee:rec.records[month].adm_fee,month_fee:rec.records[month].month_fee,comp_fee:rec.records[month].comp_fee,total:totalMonth})}}className="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-4 rounded shadow">
-                            Download Receipt
-                          </button>
-                        )}
-                      </div>
+    <div className={`min-h-screen py-10 px-4 ${
+    mode === 'light'
+      ? 'bg-gradient-to-br from-blue-50 to-indigo-100'
+      : 'bg-gradient-to-br from-gray-900 to-blue-900'
+  }`}>
+      {!PDF && (
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Student Information Card */}
+            <div className={`${
+              mode === 'light'
+                ? 'bg-white shadow-lg border border-blue-100'
+                : 'bg-gray-800 shadow-xl border border-gray-700'
+            } rounded-2xl overflow-hidden`}>
+              <div className={`${
+                mode === 'light'
+                  ? 'bg-gradient-to-r from-blue-500 to-indigo-600'
+                  : 'bg-gradient-to-r from-blue-600 to-indigo-700'
+              } p-6`}>
+                <h2 className="text-2xl font-bold text-white flex items-center">
+                  <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  Student Information
+                </h2>
+              </div>
+              
+              <div className="p-6 space-y-4">
+                {/* Student Details */}
+                <div className={`space-y-4 ${
+                  mode === 'light' ? 'text-gray-600' : 'text-gray-300'
+                }`}>
+                  {[
+                    { label: 'Full Name', value: location.state.student.name },
+                    { label: 'Class', value: location.state.student.class_name },
+                    { label: 'Address', value: location.state.student.address },
+                    { label: "Father's Name", value: location.state.student.father_name },
+                    { label: "Father's Phone", value: location.state.student.father_phone },
+                    { label: "Mother's Name", value: location.state.student.mother_name },
+                    { label: "Mother's Phone", value: location.state.student.mother_phone }
+                  ].map((item, index) => (
+                    <div key={index} className={`${
+                      mode === 'light'
+                        ? 'bg-blue-50 hover:bg-blue-100'
+                        : 'bg-gray-700/50 hover:bg-gray-700'
+                    } p-4 rounded-xl transition-colors duration-200`}>
+                      <span className="text-sm font-medium">{item.label}:</span>
+                      <p className={`text-lg font-semibold mt-1 ${
+                        mode === 'light' ? 'text-gray-900' : 'text-white'
+                      }`}>{item.value}</p>
                     </div>
-                  );
-                })
-              )}
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <div className="mt-6 space-y-2">
-              <div className="p-3 bg-red-100 text-red-800 font-semibold rounded-lg shadow-sm">
-                💸 Amount Left: RS {due} (NEED TO BE PAID)
+            {/* Payment Records Card */}
+            <div className={`${
+              mode === 'light'
+                ? 'bg-white shadow-lg border border-red-100'
+                : 'bg-gray-800 shadow-xl border border-gray-700'
+            } rounded-2xl overflow-hidden`}>
+              <div className={`${
+                mode === 'light'
+                  ? 'bg-gradient-to-r from-red-500 to-pink-600'
+                  : 'bg-gradient-to-r from-red-600 to-pink-700'
+              } p-6`}>
+                <h2 className="text-2xl font-bold text-white flex items-center">
+                  <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Payment Records
+                </h2>
               </div>
-              <div className="p-3 bg-green-100 text-green-800 font-semibold rounded-lg shadow-sm">
-                ✅ Amount Paid: RS {payed} (PAID SO FAR)
+
+              <div className="p-6 space-y-6">
+                {/* Monthly Records */}
+                <div className="grid gap-4">
+                  {months.map((month) =>
+                    record.map((rec) => {
+                      const totalMonth =
+                        rec.records[month].adm_fee +
+                        rec.records[month].month_fee +
+                        rec.records[month].comp_fee;
+                      return (
+                        <div key={month} className={`${
+                          mode === 'light'
+                            ? 'bg-gray-50 border border-gray-200'
+                            : 'bg-gray-700/50 border border-gray-600'
+                        } rounded-xl p-4 flex flex-wrap gap-4 items-center justify-between transition-all hover:shadow-md`}>
+                          <div className="space-y-1">
+                            <div className={`text-sm font-medium ${
+                              mode === 'light' ? 'text-gray-500' : 'text-gray-400'
+                            }`}>
+                              {month}
+                            </div>
+                            <div className={`text-lg font-semibold ${
+                              mode === 'light' ? 'text-gray-900' : 'text-white'
+                            }`}>
+                              {totalMonth > 0 ? `Rs. ${totalMonth}` : 'XXX'}
+                            </div>
+                          </div>
+                          
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleAmountFunc(month)}
+                              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                                mode === 'light'
+                                  ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                                  : 'bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30'
+                              }`}
+                            >
+                              {totalMonth > 0 ? 'Edit' : 'Add'}
+                            </button>
+                            
+                            {totalMonth > 0 && (
+                              <button
+                                onClick={() => {
+                                  setPDF(true);
+                                  setpdfdata({
+                                    month,
+                                    adm_fee: rec.records[month].adm_fee,
+                                    month_fee: rec.records[month].month_fee,
+                                    comp_fee: rec.records[month].comp_fee,
+                                    total: totalMonth
+                                  });
+                                }}
+                                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                                  mode === 'light'
+                                    ? 'bg-green-100 text-green-700 hover:bg-green-200'
+                                    : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                                }`}
+                              >
+                                Download Receipt
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+
+                {/* Summary Section */}
+                <div className="space-y-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className={`p-4 rounded-xl ${
+                    mode === 'light'
+                      ? 'bg-red-50 text-red-700'
+                      : 'bg-red-500/10 text-red-400'
+                  }`}>
+                    <div className="text-sm">Amount Due</div>
+                    <div className="text-lg font-bold">Rs. {due}</div>
+                  </div>
+                  
+                  <div className={`p-4 rounded-xl ${
+                    mode === 'light'
+                      ? 'bg-green-50 text-green-700'
+                      : 'bg-green-500/10 text-green-400'
+                  }`}>
+                    <div className="text-sm">Amount Paid</div>
+                    <div className="text-lg font-bold">Rs. {payed}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Back Button */}
+          <div className="mt-8 flex justify-center">
+            <Link to="/fetch-students">
+              <button className={`px-6 py-3 rounded-xl font-medium transition-all transform hover:scale-105 ${
+                mode === 'light'
+                  ? 'bg-white text-gray-700 shadow-md hover:shadow-lg'
+                  : 'bg-gray-800 text-white shadow-xl hover:shadow-2xl'
+              }`}>
+                ← Back to Students
+              </button>
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className="flex justify-center items-center mt-5">
-        <Link to={"/fetch-students"}>
-          <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-              Back
-            </span>
+      )}
+
+      {/* PDF Viewer Section */}
+      {PDF && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex flex-col items-center justify-center p-4">
+          <PDFViewer style={{width:"100%", height:"90vh"}} className="rounded-lg shadow-2xl">
+            <ReceiptPDF studentData={location.state.student} pdfdata={pdfdata} />
+          </PDFViewer>
+          <button
+            onClick={() => {setPDF(false); setpdfdata({})}}
+            className={`mt-4 px-6 py-3 rounded-xl font-medium transition-all ${
+              mode === 'light'
+                ? 'bg-white text-gray-700 hover:bg-gray-50'
+                : 'bg-gray-800 text-white hover:bg-gray-700'
+            }`}
+          >
+            Close Preview
           </button>
-        </Link>
-      </div>
-      </div>}
-      {PDF && <div><PDFViewer style={{width:"100%",height:"100vh"}}><ReceiptPDF studentData={location.state.student} pdfdata={pdfdata} /></PDFViewer> <button onClick={()=>{setPDF(false),setpdfdata({})}}>Go Back</button></div>}
+        </div>
+      )}
     </div>
   ) : (
     <NoAccess />

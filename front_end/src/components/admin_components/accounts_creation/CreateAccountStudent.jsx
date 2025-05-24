@@ -47,10 +47,10 @@ const CreateAccountStudent = () => {
   return adminLoggedIn ? (
     <div className={`min-h-screen flex items-center justify-center ${
     mode === "light" ? "bg-[#f5f5f5]" : "bg-[#0f172a]"
-  } py-12`}>
+  } py-6 sm:py-12 px-4 sm:px-6 lg:px-8`}>
       <div className="flex w-full max-w-[90rem] min-h-[80vh] overflow-hidden rounded-2xl shadow-2xl">
         {/* Left Image Section */}
-        <div className="relative hidden w-[45%] lg:block">
+        <div className="relative hidden lg:block w-[45%]">
           <img
             src="/CreateAccountStudent.png"
             alt="Student studying"
@@ -67,31 +67,29 @@ const CreateAccountStudent = () => {
           </div>
         </div>
 
-        {/* Right Form Section - Updated dark mode colors */}
+        {/* Right Form Section */}
         <div className={`w-full lg:w-[55%] ${
-        mode === "light" 
-          ? "bg-white" 
-          : "bg-[#1e293b]"
-      } p-8 lg:p-12 overflow-y-auto`}>
+        mode === "light" ? "bg-white" : "bg-[#1e293b]"
+      } p-4 sm:p-8 lg:p-12 overflow-y-auto`}>
           <div className="w-full max-w-2xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className={`text-3xl font-bold ${
+            <div className="text-center mb-4 sm:mb-8">
+              <h2 className={`text-2xl sm:text-3xl font-bold ${
               mode === "light" ? "text-gray-900" : "text-white"
             }`}>
                 Create Student Account
               </h2>
-              <p className={`mt-3 ${
+              <p className={`mt-2 sm:mt-3 text-sm sm:text-base ${
               mode === "light" ? "text-gray-600" : "text-gray-300"
             }`}>
                 Please fill in the student's details below
               </p>
             </div>
 
-            <form onSubmit={handleSubmit(createStudent)} className="space-y-6">
+            <form onSubmit={handleSubmit(createStudent)} className="space-y-4 sm:space-y-6">
               {/* Basic Information Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className={`text-sm font-medium ${
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="space-y-1 sm:space-y-2">
+                  <label className={`text-xs sm:text-sm font-medium ${
                   mode === "light" ? "text-gray-700" : "text-gray-200"
                 }`}>
                     Student's Name
@@ -99,7 +97,7 @@ const CreateAccountStudent = () => {
                   <input
                     type="text"
                     {...register("name", { required: "This cannot be left empty" })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                     mode === "light"
                       ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -107,12 +105,12 @@ const CreateAccountStudent = () => {
                     placeholder="Enter student's name"
                   />
                   {errors.name && (
-                    <p className="text-sm text-red-500">{errors.name.message}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.name.message}</p>
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <label className={`text-sm font-medium ${
+                <div className="space-y-1 sm:space-y-2">
+                  <label className={`text-xs sm:text-sm font-medium ${
                   mode === "light" ? "text-gray-700" : "text-gray-200"
                 }`}>
                     Class
@@ -124,7 +122,7 @@ const CreateAccountStudent = () => {
                       min: { value: 1, message: "Please enter class from 1 to 7" },
                       max: { value: 7, message: "Please enter class from 1 to 7" },
                     })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                       mode === "light"
                         ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -132,15 +130,15 @@ const CreateAccountStudent = () => {
                     placeholder="Enter class (1-7)"
                   />
                   {errors.class_name && (
-                    <p className="text-sm text-red-500">{errors.class_name.message}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.class_name.message}</p>
                   )}
                 </div>
               </div>
 
               {/* Parents Information Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="space-y-1 sm:space-y-2">
+                  <label className="text-xs sm:text-sm font-medium text-gray-700">
                     Father's Name
                   </label>
                   <input
@@ -148,7 +146,7 @@ const CreateAccountStudent = () => {
                     {...register("father_name", {
                       required: "This cannot be left empty",
                     })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                       mode === "light"
                         ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -156,12 +154,12 @@ const CreateAccountStudent = () => {
                     placeholder="Enter father's name"
                   />
                   {errors.father_name && (
-                    <p className="text-sm text-red-500">{errors.father_name.message}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.father_name.message}</p>
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+                <div className="space-y-1 sm:space-y-2">
+                  <label className="text-xs sm:text-sm font-medium text-gray-700">
                     Father's Phone
                   </label>
                   <input
@@ -173,7 +171,7 @@ const CreateAccountStudent = () => {
                         message: "Phone number must be exactly 10 digits",
                       },
                     })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                       mode === "light"
                         ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -181,12 +179,12 @@ const CreateAccountStudent = () => {
                     placeholder="Enter father's phone number"
                   />
                   {errors.father_phone && (
-                    <p className="text-sm text-red-500">{errors.father_phone.message}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.father_phone.message}</p>
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+                <div className="space-y-1 sm:space-y-2">
+                  <label className="text-xs sm:text-sm font-medium text-gray-700">
                     Mother's Name
                   </label>
                   <input
@@ -194,7 +192,7 @@ const CreateAccountStudent = () => {
                     {...register("mother_name", {
                       required: "This cannot be left empty",
                     })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                       mode === "light"
                         ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -202,12 +200,12 @@ const CreateAccountStudent = () => {
                     placeholder="Enter mother's name"
                   />
                   {errors.mother_name && (
-                    <p className="text-sm text-red-500">{errors.mother_name.message}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.mother_name.message}</p>
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
+                <div className="space-y-1 sm:space-y-2">
+                  <label className="text-xs sm:text-sm font-medium text-gray-700">
                     Mother's Phone
                   </label>
                   <input
@@ -219,7 +217,7 @@ const CreateAccountStudent = () => {
                         message: "Phone number must be exactly 10 digits",
                       },
                     })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                       mode === "light"
                         ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -227,20 +225,20 @@ const CreateAccountStudent = () => {
                     placeholder="Enter mother's phone number"
                   />
                   {errors.mother_phone && (
-                    <p className="text-sm text-red-500">{errors.mother_phone.message}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.mother_phone.message}</p>
                   )}
                 </div>
               </div>
 
               {/* Contact Information Section */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Address</label>
+              <div className="space-y-1 sm:space-y-2">
+                <label className="text-xs sm:text-sm font-medium text-gray-700">Address</label>
                 <input
                   type="text"
                   {...register("address", {
                     required: "This cannot be left empty",
                   })}
-                  className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                     mode === "light"
                       ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -248,19 +246,19 @@ const CreateAccountStudent = () => {
                   placeholder="Enter complete address"
                 />
                 {errors.address && (
-                  <p className="text-sm text-red-500">{errors.address.message}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.address.message}</p>
                 )}
               </div>
 
               {/* Login Information Section */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Email</label>
+              <div className="space-y-1 sm:space-y-2">
+                <label className="text-xs sm:text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
                   {...register("email", {
                     required: "This cannot be left empty",
                   })}
-                  className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                  className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                     mode === "light"
                       ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -268,12 +266,12 @@ const CreateAccountStudent = () => {
                   placeholder="Enter email address"
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Password</label>
+              <div className="space-y-1 sm:space-y-2">
+                <label className="text-xs sm:text-sm font-medium text-gray-700">Password</label>
                 <div className="relative">
                   <input
                     type={showPass ? "text" : "password"}
@@ -288,7 +286,7 @@ const CreateAccountStudent = () => {
                         message: "Password is too long, max 30 characters accepted",
                       },
                     })}
-                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border transition-colors duration-200 ${
                       mode === "light"
                         ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
@@ -307,7 +305,7 @@ const CreateAccountStudent = () => {
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-sm text-red-500">{errors.password.message}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.password.message}</p>
                 )}
               </div>
 
@@ -319,16 +317,14 @@ const CreateAccountStudent = () => {
                 mode === "light"
                   ? "bg-blue-600 hover:bg-blue-700"
                   : "bg-blue-500 hover:bg-blue-600"
-              } text-white py-3 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mt-8`}
+              } text-white py-2 sm:py-3 text-sm sm:text-base rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mt-6 sm:mt-8`}
               >
                 {isSubmitting ? (
                   <>
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5 text-white" 
+                         xmlns="http://www.w3.org/2000/svg" 
+                         fill="none" 
+                         viewBox="0 0 24 24">
                       <circle
                         className="opacity-25"
                         cx="12"
@@ -346,7 +342,7 @@ const CreateAccountStudent = () => {
                     Creating Account...
                   </>
                 ) : (
-                  "Create Account"
+                  'Create Account'
                 )}
               </button>
             </form>

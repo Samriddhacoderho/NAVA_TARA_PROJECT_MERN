@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import NoAccess from "../../NoAccess";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { contextCreate } from "../../../Context";
 
 const EditStudentData = () => {
+  const {mode,setMode}=useContext(contextCreate);
   const {
     register,
     handleSubmit,
@@ -32,216 +34,238 @@ const EditStudentData = () => {
     }
   };
   return location.state ? (
-    <div>
-      <div className="justify-center">
-        <div className="flex items-start justify-center pt-32">
-          <div className="bg-gray-200 shadow-lg rounded-xl p-8 max-w-lg border border-gray-200 mb-5">
-            <form onSubmit={handleSubmit(editStudent)}>
-              <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-                Nawatara English School:Student Account Updation Form
-              </h2>
-              <div className="flex flex-row">
-                <div className="mb-5">
-                  <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Student's name:
+    <div className={`min-h-screen ${
+      mode === 'light'
+        ? 'bg-blue-50'
+        : 'bg-gradient-to-br from-gray-900 to-blue-900'
+    } py-8 px-4 sm:px-6 lg:px-8`}>
+      <div className="max-w-4xl mx-auto">
+        <div className={`${
+          mode === 'light'
+            ? 'bg-white shadow-md'
+            : 'bg-gray-800 shadow-xl'
+        } rounded-3xl overflow-hidden`}>
+          
+          {/* Header */}
+          <div className={`${
+            mode === 'light'
+              ? 'bg-gradient-to-r from-blue-500 to-indigo-500'
+              : 'bg-gradient-to-r from-blue-500 to-indigo-600'
+          } p-8`}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white text-center mb-2">
+              Student Account Update
+            </h2>
+            <p className="text-blue-50 text-center text-sm sm:text-base">
+              Nawatara English School
+            </p>
+          </div>
+
+          {/* Form Section */}
+          <div className="p-8">
+            <form onSubmit={handleSubmit(editStudent)} className="space-y-8">
+              {/* Basic Info */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-600">
+                    Student's Name
                   </label>
                   <input
                     type="text"
-                    id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    {...register("name", { required: "This cannot be left empty" })}
                     defaultValue={location.state.student.name}
-                    {...register("name", {
-                      required: "This cannot be left empty",
-                    })}
+                    className={`block w-full px-4 py-3 rounded-xl border ${
+                      mode === 'light'
+                        ? 'border-gray-200 bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                        : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                    }`}
                   />
-                  {errors.name && (
-                    <p className="text-red-500">{errors.name.message}</p>
-                  )}
                 </div>
-                <div className="mx-8 mb-5">
-                  <label
-                    htmlFor="class_name"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Student's class:
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-600">
+                    Class
                   </label>
                   <input
                     type="number"
-                    id="class_name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    defaultValue={location.state.student.class_name}
                     {...register("class_name", {
                       required: "This cannot be left empty",
-                      min: {
-                        value: 1,
-                        message: "Please enter class from 1 to 7",
-                      },
-                      max: {
-                        value: 7,
-                        message: "Please enter class from 1 to 7",
-                      },
+                      min: { value: 1, message: "Please enter class from 1 to 7" },
+                      max: { value: 7, message: "Please enter class from 1 to 7" },
                     })}
+                    defaultValue={location.state.student.class_name}
+                    className={`block w-full px-4 py-3 rounded-xl border ${
+                      mode === 'light'
+                        ? 'border-gray-200 bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                        : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                    }`}
                   />
-                  {errors.class_name && (
-                    <p className="text-red-500">{errors.class_name.message}</p>
-                  )}
                 </div>
               </div>
 
-              <div className="flex flex-row">
-                <div className="mb-5">
-                  <label
-                    htmlFor="father_name"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Father's name:
-                  </label>
-                  <input
-                    type="text"
-                    id="father_name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    defaultValue={location.state.student.father_name}
-                    {...register("father_name", {
-                      required: "This cannot be left empty",
-                    })}
-                  />
-                  {errors.father_name && (
-                    <p className="text-red-500">{errors.father_name.message}</p>
-                  )}
-                </div>
-                <div className="mx-8 mb-5">
-                  <label
-                    htmlFor="father_phone"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Father's number:
-                  </label>
-                  <input
-                    type="text"
-                    id="father_phone"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    defaultValue={location.state.student.father_phone}
-                    {...register("father_phone", {
-                      required: "This cannot be left empty",
-                      pattern: {
-                        value: /^[0-9]{10}$/,
-                        message: "Phone number must be exactly 10 digits",
-                      },
-                    })}
-                  />
-                  {errors.father_phone && (
-                    <p className="text-red-500">
-                      {errors.father_phone.message}
-                    </p>
-                  )}
+              {/* Parent Information */}
+              <div className={`${
+                mode === 'light'
+                  ? 'bg-gray-50 border border-gray-100'
+                  : 'bg-gray-700/50 border border-gray-600'
+              } rounded-xl p-6`}>
+                <h3 className="text-lg font-medium text-gray-900 mb-6 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Parent Information
+                </h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Father's Details */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-600">
+                        Father's Name
+                      </label>
+                      <input
+                        type="text"
+                        {...register("father_name", { required: "Required" })}
+                        defaultValue={location.state.student.father_name}
+                        className={`block w-full px-4 py-3 rounded-xl border ${
+                          mode === 'light'
+                            ? 'border-gray-200 bg-white text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                            : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                        }`}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-600">
+                        Father's Phone
+                      </label>
+                      <input
+                        type="text"
+                        {...register("father_phone", {
+                          required: "Required",
+                          pattern: {
+                            value: /^[0-9]{10}$/,
+                            message: "Enter valid 10-digit number"
+                          }
+                        })}
+                        defaultValue={location.state.student.father_phone}
+                        className={`block w-full px-4 py-3 rounded-xl border ${
+                          mode === 'light'
+                            ? 'border-gray-200 bg-white text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                            : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mother's Details */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-600">
+                        Mother's Name
+                      </label>
+                      <input
+                        type="text"
+                        {...register("mother_name", { required: "Required" })}
+                        defaultValue={location.state.student.mother_name}
+                        className={`block w-full px-4 py-3 rounded-xl border ${
+                          mode === 'light'
+                            ? 'border-gray-200 bg-white text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                            : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                        }`}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-600">
+                        Mother's Phone
+                      </label>
+                      <input
+                        type="text"
+                        {...register("mother_phone", {
+                          required: "Required",
+                          pattern: {
+                            value: /^[0-9]{10}$/,
+                            message: "Enter valid 10-digit number"
+                          }
+                        })}
+                        defaultValue={location.state.student.mother_phone}
+                        className={`block w-full px-4 py-3 rounded-xl border ${
+                          mode === 'light'
+                            ? 'border-gray-200 bg-white text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                            : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                        }`}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-row">
-                <div className="mb-5">
-                  <label
-                    htmlFor="mother_name"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Mother's name:
-                  </label>
-                  <input
-                    type="text"
-                    id="mother_name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    defaultValue={location.state.student.mother_name}
-                    {...register("mother_name", {
-                      required: "This cannot be left empty",
-                    })}
-                  />
-                  {errors.mother_name && (
-                    <p className="text-red-500">{errors.mother_name.message}</p>
-                  )}
+
+              {/* Contact Information */}
+              <div className={`${
+                mode === 'light'
+                  ? 'bg-gray-50 border border-gray-100'
+                  : 'bg-gray-700/50 border border-gray-600'
+              } rounded-xl p-6`}>
+                <h3 className="text-lg font-medium text-gray-900 mb-6 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Contact Information
+                </h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-600">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      {...register("email", { required: "Required" })}
+                      defaultValue={location.state.student.email}
+                      className={`block w-full px-4 py-3 rounded-xl border ${
+                        mode === 'light'
+                          ? 'border-gray-200 bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                          : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                      }`}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-600">
+                      Address
+                    </label>
+                    <input
+                      type="text"
+                      {...register("address", { required: "Required" })}
+                      defaultValue={location.state.student.address}
+                      className={`block w-full px-4 py-3 rounded-xl border ${
+                        mode === 'light'
+                          ? 'border-gray-200 bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500'
+                          : 'border-gray-600 bg-gray-700 text-white focus:ring-blue-400 focus:border-blue-400'
+                      }`}
+                    />
+                  </div>
                 </div>
-                <div className="mx-8 mb-5">
-                  <label
-                    htmlFor="mother_phone"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Mother's number:
-                  </label>
-                  <input
-                    type="text"
-                    id="mother_phone"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    defaultValue={location.state.student.mother_phone}
-                    {...register("mother_phone", {
-                      required: "This cannot be left empty",
-                      pattern: {
-                        value: /^[0-9]{10}$/,
-                        message: "Phone number must be exactly 10 digits",
-                      },
-                    })}
-                  />
-                  {errors.mother_phone && (
-                    <p className="text-red-500">
-                      {errors.mother_phone.message}
-                    </p>
-                  )}
-                </div>
               </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="address"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Student's Address:
-                </label>
-                <input
-                  type="address"
-                  id="address"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  defaultValue={location.state.student.address}
-                  {...register("address", {
-                    required: "This cannot be left empty",
-                  })}
-                />
-                {errors.address && (
-                  <p className="text-red-500">{errors.address.message}</p>
-                )}
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Student's email:
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  defaultValue={location.state.student.email}
-                  {...register("email", {
-                    required: "This cannot be left empty",
-                  })}
-                />
-                {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
-                )}
-              </div>
-              <div className="options flex justify-between">
-                <Link to={"/fetch-students"}>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 pt-6">
+                <Link to="/fetch-students" className="w-full sm:w-auto">
                   <button
                     type="button"
-                    className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    className={`w-full px-6 py-3 text-sm font-medium rounded-xl border transition-colors ${
+                      mode === 'light'
+                        ? 'border-gray-200 text-gray-600 bg-white hover:bg-gray-50'
+                        : 'border-gray-600 text-white bg-gray-700 hover:bg-gray-600'
+                    }`}
                   >
-                    Go Back
+                    Cancel
                   </button>
                 </Link>
                 <button
                   type="submit"
-                  className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   disabled={isSubmitting}
+                  className="w-full sm:w-auto px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? "Updating Account" : "Update Account"}
+                  {isSubmitting ? "Updating..." : "Update Account"}
                 </button>
               </div>
             </form>
