@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import NoAccess from "../../NoAccess";
 import { useForm } from "react-hook-form";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import StepperInNoticeForm from "./StepperInNoticeForm";
+import { contextCreate } from "../../../Context";
 
 
 const CreateNotice = () => {
+  const {mode,setMode}=useContext(contextCreate);
   const adminLoggedIn = document.cookie.includes("adminToken");
   const [step, setStep] = useState(1);
+  const [selectedFileName, setSelectedFileName] = useState("");
   const {
     register,
     handleSubmit,
@@ -50,184 +53,285 @@ const CreateNotice = () => {
     }
   };
   return adminLoggedIn ? (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <div className="p-6 md:w-1/2 flex flex-col justify-center">
-        <div className="min-h-screen flex items-start justify-center pt-32">
-          <div className="bg-gray-200 shadow-lg rounded-xl p-8 w-full max-w-md border border-gray-200">
-            <StepperInNoticeForm stepCount={step} />
-            <form onSubmit={handleSubmit(noticeHandle)}>
-              <h2 className="text-2xl font-bold mb-6 mt-3 text-gray-800 text-center">
-                Create Notice:Step {step}
-              </h2>
+    <div className={`min-h-screen ${
+      mode === 'light'
+        ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'
+        : 'bg-gradient-to-br from-gray-900 via-gray-800 to-indigo-950'
+    } py-12 px-4 sm:px-6`}>
+      {/* Hero Section */}
+      <div className="max-w-4xl mx-auto text-center mb-12">
+        <h1 className={`text-4xl font-bold sm:text-5xl ${
+          mode === 'light' ? 'text-gray-900' : 'text-white'
+        } bg-clip-text`}>
+          Create New Notice
+        </h1>
+        <p className={`mt-4 text-lg ${
+          mode === 'light' ? 'text-gray-600' : 'text-gray-300'
+        }`}>
+          Share important updates with your school community
+        </p>
+      </div>
+
+      {/* Main Form Card */}
+      <div className="max-w-2xl mx-auto">
+        <div className={`rounded-2xl shadow-xl overflow-hidden ${
+          mode === 'light'
+            ? 'bg-white border border-gray-100'
+            : 'bg-gray-800 border border-gray-700'
+        }`}>
+          {/* Progress Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-8">
+            <div className="max-w-md mx-auto">
+              <StepperInNoticeForm stepCount={step} />
+              <p className="text-center mt-4 text-blue-100">
+                Step {step} of 3: {step === 1 ? 'Basic Info' : step === 2 ? 'Notice Content' : 'Attachments'}
+              </p>
+            </div>
+          </div>
+
+          {/* Form Content */}
+          <div className="p-6 sm:p-8">
+            <form onSubmit={handleSubmit(noticeHandle)} className="space-y-6">
               {step === 1 && (
-                <div>
-                  <div className="mb-5">
-                    <label
-                      htmlFor="noticecategory"
-                      className="inline mb-2 mx-2 text-sm font-medium text-gray-900"
-                    >
-                      Notice Category:
-                    </label>
-                    <select
-                      id="noticecategory"
-                      className="border-2 border-solid"
-                      {...register("noticecategory", {
-                        required: "You must choose one category!",
-                      })}
-                    >
-                      <option value="">Choose one Category</option>
-                      <option value="General">General</option>
-                      <option value="Severe">Severe</option>
-                      <option value="Events & Holidays">
-                        Events & Holidays
-                      </option>
-                      <option value="Academic">Academic</option>
-                      <option value="Meeting">Meeting</option>
-                    </select>
-                    {errors.noticecategory && (
-                      <p className="text-red-500">
-                        {errors.noticecategory.message}
-                      </p>
-                    )}
-                  </div>
-                  <div className="mb-5">
-                    <label
-                      htmlFor="targetaudience"
-                      className="inline mb-2 mx-2 text-sm font-medium text-gray-900"
-                    >
-                      Target Audience:
-                    </label>
-                    <select
-                      id="targetaudience"
-                      className="border-2 border-solid"
-                      {...register("targetaudience", {
-                        required: "You must choose one audience!",
-                      })}
-                    >
-                      <option value="">Choose one audience</option>
-                      <option value="All">All</option>
-                      <option value="Teachers & Staffs">
-                        Teachers & Staffs
-                      </option>
-                      <option value="Students">Students</option>
-                    </select>
-                    {errors.targetaudience && (
-                      <p className="text-red-500">
-                        {errors.targetaudience.message}
-                      </p>
-                    )}
+                <div className="space-y-6">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    {/* Notice Category */}
+                    <div className="space-y-2">
+                      <label className={`block text-sm font-medium ${
+                        mode === 'light' ? 'text-gray-700' : 'text-gray-200'
+                      }`}>
+                        Notice Category
+                      </label>
+                      <select
+                        {...register("noticecategory", {
+                          required: "You must choose one category!",
+                        })}
+                        className={`w-full px-4 py-3 rounded-xl border transition-all duration-200 ${
+                          mode === 'light'
+                            ? 'border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                            : 'border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                        }`}
+                      >
+                        <option value="">Select category...</option>
+                        <option value="General">General</option>
+                        <option value="Severe" className={mode === 'light' ? 'text-red-600' : 'text-red-400'}>Severe</option>
+                        <option value="Events & Holidays">Events & Holidays</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Meeting">Meeting</option>
+                      </select>
+                      {errors.noticecategory && (
+                        <p className="text-red-500 text-sm mt-1">{errors.noticecategory.message}</p>
+                      )}
+                    </div>
+
+                    {/* Target Audience */}
+                    <div className="space-y-2">
+                      <label className={`block text-sm font-medium ${
+                        mode === 'light' ? 'text-gray-700' : 'text-gray-200'
+                      }`}>
+                        Target Audience
+                      </label>
+                      <select
+                        {...register("targetaudience", {
+                          required: "You must choose one audience!",
+                        })}
+                        className={`w-full px-4 py-3 rounded-xl border transition-all duration-200 ${
+                          mode === 'light'
+                            ? 'border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                            : 'border-gray-600 bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                        }`}
+                      >
+                        <option value="">Select audience...</option>
+                        <option value="All">All</option>
+                        <option value="Teachers & Staffs">Teachers & Staff</option>
+                        <option value="Students">Students</option>
+                      </select>
+                      {errors.targetaudience && (
+                        <p className="text-red-500 text-sm mt-1">{errors.targetaudience.message}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
+
               {step === 2 && (
-                <div>
-                  <div className="mb-5">
-                    <label
-                      htmlFor="noticetitle"
-                      className="block mb-2 mx-2 text-sm font-medium text-gray-900"
-                    >
-                      Notice Title:
+                <div className="space-y-6">
+                  {/* Notice Title */}
+                  <div className="space-y-2">
+                    <label className={`block text-sm font-medium ${
+                      mode === 'light' ? 'text-gray-700' : 'text-gray-200'
+                    }`}>
+                      Notice Title
                     </label>
                     <input
                       type="text"
-                      id="noticetitle"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="Enter your notice title here:"
                       {...register("noticetitle", {
                         required: "This cannot be left empty!",
                       })}
+                      className={`w-full px-4 py-3 rounded-xl border transition-all duration-200 ${
+                        mode === 'light'
+                          ? 'border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                          : 'border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                      }`}
+                      placeholder="Enter notice title..."
                     />
                     {errors.noticetitle && (
-                      <p className="text-red-500">
-                        {errors.noticetitle.message}
-                      </p>
+                      <p className="text-red-500 text-sm mt-1">{errors.noticetitle.message}</p>
                     )}
                   </div>
-                  <div className="mb-5">
-                    <label
-                      htmlFor="noticedes"
-                      className="block mb-2 mx-2 text-sm font-medium text-gray-900"
-                    >
-                      Notice Description:
+
+                  {/* Notice Description */}
+                  <div className="space-y-2">
+                    <label className={`block text-sm font-medium ${
+                      mode === 'light' ? 'text-gray-700' : 'text-gray-200'
+                    }`}>
+                      Notice Description
                     </label>
                     <textarea
-                      name="noticedes"
-                      id="noticedes"
                       {...register("noticedes", {
                         required: "This cannot be left empty!",
                       })}
-                      placeholder="Enter your notice description here:"
-                      className="border border-gray-400 bg-white text-black p-2 rounded w-full"
+                      rows="6"
+                      className={`w-full px-4 py-3 rounded-xl border transition-all duration-200 resize-none ${
+                        mode === 'light'
+                          ? 'border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                          : 'border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+                      }`}
+                      placeholder="Enter notice description..."
                     ></textarea>
-                    {errors.noticedes && <p className="text-red-500">{errors.noticedes.message}</p> }
+                    {errors.noticedes && (
+                      <p className="text-red-500 text-sm mt-1">{errors.noticedes.message}</p>
+                    )}
                   </div>
                 </div>
               )}
+
               {step === 3 && (
-                <div>
-                  <div className="mb-5">
-                    <label
-                      htmlFor="attachments"
-                      className="block mb-2 mx-2 text-sm font-medium text-gray-900"
-                    >
-                      Add Attachments:
+                <div className="space-y-6">
+                  <div className="group">
+                    <label className={`block text-sm font-medium mb-2 ${
+                      mode === 'light' ? 'text-gray-700' : 'text-gray-200'
+                    }`}>
+                      Upload Attachments
                     </label>
-                    <input
-                      type="file"
-                      id="attachments"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      placeholder="Enter your notice title here:"
-                      {...register("attachments")}
-                    />
+                    <div className={`mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-xl transition-colors duration-200 ${
+                      mode === 'light'
+                        ? 'border-gray-300 hover:border-blue-500 bg-gray-50'
+                        : 'border-gray-600 hover:border-blue-400 bg-gray-700'
+                    }`}>
+                      <div className="space-y-2 text-center">
+                        <svg className={`mx-auto h-12 w-12 ${
+                          mode === 'light' ? 'text-gray-400' : 'text-gray-500'
+                        }`} stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                          <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <div className={`flex text-sm justify-center ${
+                          mode === 'light' ? 'text-gray-600' : 'text-gray-400'
+                        }`}>
+                          <label className={`relative cursor-pointer rounded-md font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 ${
+                            mode === 'light'
+                              ? 'text-blue-600 hover:text-blue-500'
+                              : 'text-blue-400 hover:text-blue-300'
+                          }`}>
+                            <span>Upload a file</span>
+                            <input
+                              type="file"
+                              className="sr-only"
+                              {...register("attachments")}
+                              onChange={(e) => {
+                                register("attachments").onChange(e);
+                                setSelectedFileName(e.target.files[0]?.name || "");
+                              }}
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        {selectedFileName ? (
+                          <div className={`mt-2 text-sm py-2 px-3 rounded-lg flex items-center justify-center gap-2 ${
+                            mode === 'light'
+                              ? 'text-gray-600 bg-white'
+                              : 'text-gray-300 bg-gray-600'
+                          }`}>
+                            <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="truncate max-w-xs">{selectedFileName}</span>
+                          </div>
+                        ) : (
+                          <p className={`text-xs ${
+                            mode === 'light' ? 'text-gray-500' : 'text-gray-400'
+                          }`}>PDF, DOC up to 10MB</p>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="mb-5">
+
+                  {/* Navigation Buttons */}
+                  <div className="flex justify-end space-x-4 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setStep(step - 1)}
+                      className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                        mode === 'light'
+                          ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+                      }`}
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Posting...
+                        </>
+                      ) : (
+                        'Post Notice'
+                      )}
+                    </button>
                   </div>
                 </div>
               )}
+
+              {/* Navigation buttons */}
               {step === 1 && (
-                <div>
+                <div className="flex justify-end">
                   <button
                     type="button"
-                    className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                     onClick={nextFunc}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium transition-all duration-200"
                   >
-                    Next
+                    Next Step
                   </button>
                 </div>
               )}
+
               {step > 1 && step < 3 && (
-                <div>
+                <div className="flex justify-end space-x-4">
                   <button
                     type="button"
-                    className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 "
                     onClick={() => setStep(step - 1)}
+                    className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                      mode === 'light'
+                        ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+                    }`}
                   >
                     Back
                   </button>
                   <button
                     type="button"
-                    className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                     onClick={nextFunc}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-medium transition-all duration-200"
                   >
-                    Next
-                  </button>
-                </div>
-              )}
-              {step == 3 && (
-                <div>
-                  <button
-                    type="button"
-                    className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 "
-                    onClick={() => setStep(step - 1)}
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="submit"
-                    className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Posting" : "Post Notice"}
+                    Next Step
                   </button>
                 </div>
               )}
@@ -237,7 +341,7 @@ const CreateNotice = () => {
       </div>
     </div>
   ) : (
-    <NoAccess></NoAccess>
+    <NoAccess />
   );
 };
 

@@ -4,7 +4,7 @@ import { createContext } from 'react'
 export const contextCreate=createContext()
 
 const Context = (props) => {
-  const[mode,setMode]=useState('dark');
+  const[mode,setMode]=useState('light');
     const [name,setName]=useState(()=>{
         return localStorage.getItem("name") || "User"
       });

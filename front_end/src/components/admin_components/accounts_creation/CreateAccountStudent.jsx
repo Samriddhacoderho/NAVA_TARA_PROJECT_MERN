@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import NoAccess from "../../NoAccess";
+import { contextCreate } from "../../../Context";
 
 const CreateAccountStudent = () => {
+    const {mode,setMode} = useContext(contextCreate);
+  
   const adminLoggedIn = document.cookie.includes("adminToken");
   const [showPass, setshowPass] = useState(false);
   const navigate = useNavigate();
@@ -42,248 +45,309 @@ const CreateAccountStudent = () => {
     }
   };
   return adminLoggedIn ? (
-    <div>
-      <div className="justify-center">
-        <div className="flex items-start justify-center pt-32">
-          <div className="bg-gray-200 shadow-lg rounded-xl p-8 max-w-lg border border-gray-200 mb-5">
-            <form onSubmit={handleSubmit(createStudent)}>
-              <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-                Nawatara English School:Student Account Creation Form
+    <div className={`min-h-screen flex items-center justify-center ${
+    mode === "light" ? "bg-[#f5f5f5]" : "bg-[#0f172a]"
+  } py-12`}>
+      <div className="flex w-full max-w-[90rem] min-h-[80vh] overflow-hidden rounded-2xl shadow-2xl">
+        {/* Left Image Section */}
+        <div className="relative hidden w-[45%] lg:block">
+          <img
+            src="/CreateAccountStudent.png"
+            alt="Student studying"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-indigo-600/90 mix-blend-multiply" />
+          <div className="absolute bottom-0 left-0 right-0 p-16 text-white">
+            <h2 className="text-5xl font-bold leading-tight">
+              Create Student Account
+            </h2>
+            <p className="mt-4 text-xl opacity-90 max-w-xl">
+              Add new students to Nawatara English School's digital platform
+            </p>
+          </div>
+        </div>
+
+        {/* Right Form Section - Updated dark mode colors */}
+        <div className={`w-full lg:w-[55%] ${
+        mode === "light" 
+          ? "bg-white" 
+          : "bg-[#1e293b]"
+      } p-8 lg:p-12 overflow-y-auto`}>
+          <div className="w-full max-w-2xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className={`text-3xl font-bold ${
+              mode === "light" ? "text-gray-900" : "text-white"
+            }`}>
+                Create Student Account
               </h2>
-              <div className="flex flex-row">
-              <div className="mb-5">
-                <label
-                  htmlFor="name"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Student's name:
-                </label>
+              <p className={`mt-3 ${
+              mode === "light" ? "text-gray-600" : "text-gray-300"
+            }`}>
+                Please fill in the student's details below
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit(createStudent)} className="space-y-6">
+              {/* Basic Information Section */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className={`text-sm font-medium ${
+                  mode === "light" ? "text-gray-700" : "text-gray-200"
+                }`}>
+                    Student's Name
+                  </label>
+                  <input
+                    type="text"
+                    {...register("name", { required: "This cannot be left empty" })}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    mode === "light"
+                      ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  }`}
+                    placeholder="Enter student's name"
+                  />
+                  {errors.name && (
+                    <p className="text-sm text-red-500">{errors.name.message}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className={`text-sm font-medium ${
+                  mode === "light" ? "text-gray-700" : "text-gray-200"
+                }`}>
+                    Class
+                  </label>
+                  <input
+                    type="number"
+                    {...register("class_name", {
+                      required: "This cannot be left empty",
+                      min: { value: 1, message: "Please enter class from 1 to 7" },
+                      max: { value: 7, message: "Please enter class from 1 to 7" },
+                    })}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                      mode === "light"
+                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                    }`}
+                    placeholder="Enter class (1-7)"
+                  />
+                  {errors.class_name && (
+                    <p className="text-sm text-red-500">{errors.class_name.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Parents Information Section */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    Father's Name
+                  </label>
+                  <input
+                    type="text"
+                    {...register("father_name", {
+                      required: "This cannot be left empty",
+                    })}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                      mode === "light"
+                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                    }`}
+                    placeholder="Enter father's name"
+                  />
+                  {errors.father_name && (
+                    <p className="text-sm text-red-500">{errors.father_name.message}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    Father's Phone
+                  </label>
+                  <input
+                    type="text"
+                    {...register("father_phone", {
+                      required: "This cannot be left empty",
+                      pattern: {
+                        value: /^[0-9]{10}$/,
+                        message: "Phone number must be exactly 10 digits",
+                      },
+                    })}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                      mode === "light"
+                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                    }`}
+                    placeholder="Enter father's phone number"
+                  />
+                  {errors.father_phone && (
+                    <p className="text-sm text-red-500">{errors.father_phone.message}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    Mother's Name
+                  </label>
+                  <input
+                    type="text"
+                    {...register("mother_name", {
+                      required: "This cannot be left empty",
+                    })}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                      mode === "light"
+                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                    }`}
+                    placeholder="Enter mother's name"
+                  />
+                  {errors.mother_name && (
+                    <p className="text-sm text-red-500">{errors.mother_name.message}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    Mother's Phone
+                  </label>
+                  <input
+                    type="text"
+                    {...register("mother_phone", {
+                      required: "This cannot be left empty",
+                      pattern: {
+                        value: /^[0-9]{10}$/,
+                        message: "Phone number must be exactly 10 digits",
+                      },
+                    })}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                      mode === "light"
+                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                    }`}
+                    placeholder="Enter mother's phone number"
+                  />
+                  {errors.mother_phone && (
+                    <p className="text-sm text-red-500">{errors.mother_phone.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Contact Information Section */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">Address</label>
                 <input
                   type="text"
-                  id="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter student's name here:"
-                  {...register("name", {
-                    required: "This cannot be left empty",
-                  })}
-                />
-                {errors.name && (
-                  <p className="text-red-500">{errors.name.message}</p>
-                )}
-              </div>
-              <div className="mx-8 mb-5">
-                <label
-                  htmlFor="class_name"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Student's class:
-                </label>
-                <input
-                  type="number"
-                  id="class_name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter student's class here:"
-                  {...register("class_name", {
-                    required: "This cannot be left empty",
-                    min: {
-                      value: 1,
-                      message: "Please enter class from 1 to 7",
-                    },
-                    max: {
-                      value: 7,
-                      message: "Please enter class from 1 to 7",
-                    },
-                  })}
-                />
-                {errors.class_name && (
-                  <p className="text-red-500">{errors.class_name.message}</p>
-                )}
-              </div>
-              </div>
-             
-              <div className="flex flex-row">
-              <div className="mb-5">
-                <label
-                  htmlFor="father_name"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Father's name:
-                </label>
-                <input
-                  type="text"
-                  id="father_name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter father's name here:"
-                  {...register("father_name", {
-                    required: "This cannot be left empty",
-                  })}
-                />
-                {errors.father_name && (
-                  <p className="text-red-500">{errors.father_name.message}</p>
-                )}
-              </div>
-              <div className="mx-8 mb-5">
-                <label
-                  htmlFor="father_phone"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Father's number:
-                </label>
-                <input
-                  type="text"
-                  id="father_phone"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter father's number here:"
-                  {...register("father_phone", {
-                    required: "This cannot be left empty",
-                    pattern: {
-                      value: /^[0-9]{10}$/,
-                      message: "Phone number must be exactly 10 digits",
-                    },
-                  })}
-                />
-                {errors.father_phone && (
-                  <p className="text-red-500">{errors.father_phone.message}</p>
-                )}
-              </div>
-              </div>
-              <div className="flex flex-row">
-              <div className="mb-5">
-                <label
-                  htmlFor="mother_name"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Mother's name:
-                </label>
-                <input
-                  type="text"
-                  id="mother_name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter mother's name here:"
-                  {...register("mother_name", {
-                    required: "This cannot be left empty",
-                  })}
-                />
-                {errors.mother_name && (
-                  <p className="text-red-500">{errors.mother_name.message}</p>
-                )}
-              </div>
-              <div className="mx-8 mb-5">
-                <label
-                  htmlFor="mother_phone"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Mother's number:
-                </label>
-                <input
-                  type="text"
-                  id="mother_phone"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter mother's number here:"
-                  {...register("mother_phone", {
-                    required: "This cannot be left empty",
-                    pattern: {
-                      value: /^[0-9]{10}$/,
-                      message: "Phone number must be exactly 10 digits",
-                    },
-                  })}
-                />
-                {errors.mother_phone && (
-                  <p className="text-red-500">{errors.mother_phone.message}</p>
-                )}
-              </div>
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="address"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Student's Address:
-                </label>
-                <input
-                  type="address"
-                  id="address"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter student's address here:"
                   {...register("address", {
                     required: "This cannot be left empty",
                   })}
+                  className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    mode === "light"
+                      ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  }`}
+                  placeholder="Enter complete address"
                 />
                 {errors.address && (
-                  <p className="text-red-500">{errors.address.message}</p>
+                  <p className="text-sm text-red-500">{errors.address.message}</p>
                 )}
               </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Student's email:
-                </label>
+
+              {/* Login Information Section */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Enter student's email id here:"
                   {...register("email", {
                     required: "This cannot be left empty",
                   })}
+                  className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                    mode === "light"
+                      ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  }`}
+                  placeholder="Enter email address"
                 />
                 {errors.email && (
-                  <p className="text-red-500">{errors.email.message}</p>
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Student's password:
-                </label>
-                <div className="flex flex-row">
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">Password</label>
+                <div className="relative">
                   <input
                     type={showPass ? "text" : "password"}
-                    id="password"
-                    placeholder="Enter student's valid password here:"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     {...register("password", {
                       required: "This cannot be left empty",
                       minLength: {
                         value: 8,
-                        message: "Password must be atleast 8 characters",
+                        message: "Password must be at least 8 characters",
                       },
                       maxLength: {
                         value: 30,
-                        message:
-                          "Password is too long, max 30 characters accepted",
+                        message: "Password is too long, max 30 characters accepted",
                       },
                     })}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors duration-200 ${
+                      mode === "light"
+                        ? "border-gray-200 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        : "border-gray-600 bg-[#1e293b] text-white focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                    }`}
+                    placeholder="Create password"
                   />
-                  {!showPass && (
+                  <button
+                    type="button"
+                    onClick={passHandleFunc}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
                     <FontAwesomeIcon
-                      onClick={passHandleFunc}
-                      className="mt-3 ml-3 cursor-pointer"
-                      icon={faEye}
+                      icon={showPass ? faEyeSlash : faEye}
+                      className="h-5 w-5"
                     />
-                  )}
-                  {showPass && (
-                    <FontAwesomeIcon
-                      onClick={passHandleFunc}
-                      className="mt-3 ml-3 cursor-pointer"
-                      icon={faEyeSlash}
-                    />
-                  )}
+                  </button>
                 </div>
                 {errors.password && (
-                  <p className="text-red-500">{errors.password.message}</p>
+                  <p className="text-sm text-red-500">{errors.password.message}</p>
                 )}
               </div>
+
+              {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 disabled={isSubmitting}
+                className={`w-full ${
+                mode === "light"
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-blue-500 hover:bg-blue-600"
+              } text-white py-3 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mt-8`}
               >
-                {isSubmitting ? "Creating Account" : "Create Account"}
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Creating Account...
+                  </>
+                ) : (
+                  "Create Account"
+                )}
               </button>
             </form>
           </div>
@@ -291,7 +355,7 @@ const CreateAccountStudent = () => {
       </div>
     </div>
   ) : (
-    <NoAccess/>
+    <NoAccess />
   );
 };
 
