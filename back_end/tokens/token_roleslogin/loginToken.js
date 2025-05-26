@@ -14,20 +14,17 @@ const token_login = async (req, res) => {
     if (req.userType === "teacher") {
       res.cookie("teacherToken", token, {
         secure: true,
-        sameSite: "None",
-        secure:true
+        sameSite: "none",
       });
     } else if (req.userType === "admin") {
       res.cookie("adminToken", token, {
         secure: true,
-        sameSite: "None",
-        secure:true
+        sameSite: "none",
       });
     } else {
       res.cookie("studentToken", token, {
         secure: true,
-        sameSite: "None",
-        secure:true
+        sameSite: "none",
       });
     }
     res.json({alertMsg:"Logged In Successfully",name:req.data.name})
