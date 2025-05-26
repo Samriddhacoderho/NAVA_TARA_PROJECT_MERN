@@ -15,16 +15,19 @@ const token_login = async (req, res) => {
       res.cookie("teacherToken", token, {
         secure: true,
         sameSite: "none",
+         maxAge: 7 * 24 * 60 * 60 * 1000
       });
     } else if (req.userType === "admin") {
       res.cookie("adminToken", token, {
         secure: true,
         sameSite: "none",
+         maxAge: 7 * 24 * 60 * 60 * 1000
       });
     } else {
       res.cookie("studentToken", token, {
         secure: true,
         sameSite: "none",
+         maxAge: 7 * 24 * 60 * 60 * 1000
       });
     }
     res.json({alertMsg:"Logged In Successfully",name:req.data.name})
