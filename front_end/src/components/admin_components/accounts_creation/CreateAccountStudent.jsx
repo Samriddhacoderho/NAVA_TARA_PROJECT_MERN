@@ -29,7 +29,7 @@ const CreateAccountStudent = () => {
     try {
       if (window.confirm("Are you sure you want to create this account?")) {
         const response = await axios.post(
-          "http://localhost:8000/create/student",
+          `${import.meta.env.VITE_BACKEND_URL}/create/student`,
           data,
           { withCredentials: true }
         );

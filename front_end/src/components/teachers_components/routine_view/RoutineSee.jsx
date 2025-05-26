@@ -30,7 +30,7 @@ const RoutineSee = () => {
       try {
         if (teacherLoggedIn) {
           const response = await axios.get(
-            `http://localhost:8000/fetch/routines`,
+            `${import.meta.env.VITE_BACKEND_URL}/fetch/routines`,
             { withCredentials: true }
           );
           setRoutines(response.data);

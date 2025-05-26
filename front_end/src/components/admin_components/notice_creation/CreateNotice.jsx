@@ -27,7 +27,7 @@ const CreateNotice = () => {
       filedata.append("noticetitle",data.noticetitle);
       filedata.append("noticedes",data.noticedes);
       filedata.append("attachments",data.attachments[0]);
-      const response=await axios.post("http://localhost:8000/admin/create-notice",filedata,{
+      const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/create-notice`,filedata,{
         headers:{
 
         },

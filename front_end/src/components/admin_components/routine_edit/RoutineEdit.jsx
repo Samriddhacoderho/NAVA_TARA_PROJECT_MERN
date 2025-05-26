@@ -37,7 +37,7 @@ const RoutineEdit = () => {
       try {
         if (adminLoggedIn) {
           const teachersData = await axios.get(
-            "http://localhost:8000/getTeachers",
+            `${import.meta.env.VITE_BACKEND_URL}/getTeachers`,
             { withCredentials: true }
           );
           setTeachers(teachersData.data);
@@ -59,7 +59,7 @@ const RoutineEdit = () => {
         setRoutine([]);
       }
       const result = await axios.get(
-        `http://localhost:8000/fetch/routines/${data.teachers}`,
+        `${import.meta.env.VITE_BACKEND_URL}/fetch/routines/${data.teachers}`,
         { withCredentials: true }
       );
       setRoutine(result.data);
@@ -99,7 +99,7 @@ const RoutineEdit = () => {
           data = routine.schedule;
         });
         const response = await axios.patch(
-          `http://localhost:8000/updateRoutine/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/updateRoutine/${id}`,
           { data },
           { withCredentials: true }
         );

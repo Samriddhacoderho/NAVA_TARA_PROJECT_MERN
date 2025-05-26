@@ -22,7 +22,7 @@ const View_Class_Fee_Structure = () => {
         setstructFee({});
       } else {
         const response = await axios.get(
-          `http://localhost:8000/fetch/class/structure/fees/${data.class_name}`,
+          `${import.meta.env.VITE_BACKEND_URL}/fetch/class/structure/fees/${data.class_name}`,
           { withCredentials: true }
         );
         setshowStructform(true);

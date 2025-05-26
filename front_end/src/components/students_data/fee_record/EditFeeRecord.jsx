@@ -22,7 +22,7 @@ const EditFeeRecord = () => {
     const fetchOldRecord = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getFee/${location.state?.id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/getFee/${location.state?.id}`,
           { withCredentials: true }
         );
         setRecord(response.data);
@@ -68,7 +68,7 @@ const EditFeeRecord = () => {
         setRecord([updatedRecord]);
 
         const response = await axios.patch(
-          `http://localhost:8000/editFee/${location.state.id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/editFee/${location.state.id}`,
           updatedRecord,
           { withCredentials: true }
         );

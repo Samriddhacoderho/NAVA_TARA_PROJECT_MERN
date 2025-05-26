@@ -19,7 +19,7 @@ const Edit_Fee_Struct = () => {
       console.log(data)
       if (window.confirm("Are you sure you want to perform this action?")) {
         const response = await axios.patch(
-          `http://localhost:8000/fetch/class/edit/fee/${location.state?.structFee.class_name}`,data,{withCredentials:true}
+          `${import.meta.env.VITE_BACKEND_URL}/fetch/class/edit/fee/${location.state?.structFee.class_name}`,data,{withCredentials:true}
         );
         alert(response.data);
         navigate("/update-class-structure");

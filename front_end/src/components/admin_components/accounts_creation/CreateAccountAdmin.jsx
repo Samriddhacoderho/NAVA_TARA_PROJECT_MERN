@@ -30,7 +30,7 @@ const CreateAccountAdmin = () => {
     try {
       if (window.confirm("Are you sure you want to create this account?")) {
         const response = await axios.post(
-          "http://localhost:8000/create/admin",
+          `${import.meta.env.VITE_BACKEND_URL}/create/admin`,
           data,
           { withCredentials: true }
         );

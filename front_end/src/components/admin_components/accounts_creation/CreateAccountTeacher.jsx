@@ -28,7 +28,7 @@ const CreateAccountTeacher = () => {
     try {
       if (window.confirm("Are you sure you want to create this account?")) {
         const response = await axios.post(
-          "http://localhost:8000/create/teacher",
+          `${import.meta.env.VITE_BACKEND_URL}/create/teacher`,
           data,
           { withCredentials: true }
         );

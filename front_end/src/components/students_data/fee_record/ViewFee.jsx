@@ -34,10 +34,10 @@ const ViewFee = () => {
     const fetchRecord = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getFee/${location.state?.student._id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/getFee/${location.state?.student._id}`,
           { withCredentials: true }
         );
-        const amountResponse=await axios.get(`http://localhost:8000/fetch/class/structure/fees/${location.state?.student.class_name}`,{withCredentials:true})
+        const amountResponse=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/fetch/class/structure/fees/${location.state?.student.class_name}`,{withCredentials:true})
         setRecord(response.data);
         let total = 0;
         months.map((month) => {

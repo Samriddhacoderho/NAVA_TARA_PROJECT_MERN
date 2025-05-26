@@ -10,7 +10,7 @@ const ContactUs = () => {
 
     const onContactSubmit = async(data) => {
       try {
-        const response=await axios.post("http://localhost:8000/contact/message",data);
+        const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/contact/message`,data);
         alert(response.data);
         console.log(data)
         document.querySelector('form').reset();  //esle form ko fields reset garcha

@@ -18,7 +18,7 @@ const EditStudentData = () => {
     try {
       if(window.confirm("Are you sure you want to make these changes?"))
       {
-        const response=await axios.patch(`http://localhost:8000/editStudent/${location.state.student._id}`,data,{withCredentials:true})
+        const response=await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/editStudent/${location.state.student._id}`,data,{withCredentials:true})
         alert(response.data);
         navigate("/fetch-students");
       }

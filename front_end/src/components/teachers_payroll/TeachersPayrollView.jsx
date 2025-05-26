@@ -32,7 +32,7 @@ const TeacherPayrollView = () => {
       try {
         if (adminLoggedIn) {
           const teachersData = await axios.get(
-            "http://localhost:8000/getTeachers",
+            `${import.meta.env.VITE_BACKEND_URL}/getTeachers`,
             {
               withCredentials: true,
             }
@@ -56,7 +56,7 @@ const TeacherPayrollView = () => {
         setbtnClick(true);
       }
       const response = await axios.get(
-        `http://localhost:8000/getSalary/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/getSalary/${id}`,
         { withCredentials: true }
       );
       setRecord(response.data);

@@ -13,7 +13,7 @@ const EmailAsk = () => {
     const [roleData,setroleData]=useState({});
     const checkEmail_func=async(data)=>{
         try {
-            const response=await axios.get(`http://localhost:8000/reset/password/${data.email}`);
+            const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/reset/password/${data.email}`);
             setCode(response.data.resetCode);
             setroleData({email:data.email,role:response.data.role})
         } catch (error) {

@@ -26,7 +26,7 @@ const FetchStudents = () => {
   const fetchStudents_Class = async (data) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/getStudents/${data.class_name}`,
+        `${import.meta.env.VITE_BACKEND_URL}/getStudents/${data.class_name}`,
         { withCredentials: true }
       );
       setStudentsData(response.data);

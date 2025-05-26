@@ -60,7 +60,7 @@ const NoticeMap = (props) => {
         {/* Attachment Button */}
         {props.attachments && (
           <a
-            href={`http://localhost:8000/${props.attachments}`}
+            href={`${import.meta.env.VITE_BACKEND_URL}/${props.attachments}`}
             target="_blank"
             rel="noopener noreferrer"
             className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${

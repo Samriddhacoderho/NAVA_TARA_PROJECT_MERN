@@ -26,7 +26,7 @@ const NewPassForm = (props) => {
 
   const checkPass_func = async (data) => {
     try {
-      const response=await axios.patch(`http://localhost:8000/reset/password/${props.email}?role=${props.role}`,data);
+      const response=await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/reset/password/${props.email}?role=${props.role}`,data);
       alert(response.data);
       navigate("/login-form")
     } catch (error) {

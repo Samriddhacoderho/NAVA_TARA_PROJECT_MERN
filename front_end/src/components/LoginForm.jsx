@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   const formBackendFunc = async (data) => {
     try {
-      const response = await axios.post("http://localhost:8000/login", data, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data, {
         withCredentials: true,
       });
       alert(response.data.alertMsg);

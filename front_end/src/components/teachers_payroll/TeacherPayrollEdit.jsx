@@ -20,7 +20,7 @@ const TeacherPayrollEdit = (props) => {
     const fetchOldRecord = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getSalary/${props.teacherRecord[0].teacherID}`,
+          `${import.meta.env.VITE_BACKEND_URL}/getSalary/${props.teacherRecord[0].teacherID}`,
           { withCredentials: true }
         );
         setRecord(response.data);
@@ -54,7 +54,7 @@ const TeacherPayrollEdit = (props) => {
         };
         setRecord([updatedRecord]);
         const response = await axios.patch(
-          `http://localhost:8000/editSalary/${props.teacherRecord[0].teacherID}`,
+          `${import.meta.env.VITE_BACKEND_URL}/editSalary/${props.teacherRecord[0].teacherID}`,
           updatedRecord,
           { withCredentials: true }
         );

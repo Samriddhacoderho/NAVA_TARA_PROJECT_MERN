@@ -17,7 +17,7 @@ const Navbar = () => {
     try {
       if (window.confirm("Are you sure you want to log out?")) {
         const response = await axios.post(
-          "http://localhost:8000/logout",
+          `${import.meta.env.VITE_BACKEND_URL}/logout`,
           {},
           { withCredentials: true }
         );

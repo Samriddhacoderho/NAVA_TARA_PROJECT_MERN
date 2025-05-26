@@ -14,20 +14,20 @@ const Notice = () => {
       let response = null;
       try {
         if (!teacherLoggedIn && !adminLoggedIn && !studentLoggedIn) {
-          response = await axios.get("http://localhost:8000/get/notices");
+          response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/get/notices`);
         } else if (teacherLoggedIn) {
           response = await axios.get(
-            "http://localhost:8000/get/notices/teachers",
+            `${import.meta.env.VITE_BACKEND_URL}/get/notices/teachers`,
             { withCredentials: true }
           );
         } else if (adminLoggedIn) {
           response = await axios.get(
-            "http://localhost:8000/get/notices/admins",
+            `${import.meta.env.VITE_BACKEND_URL}/get/notices/admins`,
             { withCredentials: true }
           );
         } else {
           response = await axios.get(
-            "http://localhost:8000/get/notices/students",
+            `${import.meta.env.VITE_BACKEND_URL}/get/notices/students`,
             { withCredentials: true }
           );
         }
