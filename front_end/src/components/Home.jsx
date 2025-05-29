@@ -41,6 +41,7 @@ const Home = () => {
             Empowering minds and shaping futures through quality education and holistic development.
           </p>
 
+          {console.log(isLoggedIn)}
           {!isLoggedIn && (
             <Link to={"/login-form"} className="mt-4 w-full sm:w-auto">
               <button className="cursor-pointer group relative w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-indigo-500/30">
@@ -53,6 +54,7 @@ const Home = () => {
                 </span>
               </button>
             </Link>
+            
           )}
 
           {isLoggedIn && (
