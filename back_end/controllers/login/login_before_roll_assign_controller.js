@@ -30,7 +30,7 @@ const loginMiddleware=async(req,res)=>{
             return student_controller(req,res)
         }
 
-        return res.status(404).send("Invalid Email ID or Password")
+        return res.status(404).send("Invalid Email ID or Password 1")
     } catch (error) {
         res.status(404).send(error.message)
     }
