@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { contextCreate } from "../Context";
+import axios from "axios";
 
 const Home = () => {
   const teacherLoggedIn = document.cookie.includes("teacherToken");
