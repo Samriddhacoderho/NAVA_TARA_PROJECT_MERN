@@ -23,6 +23,7 @@ import email_ask_Route from "./routes/reset_password/email_ask.js";
 import mongoose from "mongoose";
 import salary_edit from "./routes/admin_accessible_routes/salary_payroll/SalaryEdit.js";
 import contactRoute from "./routes/contact/ContactRoute.js";
+import tokenVerify from "./tokens/token_verify.js";
 
 configDotenv()
 
@@ -46,6 +47,11 @@ app.use(express.static("public/notice_files"))
 
 
 //routes
+
+app.get("/",tokenVerify,(req,res)=>{
+    res.send("Muhe lai HTML bahek kei ni aaudaina, yo backend bata aako msg ho la");
+}
+)
 
 app.use("/contact",contactRoute);  //route for contact form submission
 
