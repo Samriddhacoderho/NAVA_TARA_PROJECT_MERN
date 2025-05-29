@@ -33,7 +33,10 @@ console.clear()
 app.use(express.json())
 app.use(cors(
     {
-        origin:["https://nawatarafrontend.vercel.app"],
+        origin:[process.env.URI_FRONTEND],
+        methods:["GET","POST","PATCH","DELETE"],
+        allowedHeaders:["Content-Type","Authorization"],
+        exposedHeaders:["Content-Type","Authorization"],
         credentials:true
     }
 ))
