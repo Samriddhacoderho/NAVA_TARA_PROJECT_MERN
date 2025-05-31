@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {useNavigate} from "react-router-dom"
 import { contextCreate } from "../../../Context";
+import NoAccess from "../../NoAccess";
 
 const View_Class_Fee_Structure = () => {
   const navigate=useNavigate();
   const [showStructform, setshowStructform] = useState(false);
   const [structFee,setstructFee]=useState({});
-  const {mode,setMode}=useContext(contextCreate);
+  const {mode,setMode,userType}=useContext(contextCreate);
   const {
     register,
     handleSubmit,
@@ -44,7 +45,7 @@ const View_Class_Fee_Structure = () => {
       alert(error.message);
     }
   }
-  return (
+  return (userType==="admin"?
     <div className={`min-h-screen py-8 px-4 ${
       mode === 'light'
         ? 'bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50'
@@ -197,7 +198,7 @@ const View_Class_Fee_Structure = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>:<NoAccess/>
   );
 };
 

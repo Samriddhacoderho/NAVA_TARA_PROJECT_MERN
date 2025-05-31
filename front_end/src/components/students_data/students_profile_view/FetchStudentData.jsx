@@ -3,9 +3,7 @@ import { Link, Links, useNavigate } from "react-router-dom";
 import { contextCreate } from "../../../Context";
 
 const FetchStudentData = (props) => {
-  const {mode,setMode}=useContext(contextCreate)
-  const adminLoggedIn = document.cookie.includes("adminToken");
-  const teacherLoggedIn = document.cookie.includes("teacherToken");
+  const {mode,setMode,userType}=useContext(contextCreate)
   const navigate=useNavigate();
   const handleEditFunc = async () => {
     try {
@@ -235,7 +233,7 @@ const FetchStudentData = (props) => {
           </button>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            {adminLoggedIn && (
+            {userType==="admin" && (
               <>
                 <button
                   onClick={handleEditFunc}

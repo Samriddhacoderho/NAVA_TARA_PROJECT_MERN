@@ -8,8 +8,7 @@ import { contextCreate } from "../../../Context";
 
 
 const CreateNotice = () => {
-  const {mode,setMode}=useContext(contextCreate);
-  const adminLoggedIn = document.cookie.includes("adminToken");
+  const {mode,setMode,userType}=useContext(contextCreate);
   const [step, setStep] = useState(1);
   const [selectedFileName, setSelectedFileName] = useState("");
   const {
@@ -52,7 +51,7 @@ const CreateNotice = () => {
       setStep(step + 1);
     }
   };
-  return adminLoggedIn ? (
+  return userType==="admin" ? (
     <div className={`min-h-screen ${
       mode === 'light'
         ? 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'

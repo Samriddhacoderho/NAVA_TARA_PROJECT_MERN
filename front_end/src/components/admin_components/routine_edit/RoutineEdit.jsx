@@ -5,13 +5,12 @@ import { useForm } from "react-hook-form";
 import { contextCreate } from "../../../Context";
 
 const RoutineEdit = () => {
-  const { mode, setMode } = useContext(contextCreate);
+  const { mode, setMode,userType } = useContext(contextCreate);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
-  const adminLoggedIn = document.cookie.includes("adminToken");
   const days = [
     { name: "Sunday", color: "bg-teal-500" },
     { name: "Monday", color: "bg-purple-500" },
@@ -35,7 +34,7 @@ const RoutineEdit = () => {
   useEffect(() => {
     const fetchTeacherName = async () => {
       try {
-        if (adminLoggedIn) {
+        if (userType==="admin") {
           const teachersData = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/getTeachers`,
             { withCredentials: true }
@@ -115,7 +114,7 @@ const RoutineEdit = () => {
     }
   };
 
-  return teachers && adminLoggedIn ? (
+  return teachers && userType==="admin" ? (
     <div
       className={`min-h-screen p-4 sm:p-6 lg:p-8 ${
         mode === "light" ? "bg-gray-50" : "bg-gray-900"

@@ -7,9 +7,7 @@ import NoAccess from "../../NoAccess";
 import { contextCreate } from "../../../Context";
 
 const FetchStudents = () => {
-  const adminLoggedIn = document.cookie.includes("adminToken");
-  const teacherLoggedIn = document.cookie.includes("teacherToken");
-  const {mode,setMode} = useContext(contextCreate);
+  const {mode,setMode,userType} = useContext(contextCreate);
   const [classs, setClasss] = useState(false);
   const [studentsData, setStudentsData] = useState([]);
   const navigate = useNavigate();
@@ -51,7 +49,7 @@ const FetchStudents = () => {
     }
   };
 
-  return adminLoggedIn || teacherLoggedIn ? (
+  return userType==="admin" || "teacher" ? (
     !showModal ? (
       <div className={`min-h-screen ${
         mode === 'light' 

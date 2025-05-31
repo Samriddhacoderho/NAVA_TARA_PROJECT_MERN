@@ -5,14 +5,13 @@ import TeacherPayrollEdit from "./TeacherPayrollEdit";
 import { contextCreate } from "../../Context";
 
 const TeacherPayrollView = () => {
-  const adminLoggedIn = document.cookie.includes("adminToken");
   const [teachers, setTeachers] = useState([]);
   const [btnClick, setbtnClick] = useState(false);
   const [record, setRecord] = useState([]);
   const [teacherName, setTeacherName] = useState(null);
   const [showEdit, setshowEdit] = useState(false);
   const [monthRecord,setMonth]=useState(null);
-  const {mode,setMode}=useContext(contextCreate)
+  const {mode,setMode,userType}=useContext(contextCreate)
   const months = [
     "Baishakh",
     "Jestha",
@@ -30,7 +29,7 @@ const TeacherPayrollView = () => {
   useEffect(() => {
     const view_teachers_func = async () => {
       try {
-        if (adminLoggedIn) {
+        if (userType==="admin") {
           const teachersData = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/getTeachers`,
             {
@@ -66,7 +65,7 @@ const TeacherPayrollView = () => {
     }
   };
 
-  return adminLoggedIn ? (
+  return userType==="admin" ? (
     !showEdit ? (
       <div className={`min-h-screen py-10 px-4 ${
       mode === 'light'

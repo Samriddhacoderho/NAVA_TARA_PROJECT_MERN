@@ -8,9 +8,8 @@ import NoAccess from "../../NoAccess";
 import { contextCreate } from "../../../Context";
 
 const CreateAccountStudent = () => {
-    const {mode,setMode} = useContext(contextCreate);
+    const {mode,setMode,userType} = useContext(contextCreate);
   
-  const adminLoggedIn = document.cookie.includes("adminToken");
   const [showPass, setshowPass] = useState(false);
   const navigate = useNavigate();
   const {
@@ -44,7 +43,7 @@ const CreateAccountStudent = () => {
       }
     }
   };
-  return adminLoggedIn ? (
+  return userType==="admin" ? (
     <div className={`min-h-screen flex items-center justify-center ${
     mode === "light" ? "bg-[#f5f5f5]" : "bg-[#0f172a]"
   } py-6 sm:py-12 px-4 sm:px-6 lg:px-8`}>

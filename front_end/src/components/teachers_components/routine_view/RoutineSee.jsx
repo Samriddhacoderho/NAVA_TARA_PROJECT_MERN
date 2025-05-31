@@ -4,8 +4,7 @@ import axios from "axios";
 import { contextCreate } from "../../../Context";
 
 const RoutineSee = () => {
-  const teacherLoggedIn = document.cookie.includes("teacherToken");
-  const {mode}=useContext(contextCreate)
+  const {mode,userType}=useContext(contextCreate)
   const days = [
     { name: "Sunday", color: "bg-teal-500" },
     { name: "Monday", color: "bg-purple-500" },
@@ -28,7 +27,7 @@ const RoutineSee = () => {
   useEffect(() => {
     const fetchRoutines = async () => {
       try {
-        if (teacherLoggedIn) {
+        if (userType==="teacher") {
           const response = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/fetch/routines`,
             { withCredentials: true }
@@ -47,7 +46,7 @@ const RoutineSee = () => {
     fetchRoutines();
   }, []);
 
-  return teacherLoggedIn ? (
+  return userType==="teacher" ? (
     <div
       className={`min-h-screen p-4 sm:p-6 lg:p-8 transition-colors duration-300 ${
         mode === "light" ? "bg-gray-50 text-gray-800" : "bg-gray-900 text-gray-200"

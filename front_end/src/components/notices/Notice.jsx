@@ -4,23 +4,20 @@ import NoticeMap from "./NoticeMap";
 import { contextCreate } from "../../Context";
 
 const Notice = () => {
-  const teacherLoggedIn = document.cookie.includes("teacherToken");
-  const adminLoggedIn = document.cookie.includes("adminToken");
-  const studentLoggedIn = document.cookie.includes("studentToken");
   const [notices, setNotices] = useState([]);
-  const {mode, setMode} = useContext(contextCreate);
+  const {mode, setMode,userType} = useContext(contextCreate);
   useEffect(() => {
     const renderNotices = async () => {
       let response = null;
       try {
-        if (!teacherLoggedIn && !adminLoggedIn && !studentLoggedIn) {
+        if (userType.length === 0) {
           response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/get/notices`);
-        } else if (teacherLoggedIn) {
+        } else if (userType==="teacher") {
           response = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/get/notices/teachers`,
             { withCredentials: true }
           );
-        } else if (adminLoggedIn) {
+        } else if (userType==="admin") {
           response = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/get/notices/admins`,
             { withCredentials: true }
