@@ -9,7 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [showDropDown, setshowDropDown] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
-  const {mode,setMode,userType}=useContext(contextCreate)
+  const {mode,setMode,userType,setUserType}=useContext(contextCreate)
   const handleLogout = async () => {
     try {
       if (window.confirm("Are you sure you want to log out?")) {
@@ -20,6 +20,7 @@ const Navbar = () => {
         );
         alert(response.data);
         localStorage.clear();
+        setUserType("");
         navigate("/");
         window.location.reload();
       }
