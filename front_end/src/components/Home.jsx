@@ -8,7 +8,7 @@ const Home = () => {
   const adminLoggedIn = document.cookie.includes("adminToken");
   const studentLoggedIn = document.cookie.includes("studentToken");
   const contextUse = useContext(contextCreate);
-  const {mode, setMode,name} = contextUse;
+  const {mode, setMode,name,userType} = contextUse;
   const godeClicked =async () => {
     try {
       const response=await axios.get(import.meta.env.VITE_BACKEND_URL,{withCredentials:true});
@@ -26,7 +26,7 @@ const Home = () => {
     }
   }
   
-  const isLoggedIn = contextUse.userType.length>0;
+  const isLoggedIn = userType.length>0;
 
   return (
     <div className={`min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-8 sm:py-16 ${

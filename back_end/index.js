@@ -24,6 +24,8 @@ import mongoose from "mongoose";
 import salary_edit from "./routes/admin_accessible_routes/salary_payroll/SalaryEdit.js";
 import contactRoute from "./routes/contact/ContactRoute.js";
 import tokenVerify from "./tokens/token_verify.js";
+import delete_student from "./routes/admin_accessible_routes/accounts_deletion/StudentDelete.js";
+import delete_teacher from "./routes/admin_accessible_routes/accounts_deletion/TeacherDelete.js";
 
 configDotenv()
 
@@ -73,10 +75,13 @@ app.use("/fetch",fetch_routine)  //route for routines fetch by either teacher or
 app.use("/updateRoutine",updateRoutine)  //route for updating routine from admin's account
 
 app.use("/create",create_teacher)  //route for creating teacher from admin's account
+app.use('/deleteTeacher',delete_teacher)  //route for deleting teacher from admin's account
 
 app.use("/create",create_admin)  //route for creating admin from admin's account
 
 app.use('/create',create_student)  //route for creating student from admin's account
+
+app.use("/deleteStudent",delete_student)  //route for deleting student from admin's account
 
 app.use("/getStudents",get_student)  //route for getting all students from admin's or teacher's account
 

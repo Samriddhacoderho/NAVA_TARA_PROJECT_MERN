@@ -49,6 +49,21 @@ const FetchStudents = () => {
     }
   };
 
+  const viewDeleteFunc = async (student) => {
+    try {
+      if(window.confirm("Are you sure you want to delete this student?")) {
+        const response = await axios.delete(
+          `${import.meta.env.VITE_BACKEND_URL}/deleteStudent/${student._id}`,
+          { withCredentials: true }
+        );
+        alert(response.data);
+        window.location.reload();
+      }
+    } catch (error) {
+      alert(error.response ? error.response.data : error.message);
+    }
+  }
+
   return userType==="admin" || "teacher" ? (
     !showModal ? (
       <div className={`min-h-screen ${
@@ -310,6 +325,29 @@ const FetchStudents = () => {
                             />
                           </svg>
                         </button>
+                        {userType==="admin" && <button
+                          onClick={() => viewDeleteFunc(student)}
+                          className={`inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 ${
+                            mode === 'light'
+                              ? 'bg-red-600 hover:bg-red-700'
+                              : 'bg-red-500 hover:bg-red-600'
+                          } text-white text-sm sm:text-base font-medium rounded-lg sm:rounded-xl transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-500/30 group-hover:scale-105 w-full sm:w-auto justify-center`}
+                        >
+                          <span>Delete Student</span>
+                          <svg
+                            className="w-4 h-4 sm:w-5 sm:h-5 ml-2 -mr-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </button>}
                       </div>
                     </li>
                   ))}

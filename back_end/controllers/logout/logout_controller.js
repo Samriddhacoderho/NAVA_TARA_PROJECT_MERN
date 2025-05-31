@@ -3,17 +3,17 @@ const logoutController = async (req, res) => {
     let cleared = false;
 
     if (req.cookies.teacherToken) {
-      res.clearCookie("teacherToken", { httpOnly:true,sameSite: "none", secure: true });
+      res.clearCookie("teacherToken", { httpOnly:true,sameSite: "strict", secure: false });
       cleared = true;
     }
 
     if (req.cookies.adminToken) {
-      res.clearCookie("adminToken", { httpOnly:true,sameSite: "none", secure: true });
+      res.clearCookie("adminToken", { httpOnly:true,sameSite: "strict", secure: false });
       cleared = true;
     }
 
     if (req.cookies.studentToken) {
-      res.clearCookie("studentToken", { httpOnly:true,sameSite: "none", secure: true });
+      res.clearCookie("studentToken", { httpOnly:true,sameSite: "strict", secure: false });
       cleared = true;
     }
 

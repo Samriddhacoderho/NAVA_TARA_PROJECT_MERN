@@ -14,22 +14,22 @@ const token_login = async (req, res) => {
     if (req.userType === "teacher") {
       res.cookie("teacherToken", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: false,
+        sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
     } else if (req.userType === "admin") {
       res.cookie("adminToken", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: false,
+        sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
     } else {
       res.cookie("studentToken", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: false,
+        sameSite: "strict",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
     }
