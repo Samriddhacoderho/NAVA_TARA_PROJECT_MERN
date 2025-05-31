@@ -51,7 +51,7 @@ app.use(express.static("public/notice_files"))
 //routes
 
 app.get("/",tokenVerify,(req,res)=>{
-    res.send("Authorized Access");
+    res.send("Authorized");
 }
 )
 
