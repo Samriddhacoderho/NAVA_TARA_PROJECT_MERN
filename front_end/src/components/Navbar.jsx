@@ -6,13 +6,10 @@ import { contextCreate } from "../Context";
 const Navbar = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const teacherLoggedIn = document.cookie.includes("teacherToken");
-  const adminLoggedIn = document.cookie.includes("adminToken");
-  const studentLoggedIn = document.cookie.includes("studentToken");
   const navigate = useNavigate();
   const [showDropDown, setshowDropDown] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
-  const {mode,setMode}=useContext(contextCreate)
+  const {mode,setMode,userType}=useContext(contextCreate)
   const handleLogout = async () => {
     try {
       if (window.confirm("Are you sure you want to log out?")) {
@@ -120,7 +117,7 @@ const Navbar = () => {
                   NOTICE
                 </Link>
               </li>
-              {teacherLoggedIn && (
+              {userType==="teacher" && (
                 <li>
                   <Link
                     to="/routine"
@@ -134,7 +131,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               )}
-              {adminLoggedIn && (
+              {userType==="admin" && (
                 <li>
                   <Link
                     to="/routines"
@@ -160,7 +157,7 @@ const Navbar = () => {
                   CONTACT US
                 </Link>
               </li>
-              {adminLoggedIn && (
+              {userType==="admin" && (
                 <li>
                   <Link
                     to="/create-notice"
@@ -174,7 +171,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               )}
-              {adminLoggedIn && (
+              {userType==="admin" && (
                 <li
                   onMouseEnter={() => setshowDropDown(true)}
                   onMouseLeave={() => setshowDropDown(false)}
@@ -236,7 +233,7 @@ const Navbar = () => {
                   )}
                 </li>
               )}
-              {(adminLoggedIn || teacherLoggedIn) && <li>
+              {(userType==="admin" || "teacher") && <li>
                 <Link
                   to="/fetch-students"
                   className={`inline-block px-4 py-2 rounded-md ${
@@ -248,7 +245,7 @@ const Navbar = () => {
                   STUDENTS
                 </Link>
               </li>}
-               {(adminLoggedIn) && <li>
+               {(userType==="admin") && <li>
                 <Link
                   to="/update-class-structure"
                   className={`inline-block px-4 py-2 rounded-md ${
@@ -260,7 +257,7 @@ const Navbar = () => {
                   FEE STRUCTURE
                 </Link>
               </li>}
-               {(adminLoggedIn) && <li>
+               {(userType==="admin") && <li>
                 <Link
                   to="/view-teachers-payroll"
                    className={`inline-block px-4 py-2 rounded-md ${
@@ -274,7 +271,7 @@ const Navbar = () => {
               </li>}
               
               <li className="ml-4">
-                {!teacherLoggedIn && !studentLoggedIn && !adminLoggedIn ? (
+                {userType.length===0? (
                   <Link to={"/login-form"}>
                     <button
                       type="button"
@@ -354,20 +351,20 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* Mobile Menu Items - Update background */}
-            <div className="py-4 overflow-y-auto bg-gray-900">
+            {/* Mobile Menu Items - Enhanced UI */}
+            <div className="py-4 overflow-y-auto bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 rounded-r-2xl shadow-2xl">
               <ul className="space-y-2 px-4">
                 <li>
                   <Link
                     to="/"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center p-3 rounded-lg ${
+                    className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
                       location.pathname === "/"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? "bg-gradient-to-r from-blue-700 to-purple-700 text-white shadow-lg"
+                        : "text-gray-200 hover:bg-gradient-to-r hover:from-blue-800 hover:to-purple-800 hover:text-white"
                     } transition-all duration-300`}
                   >
-                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                     HOME
@@ -377,14 +374,15 @@ const Navbar = () => {
                   <Link
                     to="/about-us"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center p-3 rounded-lg ${
+                    className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
                       location.pathname === "/about-us"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? "bg-gradient-to-r from-cyan-700 to-blue-700 text-white shadow-lg"
+                        : "text-gray-200 hover:bg-gradient-to-r hover:from-cyan-800 hover:to-blue-800 hover:text-white"
                     } transition-all duration-300`}
                   >
-                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.248c-3.419 0-6.208 2.791-6.208 6.208 0 3.419 2.791 6.208 6.208 6.208 3.419 0 6.208-2.791 6.208-6.208 0-3.417-2.789-6.208-6.208-6.208zm0 10.416a4.208 4.208 0 110-8.416 4.208 4.208 0 010 8.416zM12 2a10 10 0 100 20 10 10 0 000-20z" />
+                    <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" strokeWidth="2" />
+                      <path strokeWidth="2" d="M12 16v-4M12 8h.01" />
                     </svg>
                     ABOUT US
                   </Link>
@@ -393,49 +391,51 @@ const Navbar = () => {
                   <Link
                     to="/notice"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center p-3 rounded-lg ${
+                    className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
                       location.pathname === "/notice"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? "bg-gradient-to-r from-purple-700 to-pink-700 text-white shadow-lg"
+                        : "text-gray-200 hover:bg-gradient-to-r hover:from-purple-800 hover:to-pink-800 hover:text-white"
                     } transition-all duration-300`}
                   >
-                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h13M8 11h13M8 15h13M8 19h13M3 7h.01M3 11h.01M3 15h.01M3 19h.01" />
+                    <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeWidth="2" d="M8 7h13M8 11h13M8 15h13M8 19h13M3 7h.01M3 11h.01M3 15h.01M3 19h.01" />
                     </svg>
                     NOTICE
                   </Link>
                 </li>
-                {teacherLoggedIn && (
+                {userType === "teacher" && (
                   <li>
                     <Link
                       to="/routine"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center p-3 rounded-lg ${
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
                         location.pathname === "/routine"
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                          ? "bg-gradient-to-r from-indigo-700 to-blue-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-indigo-800 hover:to-blue-800 hover:text-white"
                       } transition-all duration-300`}
                     >
-                      <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
+                      <svg className="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2" />
+                        <path strokeWidth="2" d="M16 2v4M8 2v4M3 10h18" />
                       </svg>
                       ROUTINE
                     </Link>
                   </li>
                 )}
-                {adminLoggedIn && (
+                {userType === "admin" && (
                   <li>
                     <Link
                       to="/routines"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center p-3 rounded-lg ${
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
                         location.pathname === "/routines"
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                          ? "bg-gradient-to-r from-sky-700 to-blue-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-sky-800 hover:to-blue-800 hover:text-white"
                       } transition-all duration-300`}
                     >
-                      <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
+                      <svg className="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2" />
+                        <path strokeWidth="2" d="M16 2v4M8 2v4M3 10h18" />
                       </svg>
                       ROUTINES
                     </Link>
@@ -445,185 +445,180 @@ const Navbar = () => {
                   <Link
                     to="/contact-us"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center p-3 rounded-lg ${
+                    className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
                       location.pathname === "/contact-us"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? "bg-gradient-to-r from-teal-700 to-green-700 text-white shadow-lg"
+                        : "text-gray-200 hover:bg-gradient-to-r hover:from-teal-800 hover:to-green-800 hover:text-white"
                     } transition-all duration-300`}
                   >
-                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
+                    <svg className="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeWidth="2" d="M21 10a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <path strokeWidth="2" d="M9 10h6M12 7v6" />
                     </svg>
                     CONTACT US
                   </Link>
                 </li>
-                {adminLoggedIn && (
+                {userType === "admin" && (
                   <li>
                     <Link
                       to="/create-notice"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center p-3 rounded-lg ${
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
                         location.pathname === "/create-notice"
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                          ? "bg-gradient-to-r from-amber-700 to-yellow-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-amber-800 hover:to-yellow-800 hover:text-white"
                       } transition-all duration-300`}
                     >
-                      <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
+                      <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeWidth="2" d="M12 20h9" />
+                        <path strokeWidth="2" d="M12 4v16m0 0H3" />
                       </svg>
                       NOTICE BOARD
                     </Link>
                   </li>
                 )}
-                {adminLoggedIn && (
-                  <li
-                    onMouseEnter={() => setshowDropDown(true)}
-                    onMouseLeave={() => setshowDropDown(false)}
-                    className="relative"
-                  >
-                    <button 
-                      className={`flex items-center p-3 rounded-lg ${
-                        location.pathname === "/create-account-teacher" || location.pathname==="/create-account-student"
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                      } transition-all duration-300 cursor-pointer`}
+                {userType === "admin" && (
+                  <li>
+                    <Link
+                      to="/create-account-teacher"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
+                        location.pathname === "/create-account-teacher"
+                          ? "bg-gradient-to-r from-rose-700 to-pink-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-rose-800 hover:to-pink-800 hover:text-white"
+                      } transition-all duration-300`}
                     >
-                      <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
+                      <svg className="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="7" r="4" strokeWidth="2" />
+                        <path strokeWidth="2" d="M6 21v-2a4 4 0 014-4h0a4 4 0 014 4v2" />
                       </svg>
-                      CREATE ACCOUNT
-                      <svg className={`ml-1.5 h-4 w-4 transform transition-transform duration-300 ${showDropDown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"></path>
-                      </svg>
-                    </button>
-                    {showDropDown && (
-                      <div
-                        id="dropdownDelay"
-                        className="absolute top-full right-0 mt-0 bg-gray-800 divide-y divide-gray-700 rounded-md shadow-xl w-60 z-50 border border-gray-700 overflow-hidden transform transition-all duration-300 origin-top-right"
-                      >
-                        <ul className="py-1">
-                          <li>
-                            <Link
-                              to="/create-account-teacher"
-                              className="flex items-center px-4 py-3 text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-150"
-                            >
-                              <svg className="w-5 h-5 mr-2 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                              Create Teacher
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/create-account-student"
-                              className="flex items-center px-4 py-3 text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-150"
-                            >
-                              <svg className="w-5 h-5 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                            </svg>
-                              Create Student
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/create-account-admin"
-                              className="flex items-center px-4 py-3 text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-150"
-                            >
-                              <svg className="w-5 h-5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                              Create Admin
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
+                      CREATE TEACHER
+                    </Link>
                   </li>
                 )}
-                {(adminLoggedIn || teacherLoggedIn) && <li>
-                  <Link
-                    to="/fetch-students"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center p-3 rounded-lg ${
-                      location.pathname === "/fetch-students"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                    } transition-all duration-300`}
-                  >
-                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
-                    </svg>
-                    STUDENTS
-                  </Link>
-                </li>}
-                 {(adminLoggedIn) && <li>
-                  <Link
-                    to="/update-class-structure"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center p-3 rounded-lg ${
-                      location.pathname === "/update-class-structure"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                    } transition-all duration-300`}
-                  >
-                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
-                    </svg>
-                    FEE STRUCTURE
-                  </Link>
-                </li>}
-                 {(adminLoggedIn) && <li>
-                  <Link
-                    to="/view-teachers-payroll"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center p-3 rounded-lg ${
-                      location.pathname === "/view-teachers-payroll"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                    } transition-all duration-300`}
-                  >
-                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h18M3 9h18M3 15h18M3 21h18" />
-                    </svg>
-                    TEACHERS PAYROLL
-                  </Link>
-                </li>}
-                
+                {userType === "admin" && (
+                  <li>
+                    <Link
+                      to="/create-account-student"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
+                        location.pathname === "/create-account-student"
+                          ? "bg-gradient-to-r from-blue-700 to-indigo-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 hover:text-white"
+                      } transition-all duration-300`}
+                    >
+                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="7" r="4" strokeWidth="2" />
+                        <path strokeWidth="2" d="M6 21v-2a4 4 0 014-4h0a4 4 0 014 4v2" />
+                      </svg>
+                      CREATE STUDENT
+                    </Link>
+                  </li>
+                )}
+                {userType === "admin" && (
+                  <li>
+                    <Link
+                      to="/create-account-admin"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
+                        location.pathname === "/create-account-admin"
+                          ? "bg-gradient-to-r from-purple-700 to-indigo-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-800 hover:text-white"
+                      } transition-all duration-300`}
+                    >
+                      <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="7" r="4" strokeWidth="2" />
+                        <path strokeWidth="2" d="M6 21v-2a4 4 0 014-4h0a4 4 0 014 4v2" />
+                      </svg>
+                      CREATE ADMIN
+                    </Link>
+                  </li>
+                )}
+                {(userType === "admin" || userType === "teacher") && (
+                  <li>
+                    <Link
+                      to="/fetch-students"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
+                        location.pathname === "/fetch-students"
+                          ? "bg-gradient-to-r from-emerald-700 to-green-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-emerald-800 hover:to-green-800 hover:text-white"
+                      } transition-all duration-300`}
+                    >
+                      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2" />
+                        <path strokeWidth="2" d="M8 10h8M8 14h8M8 18h8" />
+                      </svg>
+                      STUDENTS
+                    </Link>
+                  </li>
+                )}
+                {userType === "admin" && (
+                  <li>
+                    <Link
+                      to="/update-class-structure"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
+                        location.pathname === "/update-class-structure"
+                          ? "bg-gradient-to-r from-orange-700 to-yellow-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-orange-800 hover:to-yellow-800 hover:text-white"
+                      } transition-all duration-300`}
+                    >
+                      <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2" />
+                        <path strokeWidth="2" d="M8 10h8M8 14h8M8 18h8" />
+                      </svg>
+                      FEE STRUCTURE
+                    </Link>
+                  </li>
+                )}
+                {userType === "admin" && (
+                  <li>
+                    <Link
+                      to="/view-teachers-payroll"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 p-3 rounded-xl font-semibold text-base tracking-wide shadow-sm ${
+                        location.pathname === "/view-teachers-payroll"
+                          ? "bg-gradient-to-r from-emerald-700 to-teal-700 text-white shadow-lg"
+                          : "text-gray-200 hover:bg-gradient-to-r hover:from-emerald-800 hover:to-teal-800 hover:text-white"
+                      } transition-all duration-300`}
+                    >
+                      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="2" strokeWidth="2" />
+                        <path strokeWidth="2" d="M8 10h8M8 14h8M8 18h8" />
+                      </svg>
+                      TEACHERS PAYROLL
+                    </Link>
+                  </li>
+                )}
                 <li>
-                  {!teacherLoggedIn && !studentLoggedIn && !adminLoggedIn ? (
-                    <Link to={"/login-form"}>
+                  {userType.length === 0 ? (
+                    <Link to={"/login-form"} onClick={() => setIsMobileMenuOpen(false)}>
                       <button
                         type="button"
-                        className="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-full group"
+                        className="w-full flex items-center gap-3 justify-center px-6 py-3 font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-full shadow-lg hover:from-pink-600 hover:to-rose-600 transition-all duration-300"
                       >
-                        <span className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-pink-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-all duration-500"></span>
-                        <span className="absolute top-0 left-0 w-0 h-full bg-white opacity-10 group-hover:w-full transition-all duration-300"></span>
-                        <span className="relative flex items-center">
-                          <svg className="w-5 h-5 mr-1.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
                         </svg>
-                        </span>
                         Login
                       </button>
                     </Link>
                   ) : (
                     <button
                       type="button"
-                      className="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-gray-700 bg-gray-100 rounded-full group"
+                      className="w-full flex items-center gap-3 justify-center px-6 py-3 font-semibold text-gray-700 bg-gray-100 rounded-full shadow-lg hover:bg-rose-100 transition-all duration-300"
                       onClick={handleLogout}
                     >
-                      <span className="absolute top-0 left-0 w-0 h-full bg-rose-100 transition-all duration-300 group-hover:w-full"></span>
-                      <span className="relative flex items-center">
-                        <svg className="w-5 h-5 mr-1.5 text-rose-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path fillRule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                        Logout
-                      </span>
+                      <svg className="w-5 h-5 text-rose-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      Logout
                     </button>
                   )}
                 </li>
-                <li className="ml-4">
-                  <div className="flex items-center">
+                <li>
+                  <div className="flex items-center justify-center mt-2">
                     <button
                       type="button"
                       className={`

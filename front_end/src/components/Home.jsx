@@ -11,7 +11,7 @@ const Home = () => {
   const {mode, setMode,name} = contextUse;
   const godeClicked =async () => {
     try {
-      const response=await axios.get(import.meta.env.VITE_BACKEND_URL);
+      const response=await axios.get(import.meta.env.VITE_BACKEND_URL,{withCredentials:true});
       alert(response.data);
 
     } catch (error) {
@@ -26,7 +26,7 @@ const Home = () => {
     }
   }
   
-  const isLoggedIn = teacherLoggedIn || adminLoggedIn || studentLoggedIn;
+  const isLoggedIn = contextUse.userType.length>0;
 
   return (
     <div className={`min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-8 sm:py-16 ${

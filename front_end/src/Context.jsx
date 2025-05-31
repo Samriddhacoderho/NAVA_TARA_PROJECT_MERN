@@ -5,7 +5,7 @@ export const contextCreate = createContext();
 const Context = ({ children }) => {
   const [mode, setMode] = useState('light');
   const [name, setName] = useState('User'); // Default value
-
+  const [userType, setUserType] = useState(''); // Default value;
   useEffect(() => {
     // Client-side only initialization
     const loadInitialState = () => {
@@ -33,7 +33,7 @@ const Context = ({ children }) => {
   }, [name, mode]);
 
   return (
-    <contextCreate.Provider value={{ name, setName, mode, setMode }}>
+    <contextCreate.Provider value={{ name, setName, mode, setMode, userType, setUserType }}>
       {children}
     </contextCreate.Provider>
   );

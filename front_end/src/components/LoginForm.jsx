@@ -37,6 +37,7 @@ const LoginForm = () => {
       });
       alert(response.data.alertMsg);
       contextUse.setName(response.data.name);
+      contextUse.setUserType(response.data.userType);
       navigate("/");
     } catch (error) {
       if (error.response) {
