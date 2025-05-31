@@ -51,7 +51,7 @@ app.use(express.static("public/notice_files"))
 //routes
 
 app.get("/",tokenVerify,(req,res)=>{
-    res.send("Muhe lai HTML bahek kei ni aaudaina, yo backend bata aako msg ho la");
+    res.send("Authorized Access");
 }
 )
 

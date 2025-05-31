@@ -23,8 +23,21 @@ import CreateAccountAdmin from "./components/admin_components/accounts_creation/
 import TeacherPayrollView from "./components/teachers_payroll/TeachersPayrollView";
 import EmailAsk from "./components/reset_password/EmailAsk";
 import ContactUs from "./components/ContactUs";
+import { useEffect } from "react";
+import axios from "axios";
 
 const App = () => {
+
+  useEffect(()=>{
+    const seeAuthority=async()=>{
+      try {
+        const response=await axios.get("/",{withCredentials:true});
+      } catch (error) {
+        alert("You are not authorized to access this page. Please login first.");
+      }      
+    }
+  }
+)
   return (
     <div>
       <Context>
