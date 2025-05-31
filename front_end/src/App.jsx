@@ -32,7 +32,6 @@ const App = () => {
     const seeAuthority=async()=>{
       try {
         const response=await axios.get("/",{withCredentials:true});
-        console.log("IS this being hit")
       } catch (error) {
         alert("You are not authorized to access this page. Please login first.");
       }      

@@ -152,15 +152,6 @@ const Home = () => {
         }`}>State-of-the-art infrastructure and learning spaces</p>
         </div>
       </div>
-      <button onClick={godeClicked} className="cursor-pointer group relative w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-indigo-500/30">
-                <span className="absolute inset-0 w-full h-full rounded-full bg-gradient-to-r from-purple-600/20 to-indigo-600/20 blur-md"></span>
-                <span className="relative flex items-center">
-                  Oi gode ya click gar ta ek lot
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </span>
-              </button>
     </div>
   );
 };
