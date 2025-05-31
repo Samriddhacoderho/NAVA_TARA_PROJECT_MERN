@@ -15,6 +15,9 @@ const Context = ({ children }) => {
         
         const savedMode = window.localStorage.getItem("mode");
         if (savedMode) setMode(savedMode);
+
+        const savedUserType = window.localStorage.getItem("userType");
+        if (savedUserType) setUserType(savedUserType);
       } catch (error) {
         console.error("Error accessing localStorage:", error);
       }
@@ -27,10 +30,11 @@ const Context = ({ children }) => {
     try {
       window.localStorage.setItem("name", name);
       window.localStorage.setItem("mode", mode);
+      window.localStorage.setItem("userType", userType);
     } catch (error) {
       console.error("Error saving to localStorage:", error);
     }
-  }, [name, mode]);
+  }, [name, mode,userType]);
 
   return (
     <contextCreate.Provider value={{ name, setName, mode, setMode, userType, setUserType }}>
