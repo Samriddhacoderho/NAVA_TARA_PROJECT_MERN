@@ -36,8 +36,8 @@ const App = () => {
         alert("You are not authorized to access this page. Please login first.");
       }      
     }
-  }
-)
+    seeAuthority();
+  },[]);
   return (
     <div>
       <Context>
